@@ -3,8 +3,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
 
-class PlayerCreationForm(UserCreationForm):
-    pass
+
+# class PlayerCreationForm(UserCreationForm):
+#     email = forms.EmailField(label='Email address', max_length=75)
 
 
 def signup(request):
