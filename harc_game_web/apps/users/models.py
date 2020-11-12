@@ -9,13 +9,13 @@ from apps.users.managers import CustomUserManager
 
 class HarcgameUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('email address', unique=True)
-    username = models.CharField(max_length=20)
+    nickname = models.CharField(max_length=20)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['nickname']
 
     objects = CustomUserManager()
 
@@ -62,11 +62,8 @@ class Scout(models.Model):
 
 
 @receiver(models.signals.post_save, sender=HarcgameUser)
-def create_user_profile(sender, instance, created, **kwargs):
+def update_profile_signal(sender, instance, created, **kwargs):
     if created:
         Scout.objects.create(user=instance)
-
-
-@receiver(models.signals.post_save, sender=HarcgameUser)
-def save_user_profile(sender, instance, **kwargs):
     instance.scout.save()
+

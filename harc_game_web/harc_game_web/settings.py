@@ -33,6 +33,9 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'frontpage'
 LOGOUT_REDIRECT_URL = 'frontpage'
 
+AUTH_USER_MODEL = 'users.HarcgameUser'
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -106,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'users.HarcgameUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
