@@ -23,9 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '9sdw28e8_k_)ced#(!u$^1o%u&r+nmx*d#4qzl_6*35bj-_^3j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# TODO: change it when in prd
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# TODO: change it when in prd
+ALLOWED_HOSTS = ["*"]
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'frontpage'
