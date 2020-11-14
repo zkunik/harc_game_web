@@ -11,7 +11,7 @@ Stworzenie środowiska:
 make venv
 ```
 
-Przygotowanie bazy danych (przed pierwszym startem i po każdej zmianie modeli aplikacji):
+Przygotowanie bazy danych i dodanie przykładowych wartości do bazy (przed pierwszym startem i po każdej zmianie modeli aplikacji):
 ```
 make dev-prepare
 ```
