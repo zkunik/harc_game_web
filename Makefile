@@ -8,10 +8,16 @@ venv:
 	python3 -m pip install pip --upgrade && \
 	python3 -m pip install -r requirements.txt
 
-dev-prepare: venv
+dev-migrate: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
 	python3 $(PROJECT_DIR)/manage.py makemigrations && \
 	python3 $(PROJECT_DIR)/manage.py migrate
+
+dev-populate-db-examples: venv
+	. ./$(VENV_ACTIVATE_PATH) && \
+	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json
+
+dev-prepare: dev-migrate dev-populate-db-examples
 
 run: venv
 	. ./$(VENV_ACTIVATE_PATH) && \

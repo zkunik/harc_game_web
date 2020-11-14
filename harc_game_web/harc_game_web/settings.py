@@ -33,6 +33,9 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'frontpage'
 LOGOUT_REDIRECT_URL = 'frontpage'
 
+AUTH_USER_MODEL = 'users.HarcgameUser'
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.core',
+    'apps.users',
 ]
 
 MIDDLEWARE = [

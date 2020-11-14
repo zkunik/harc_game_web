@@ -3,7 +3,8 @@ harc_game_web URL Configuration
 """
 from django.contrib import admin
 from django.urls import path
-from apps.core.views import frontpage, signup
+from apps.users.views import signup
+from apps.core.views import frontpage
 from django.contrib.auth.views import LogoutView, LoginView
 
 urlpatterns = [
