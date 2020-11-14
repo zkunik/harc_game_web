@@ -4,3 +4,4 @@ harc_game_web/db.sqlite3
 **/__pycache__
 .idea
 migrations/
+media/
