@@ -1,22 +1,37 @@
-from django.views.generic.base import TemplateView
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
-from apps.tasks.models import FileUpload
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django import forms
+
+from apps.tasks.models import FileUpload, DocumentedTask
 
 
-class UploadPage(TemplateView):
-    template_name = 'tasks/upload.html'
+class CompleteTaskForm(forms.ModelForm):
+    class Meta:
+        model = DocumentedTask
+        fields = ['task', 'comment_from_user', 'link1', 'link2', 'link3']
 
 
 def complete_task(request):
     """
     Function to handle completing Task by Scout - render and process form
     """
-    return render(request, 'tasks/upload.html')
+    if request.method == "POST":
+        form = CompleteTaskForm(request.POST)
+
+        if form.is_valid():
+            completed_task = form.save()
+            completed_task.user = request.user
+            completed_task.save()
+
+    else:
+        form = CompleteTaskForm()
+
+    completed_tasks = DocumentedTask.objects.filter(user=request.user)
+
+    return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
 
 
 class UploadView(ChunkedUploadView):
-
     model = FileUpload
     field_name = 'uploaded_file'
 
@@ -26,7 +41,6 @@ class UploadView(ChunkedUploadView):
 
 
 class UploadCompleteView(ChunkedUploadCompleteView):
-
     model = FileUpload
 
     def check_permissions(self, request):
