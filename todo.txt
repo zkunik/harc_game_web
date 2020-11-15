@@ -1,0 +1,8 @@
+* ✅ set up locally
+* ✅ run locally
+* ✅ run tests locally
+* ✅ set up Docker environment
+* Add PR check on GitHub with Docker
+
+# Add .editorconfig
+# Add linter
