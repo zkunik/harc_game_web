@@ -21,7 +21,7 @@ dev-prepare: dev-migrate dev-populate-db-examples
 
 run: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
-	python3 $(PROJECT_DIR)/manage.py runserver
+	python3 $(PROJECT_DIR)/manage.py runserver 0.0.0.0:8000
 
 test: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
