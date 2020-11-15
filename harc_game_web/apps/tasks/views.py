@@ -3,10 +3,12 @@ from chunked_upload.exceptions import ChunkedUploadError
 from chunked_upload.response import Response
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
 from django import forms
-from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils import timezone
-
+from django.urls import reverse
 from apps.tasks.models import ChunkedFileUpload, DocumentedTask, UploadedFile
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CompleteTaskForm(forms.ModelForm):
@@ -15,6 +17,7 @@ class CompleteTaskForm(forms.ModelForm):
         fields = ['task', 'comment_from_user', 'link1', 'link2', 'link3']
 
 
+@login_required
 def complete_task(request):
     """
     Function to handle completing Task by Scout - render and process form
@@ -46,21 +49,19 @@ def complete_task(request):
     return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
 
 
-class UploadView(ChunkedUploadView):
+class UploadView(ChunkedUploadView, LoginRequiredMixin):
     model = ChunkedFileUpload
     field_name = 'uploaded_file'
 
-    def check_permissions(self, request):
-        # Allow non authenticated users to make uploads
-        pass
+    def get(self, request):
+        return redirect(reverse('upload'))
 
 
-class UploadCompleteView(ChunkedUploadCompleteView):
+class UploadCompleteView(ChunkedUploadCompleteView, LoginRequiredMixin):
     model = ChunkedFileUpload
 
-    def check_permissions(self, request):
-        # Allow non authenticated users to make uploads
-        pass
+    def get(self, request):
+        return redirect(reverse('upload'))
 
     def _post(self, request, *args, **kwargs):
         upload_id = request.POST.get('upload_id')
