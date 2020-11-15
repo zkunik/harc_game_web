@@ -25,4 +25,4 @@ run: venv
 
 test: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
-	python3 $(PROJECT_DIR)/manage.py test
+	python3 $(PROJECT_DIR)/manage.py test harc_game_web
