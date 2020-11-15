@@ -38,4 +38,4 @@ def signup(request):
         user_form = HarcgameUserCreationForm()
         scout_form = ScoutCreationForm()
 
-    return render(request, 'core/signup.html', {'user_form': user_form, 'scout_form': scout_form})
+    return render(request, 'users/signup.html', {'user_form': user_form, 'scout_form': scout_form})

@@ -14,7 +14,7 @@ urlpatterns = [
     path('', frontpage, name='frontpage'),
     path('signup/', signup, name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('login/', LoginView.as_view(template_name='core/login.html'), name='login'),
+    path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
     path('upload/', complete_task, name='upload'),
     path('api_upload/', UploadView.as_view(), name='api_upload'),
     path('api_upload_complete/', UploadCompleteView.as_view(), name='api_upload_complete')
