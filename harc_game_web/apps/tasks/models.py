@@ -6,7 +6,15 @@ from apps.users.models import HarcgameUser
 # 'ChunkedUpload' class provides almost everything for you.
 # if you need to tweak it little further, create a model class
 # by inheriting "chunked_upload.models.AbstractChunkedUpload" class
-FileUpload = ChunkedUpload
+ChunkedFileUpload = ChunkedUpload
+
+
+class UploadedFile(models.Model):
+    """
+    Model załadowanego pliku
+    """
+    user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
+    file = models.FileField()
 
 
 class Task(models.Model):

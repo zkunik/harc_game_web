@@ -22,20 +22,24 @@
     Formularz wykonania zadania
   </h1>
 
-  <form method="post" action=".">
-                {% csrf_token %}
-                {{ form.as_p }}
+    <form method="post" action=".">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-                <input id="chunked_upload" type="file" name="uploaded_file">
-                <p id="progress"></p>
-                <div id="messages"></div>
+        Wybierz pliki do wysłania na serwer (maksymalnie 3 pliki, każdy z nich może mieć maksymalnie 500MB):
+        <div id="upload_form1">{% include "tasks/upload_form1.html" %}</div>
+        <div id="upload_form2">{% include "tasks/upload_form2.html" %}</div>
+        <div id="upload_form3">{% include "tasks/upload_form3.html" %}</div>
+        <input type="hidden" id="uploaded_file_info1" name="uploaded_file_info1" value="">
+        <input type="hidden" id="uploaded_file_info2" name="uploaded_file_info2" value="">
+        <input type="hidden" id="uploaded_file_info3" name="uploaded_file_info3" value="">
 
-                <div class="field">
-                    <div class="control">
-                        <button type="submit" class="btn btn-success">Wyślij potwierdzenie wykonania zadania</button>
-                    </div>
-                </div>
-            </form>
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="btn btn-success">Wyślij potwierdzenie wykonania zadania</button>
+            </div>
+        </div>
+    </form>
 
   <h1 class="title">
     Twoje wykonane zadania
@@ -88,13 +92,12 @@
       };
       read_next_chunk();
     }
-    $("#chunked_upload").fileupload({
+    $("#chunked_upload1").fileupload({
       url: "{% url 'api_upload' %}",
       dataType: "json",
       maxChunkSize: 100000, // Chunks of 100 kB
       formData: form_data,
       add: function(e, data) { // Called before starting upload
-        $("#messages").empty();
         // If this is the second file you're uploading we need to remove the
         // old upload_id and just keep the csrftoken (which is always first).
         form_data.splice(1);
@@ -107,9 +110,8 @@
             {"name": "upload_id", "value": data.result.upload_id}
           );
         }
-        $("#messages").append($('<p>').text(JSON.stringify(data.result)));
         var progress = parseInt(data.loaded / data.total * 100.0, 10);
-        $("#progress").text(Array(progress).join("=") + "> " + progress + "%");
+        $("#progress1").text(Array(progress).join("=") + "> " + progress + "%");
       },
       done: function (e, data) { // Called when the file has completely uploaded
         $.ajax({
@@ -122,7 +124,90 @@
           },
           dataType: "json",
           success: function(data) {
-            $("#messages").append($('<p>').text(JSON.stringify(data)));
+            $("#uploaded_file_info1").val(JSON.stringify(data));
+            $('#upload_form1').html(function(i, origText){
+              return '<input type="text" name="uploaded_file1" id="uploaded_file1" value="' + data.filename + '" readonly>';
+            });
+          }
+        });
+      },
+    });
+    $("#chunked_upload2").fileupload({
+      url: "{% url 'api_upload' %}",
+      dataType: "json",
+      maxChunkSize: 100000, // Chunks of 100 kB
+      formData: form_data,
+      add: function(e, data) { // Called before starting upload
+        // If this is the second file you're uploading we need to remove the
+        // old upload_id and just keep the csrftoken (which is always first).
+        form_data.splice(1);
+        calculate_md5(data.files[0], 100000);  // Again, chunks of 100 kB
+        data.submit();
+      },
+      chunkdone: function (e, data) { // Called after uploading each chunk
+        if (form_data.length < 2) {
+          form_data.push(
+            {"name": "upload_id", "value": data.result.upload_id}
+          );
+        }
+        var progress = parseInt(data.loaded / data.total * 100.0, 10);
+        $("#progress2").text(Array(progress).join("=") + "> " + progress + "%");
+      },
+      done: function (e, data) { // Called when the file has completely uploaded
+        $.ajax({
+          type: "POST",
+          url: "{% url 'api_upload_complete' %}",
+          data: {
+            csrfmiddlewaretoken: csrf,
+            upload_id: data.result.upload_id,
+            md5: md5
+          },
+          dataType: "json",
+          success: function(data) {
+            $("#uploaded_file_info2").val(JSON.stringify(data));
+            $('#upload_form2').html(function(i, origText){
+              return '<input type="text" name="uploaded_file2" id="uploaded_file2" value="' + data.filename + '" readonly>';
+            });
+          }
+        });
+      },
+    });
+    $("#chunked_upload3").fileupload({
+      url: "{% url 'api_upload' %}",
+      dataType: "json",
+      maxChunkSize: 100000, // Chunks of 100 kB
+      formData: form_data,
+      add: function(e, data) { // Called before starting upload
+        // If this is the second file you're uploading we need to remove the
+        // old upload_id and just keep the csrftoken (which is always first).
+        form_data.splice(1);
+        calculate_md5(data.files[0], 100000);  // Again, chunks of 100 kB
+        data.submit();
+      },
+      chunkdone: function (e, data) { // Called after uploading each chunk
+        if (form_data.length < 2) {
+          form_data.push(
+            {"name": "upload_id", "value": data.result.upload_id}
+          );
+        }
+        var progress = parseInt(data.loaded / data.total * 100.0, 10);
+        $("#progress3").text(Array(progress).join("=") + "> " + progress + "%");
+      },
+      done: function (e, data) { // Called when the file has completely uploaded
+        $.ajax({
+          type: "POST",
+          url: "{% url 'api_upload_complete' %}",
+          data: {
+            csrfmiddlewaretoken: csrf,
+            upload_id: data.result.upload_id,
+            md5: md5
+          },
+          dataType: "json",
+          success: function(data) {
+            $("#uploaded_file_info3").val(JSON.stringify(data));
+            $('#upload_form3').html(function(i, origText){
+              return '<input type="text" name="uploaded_file3" id="uploaded_file3" value="' + data.filename + '" readonly>';
+            });
           }
         });
       },

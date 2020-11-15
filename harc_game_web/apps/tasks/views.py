@@ -1,8 +1,11 @@
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
-from django.shortcuts import render, redirect
-from django import forms
 
-from apps.tasks.models import FileUpload, DocumentedTask
+from chunked_upload.response import Response
+from chunked_upload.constants import http_status
+from django import forms
+from django.shortcuts import render
+
+from apps.tasks.models import ChunkedFileUpload, DocumentedTask, UploadedFile
 
 
 class CompleteTaskForm(forms.ModelForm):
@@ -16,6 +19,7 @@ def complete_task(request):
     Function to handle completing Task by Scout - render and process form
     """
     if request.method == "POST":
+        print(f'request.POST: {request.POST}')
         form = CompleteTaskForm(request.POST)
 
         if form.is_valid():
@@ -25,14 +29,12 @@ def complete_task(request):
 
     else:
         form = CompleteTaskForm()
-
     completed_tasks = DocumentedTask.objects.filter(user=request.user)
-
     return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
 
 
 class UploadView(ChunkedUploadView):
-    model = FileUpload
+    model = ChunkedFileUpload
     field_name = 'uploaded_file'
 
     def check_permissions(self, request):
@@ -41,21 +43,21 @@ class UploadView(ChunkedUploadView):
 
 
 class UploadCompleteView(ChunkedUploadCompleteView):
-    model = FileUpload
+    model = ChunkedFileUpload
 
     def check_permissions(self, request):
         # Allow non authenticated users to make uploads
         pass
 
     def on_completion(self, uploaded_file, request):
-        # Do something with the uploaded file. E.g.:
-        # * Store the uploaded file on another model:
-        # SomeModel.objects.create(user=request.user, file=uploaded_file)
-        # * Pass it as an argument to a function:
-        # function_that_process_file(uploaded_file)
         print(uploaded_file.name)
         print(uploaded_file.file)
+        print()
+        UploadedFile.objects.create(user=request.user, file=uploaded_file)
 
     def get_response_data(self, chunked_upload, request):
-        return {'message': ("You successfully uploaded '%s' (%s bytes)!" %
-                            (chunked_upload.filename, chunked_upload.offset))}
+        return {
+            'filename': str(chunked_upload.filename),
+            'file': str(chunked_upload.file),
+            'upload_id': str(chunked_upload.upload_id),
+        }
