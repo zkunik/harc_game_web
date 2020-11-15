@@ -15,6 +15,11 @@ class UploadedFile(models.Model):
     """
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
     file = models.FileField()
+    filename_orig = models.CharField(max_length=200, null=True)
+    upload_id = models.CharField(max_length=32, null=True)
+
+    def __str__(self):
+        return f"{self.file.name} - {self.filename_orig} - {self.upload_id}"
 
 
 class Task(models.Model):
@@ -38,13 +43,13 @@ class DocumentedTask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None, related_name='user')
     date_completed = models.DateTimeField(default=timezone.now)
-    comment_from_user = models.TextField(max_length=400)
-    filepath1 = models.CharField(max_length=200, null=True, default=None)
-    filepath2 = models.CharField(max_length=200, null=True, default=None)
-    filepath3 = models.CharField(max_length=200, null=True, default=None)
-    link1 = models.CharField(max_length=400, null=True, default=None, blank=True)
-    link2 = models.CharField(max_length=400, null=True, default=None, blank=True)
-    link3 = models.CharField(max_length=400, null=True, default=None, blank=True)
+    comment_from_user = models.TextField(max_length=400, null=True, default="", blank=True)
+    file1 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file1')
+    file2 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file2')
+    file3 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file3')
+    link1 = models.CharField(max_length=400, null=True, default="", blank=True)
+    link2 = models.CharField(max_length=400, null=True, default="", blank=True)
+    link3 = models.CharField(max_length=400, null=True, default="", blank=True)
 
     approver = models.ForeignKey(
         HarcgameUser, on_delete=models.RESTRICT, null=True, default=None, related_name='approver'

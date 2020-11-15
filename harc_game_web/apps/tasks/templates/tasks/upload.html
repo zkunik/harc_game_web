@@ -45,24 +45,22 @@
     Twoje wykonane zadania
   </h1>
 
-  <table id="exam">
-  <tr>
-    <td>Nazwa zadania</td>
-    <td>Data ukończenia</td>
-    <td>Nagroda</td>
-    <td>Nagroda specjalna</td>
-    <td>Czy zaakceptowano</td>
-  </tr>
   {% for task in completed_tasks %}
-  <tr>
-    <td>{{ task.task.name }}</td>
-    <td>{{ task.date_completed }}</td>
-    <td>{{ task.task.prize }}</td>
-    <td>{{ task.task.extra_prize }}</td>
-    <td>{{ task.is_accepted }}</td>
-  </tr>
+  <table id="exam">
+    <tr><td>Nazwa zadania</td><td>{{ task.task.name }}</td></tr>
+    <tr><td>Data ukończenia</td><td>{{ task.date_completed }}</td></tr>
+    <tr><td>Dodane pliki 1</td><td>{{ task.file1.filename_orig }}</td></tr>
+    <tr><td>Dodane pliki 2</td><td>{{ task.file2.filename_orig }}</td></tr>
+    <tr><td>Dodane pliki 3</td><td>{{ task.file3.filename_orig }}</td></tr>
+    <tr><td>Dodane linki 1</td><td>{{ task.link1 }}</td></tr>
+    <tr><td>Dodane linki 2</td><td>{{ task.link2 }}</td></tr>
+    <tr><td>Dodane linki 3</td><td>{{ task.link3 }}</td></tr>
+    <tr><td>Nagroda</td><td>{{ task.task.prize }}</td></tr>
+    <tr><td>Nagroda specjalna</td><td>{{ task.task.extra_prize }}</td></tr>
+    <tr><td>Czy zaakceptowano</td><td>{{ task.is_accepted }}</td></tr>
+  </table>
+  <br>
   {% endfor %}
-</table>
 
 
   <script type="text/javascript">
@@ -124,7 +122,7 @@
           },
           dataType: "json",
           success: function(data) {
-            $("#uploaded_file_info1").val(JSON.stringify(data));
+            $("#uploaded_file_info1").val(data.upload_id);
             $('#upload_form1').html(function(i, origText){
               return '<input type="text" name="uploaded_file1" id="uploaded_file1" value="' + data.filename + '" readonly>';
             });
@@ -164,7 +162,7 @@
           },
           dataType: "json",
           success: function(data) {
-            $("#uploaded_file_info2").val(JSON.stringify(data));
+            $("#uploaded_file_info2").val(data.upload_id);
             $('#upload_form2').html(function(i, origText){
               return '<input type="text" name="uploaded_file2" id="uploaded_file2" value="' + data.filename + '" readonly>';
             });
@@ -204,7 +202,7 @@
           },
           dataType: "json",
           success: function(data) {
-            $("#uploaded_file_info3").val(JSON.stringify(data));
+            $("#uploaded_file_info3").val(data.upload_id);
             $('#upload_form3').html(function(i, origText){
               return '<input type="text" name="uploaded_file3" id="uploaded_file3" value="' + data.filename + '" readonly>';
             });
