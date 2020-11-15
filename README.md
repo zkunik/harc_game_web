@@ -3,7 +3,7 @@
 Aplikacja stworzona jako wsparcie do prowadzenia akcji harcerskiej HarcApo 2.0 przez
 Zielonogórski Hufiec Harcerzy Topór (Związek Harcerstwa Rzeczypospolitej).
 
-## Uruchomienie aplikacji
+## Uruchomienie aplikacji na środowisku lokalnym
 
 Instrukcja przygotowana pod Linuxa, Python w wesji 3.6 bądź wyższej.
 
@@ -33,7 +33,7 @@ Uruchomienie testów
 make test
 ```
 
-## W Dockerze
+## Uruchomienie aplikacji w Dockerze
 
 Zbuduj obraz aplikacji:
 
@@ -51,4 +51,21 @@ Uruchom aplikację:
 
 ```shell
 docker run --rm -it -p 8000:8000 harcgameweb
+```
+
+## Czyszczenie środowiska lokalnego
+
+Usuń wszystkie pliki załadowane przez formularz (upload plików) w aplikacji:
+```shell
+make clean-media
+```
+
+Usuń bazę danych i wszystkie pliki migracji:
+```shell
+make clean-db
+```
+
+Uruchom powyższe komendy za jednym razem:
+```shell
+make clean
 ```
