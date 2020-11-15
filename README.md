@@ -44,7 +44,7 @@ docker build -t harcgameweb .
 Uruchom testy:
 
 ```shell
-docker run --rm -it harcgameweb python harc_game_web/manage.py test harc_game_web
+docker run --rm -it harcgameweb make test
 ```
 
 Uruchom aplikację:
