@@ -3,9 +3,7 @@ from django.db import models
 from django.utils import timezone
 from apps.users.models import HarcgameUser
 
-# 'ChunkedUpload' class provides almost everything for you.
-# if you need to tweak it little further, create a model class
-# by inheriting "chunked_upload.models.AbstractChunkedUpload" class
+
 ChunkedFileUpload = ChunkedUpload
 
 
