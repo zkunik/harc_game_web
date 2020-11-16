@@ -1,0 +1,22 @@
+[
+  {
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": {
+      "name": "Zadanie 1",
+      "description": "Opis zadania",
+      "allowed_completition_frequency": "codziennie",
+      "prize": 1000
+    }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": {
+      "name": "Zadanie 2",
+      "description": "Opis zadania 2",
+      "allowed_completition_frequency": "raz na grę",
+      "extra_prize": "diamentowy miecz"
+    }
+  }
+]

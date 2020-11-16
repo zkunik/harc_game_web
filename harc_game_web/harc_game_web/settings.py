@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.core',
+    'apps.tasks',
     'apps.users',
+    'chunked_upload',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = "media/"

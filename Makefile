@@ -26,3 +26,12 @@ run: venv
 test: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
 	python3 $(PROJECT_DIR)/manage.py test harc_game_web
+
+clean-media:
+	rm -rf $(PROJECT_DIR)/media/
+
+clean-db:
+	find harc_game_web/ -type f | grep migrations | grep -v __init__.py | xargs -r rm && \
+	rm -f $(PROJECT_DIR)/db.sqlite3
+
+clean: clean-media clean-db
