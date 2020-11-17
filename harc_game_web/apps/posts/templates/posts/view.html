@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+    {% if request.user.is_superuser %}
+		<a href="/posts/edit/{{post.slug}}" class="btn btn-default navbar-btn">Edytuj post</a>
+		<a href="/posts/delete/{{post.slug}}" class="btn btn-default navbar-btn">Usuń post</a>
+		<a href="/posts/new" class="btn btn-default navbar-btn">Nowy post</a>
+		<h3><a href='/posts/edit/{{post.slug}}'>{{ post.title|capfirst }}</a></h3>
+	{% else %}
+		<h3>{{ post.title|capfirst }}</h3>
+	{% endif %}
+	<p>
+		<span>Created: {{ post.date_time }} </span> |
+		<span>User: {{post.user}} </span> |
+		<span>Publish date: {{post.pub_date_time}} </span> |
+	</p>
+	<hr>
+		<p>{{ post.content }}</p>
+	<hr>
+	<p>
+		{% if post.link1 %}<p>Link 1: <a href={{post.link1}}>{{post.link1}}</a></p>{% endif %}
+		{% if post.link2 %}<p>Link 2: <a href={{post.link2}}>{{post.link2}}</a></p>{% endif %}
+		{% if post.link3 %}<p>Link 3: <a href={{post.link3}}>{{post.link3}}</a></p>{% endif %}
+	</p>
+
+{% endblock %}

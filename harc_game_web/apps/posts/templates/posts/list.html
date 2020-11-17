@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+
+{% block content %}    
+
+    {% if request.user.is_superuser %}
+		<a href="/posts/new" class="btn btn-default navbar-btn">Nowy post</a>
+	{% endif %}
+
+	{% for post in posts %}
+		<h3>                        
+			<a href="/posts/view/{{post.slug}}">{{post.pub_date_time}} | {{ post|capfirst }}</a>
+		</h3>
+	{% empty %}
+		<p>There are no posts</p>
+	{% endfor %}    
+
+
+{% endblock %}
