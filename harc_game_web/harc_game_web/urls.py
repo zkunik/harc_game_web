@@ -33,5 +33,4 @@ urlpatterns = [
     # Teams
     path('teams/list/', TeamView.as_view(), name='all_teams'),
     path('teams/view/<slug:id>', TeamView.view, name='view_team'),
-
 ]
