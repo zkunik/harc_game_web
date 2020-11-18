@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.tasks',
     'apps.users',
     'apps.posts',
+    'apps.teams',
     'chunked_upload',
 ]
 
