@@ -1,19 +1,15 @@
 from django.shortcuts import render
-from django import forms
+from django.views import View
 
-from apps.users.models import Team
+from apps.teams.models import Team
 
-class TeamForm(forms.ModelForm):
-    class Meta:
-        model = Team
-        fields = ['name', 'colors', 'tax']
+class TeamView(View):
 
-    def list(request):
+    def get(self, request, *args, **kwargs):
         """
-        Function to list all posts
+        Function to list all teams
         """
         teams = Team.objects.all()
-        print(teams)
         return render(request, 'teams/list_teams.html', {'teams': teams})
 
     def view(request, id):

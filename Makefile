@@ -31,7 +31,7 @@ clean-media:
 	rm -rf $(PROJECT_DIR)/media/
 
 clean-db:
-	find harc_game_web/ -type f | grep migrations | grep -v __init__.py | xargs -r rm && \
+	find harc_game_web/ -type f | grep migrations | (grep -v __init__.py || echo :) | xargs rm && \
 	rm -f $(PROJECT_DIR)/db.sqlite3
 
 clean: clean-media clean-db
