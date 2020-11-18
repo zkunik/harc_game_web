@@ -16,7 +16,7 @@
 		<span>Publish date: {{post.pub_date_time}} </span> |
 	</p>
 	<hr>
-		<p>{{ post.content }}</p>
+		<p>{{ post.content|safe }}</p>
 	<hr>
 	<p>
 		{% if post.link1 %}<p>Link 1: <a href={{post.link1}}>{{post.link1}}</a></p>{% endif %}

@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+	<h3>{{ team.name|capfirst }}</h3>
+
+	<p>Colors: {{team.colors}}</p>
+	<p>Tax: {{team.tax}}</p>
+
+{% endblock %}
