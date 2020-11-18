@@ -3,7 +3,6 @@ from django.utils.text import slugify
 from django.utils import timezone
 
 from apps.users.models import HarcgameUser
-from apps.tasks.models import UploadedFile
 
 # Add unidecode support
 try:

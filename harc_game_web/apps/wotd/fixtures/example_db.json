@@ -1,0 +1,92 @@
+[
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 1,
+    "fields": {
+      "question": "Pytanie na 16 listopada<br><i>Łypie na świat malutkimi oczami.</i>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Shulker",
+      "date": "2020-11-16"
+    }
+  },   
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 2,
+    "fields": {
+      "question": "Pytanie na 17 listopada<br><i>Duży mob, który nie spłynie na słońcu, ale też nie wejdzie ci do domu.</i>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Posuch",
+      "date": "2020-11-17"
+    }
+  },  
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 3,
+    "fields": {
+      "question": "Pytanie na 18 listopada<br><i>Czasami trzyma różę.</i><br><img src='https://samequizy.pl/wp-content/uploads/2017/07/filing_images_7448065ebe97.jpeg'>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Żelazny golem",
+      "date": "2020-11-18"
+    }
+  },
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 4,
+    "fields": {
+      "question": "Pytanie na 19 listopada<br><i>Może zaatakować ci kurczaki, ale obronić się przed creeperami.</i>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Ocelot",
+      "date": "2020-11-19"
+    }
+  },
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 5,
+    "fields": {
+      "question": "Pytanie na 20 listopada<br><i>Czasem możesz spotkać go bez miecza, mały ma odkrytą czaszkę.</i>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Pigman",
+      "date": "2020-11-20"
+    }
+  },
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 6,
+    "fields": {
+      "question": "Pytanie na 21 listopada<br><i>Istnieją tylko czerwone, nie ma brązowych.</i>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Mooshrom",
+      "date": "2020-11-21"
+    }
+  },
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 7,
+    "fields": {
+      "question": "Pytanie na 22 listopada<br><i>Istnieją tylko czerwone, nie ma brązowych.</i>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Mooshrom",
+      "date": "2020-11-22"
+    }
+  },
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 8,
+    "fields": {
+      "question": "Pytanie na 22 listopada<br><i>Istnieją tylko czerwone, nie ma brązowych.</i>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Mooshrom",
+      "date": "2020-11-22"
+    }
+  },
+  {
+    "model": "wotd.wordoftheday",
+    "pk": 9,
+    "fields": {
+      "question": "Pytanie na 23 listopada<br><i>Istnieją tylko czerwone, nie ma brązowych.</i>",
+      "hint": "https://samequizy.pl/zagadki-minecrafta/",
+      "answer": "Mooshrom",
+      "date": "2020-11-23"
+    }
+  }
+]
