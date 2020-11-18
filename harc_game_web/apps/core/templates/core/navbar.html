@@ -8,4 +8,9 @@
         <a href="{% url 'signup' %}" class="btn btn-default navbar-btn">Załóż konto</a>
         <a href="{% url 'login' %}" class="btn btn-default navbar-btn">Zaloguj się</a>
     {% endif %}
+
+    {% if request.user.is_superuser %}
+        <a href="{% url 'all_posts' %}" class="btn btn-default navbar-btn">Posty</a>
+    {% endif %}
+    
 </nav>

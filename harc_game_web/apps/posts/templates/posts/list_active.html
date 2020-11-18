@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block content %}    
+
+	<p>It is {% now "jS F Y H:i" %}</p>
+
+	{% for post in posts %}
+	
+		<h3>                        
+			<a href="/posts/view/{{post.slug}}">{{ post|capfirst }}</a>
+		</h3>
+		<p>
+			<span>Published: {{ post.pub_date_time }} </span> |
+			<span>User: {{post.user}} </span>
+		</p>
+		<hr>
+		<p>{{ post.content }}</p>
+		<p>
+			{% if post.link1 %}<p>Link 1: <a href={{post.link1}}>{{post.link1}}</a></p>{% endif %}
+			{% if post.link2 %}<p>Link 2: <a href={{post.link2}}>{{post.link2}}</a></p>{% endif %}
+			{% if post.link3 %}<p>Link 3: <a href={{post.link3}}>{{post.link3}}</a></p>{% endif %}
+		</p>
+		<hr>
+
+	{% empty %}
+		<p>There are no posts</p>
+	{% endfor %}    
+
+
+{% endblock %}
