@@ -13,8 +13,8 @@ from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', frontpage, name='frontpage'),
-    path('', list_active_posts, name='frontpage'),
+    path('', frontpage, name='frontpage'),
+   # path('', list_active_posts, name='frontpage'),
     path('signup/', signup, name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
