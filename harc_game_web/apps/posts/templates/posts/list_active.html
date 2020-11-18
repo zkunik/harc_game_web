@@ -1,6 +1,6 @@
 {% extends 'core/base.html' %}
 
-{% block headcontent %} 
+{% block headcontent %}
 
 	<style>
 	hr.bold {
@@ -9,17 +9,17 @@
 	}
 	</style>
 
-{% endblock%} 
+{% endblock%}
 
-{% block content %}    
+{% block content %}
 
 	<center>
 
-	<p>Mamy teraz {% now "jS F Y H:i" %}</p>
+	<p>Mamy teraz {% now "j F Y H:i" %}</p>
 	<hr class="bold">
 
 	{% for post in posts %}
-		<h3>                        
+		<h3>
 			<a href="/posts/view/{{post.slug}}">{{ post|capfirst }}</a>
 		</h3>
 		<p>
@@ -37,7 +37,7 @@
 
 	{% empty %}
 		<p>Nic sie jeszcze nie wydażyło</p>
-	{% endfor %}    
+	{% endfor %}
 
 	</center>
 
