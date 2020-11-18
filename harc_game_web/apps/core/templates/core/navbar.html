@@ -9,6 +9,7 @@
         <a href="{% url 'login' %}" class="btn btn-default navbar-btn">Zaloguj się</a>
     {% endif %}
 
+    <a href="{% url 'word_of_the_day' %}" class="btn btn-default navbar-btn">Hasło dnia</a>
     <a href="{% url 'all_teams' %}" class="btn btn-default navbar-btn">Drużyny</a>
 
     {% if request.user.is_superuser %}
