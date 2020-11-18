@@ -10,7 +10,7 @@ from apps.core.views import frontpage
 from apps.tasks.views import UploadView, UploadCompleteView, complete_task
 from apps.users.views import signup
 from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
-from apps.teams.views import TeamForm
+from apps.teams.views import TeamView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +31,7 @@ urlpatterns = [
     path('posts/edit/<slug:slug>', edit_post, name='edit_post'),
     path('posts/delete/<slug:slug>', delete_post, name='delete_post'),
     # Teams
-    path('teams/list/', TeamForm.list, name='all_teams'),
-    path('teams/view/<slug:id>', TeamForm.view, name='view_team'),
+    path('teams/list/', TeamView.as_view(), name='all_teams'),
+    path('teams/view/<slug:id>', TeamView.view, name='view_team'),
 
 ]

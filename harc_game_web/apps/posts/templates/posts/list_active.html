@@ -15,7 +15,7 @@
 
 	<center>
 
-	<p>It is {% now "jS F Y H:i" %}</p>
+	<p>Mamy teraz {% now "jS F Y H:i" %}</p>
 	<hr class="bold">
 
 	{% for post in posts %}
@@ -23,8 +23,8 @@
 			<a href="/posts/view/{{post.slug}}">{{ post|capfirst }}</a>
 		</h3>
 		<p>
-			<span>Published: {{ post.pub_date_time }} </span> |
-			<span>User: {{post.user}} </span>
+			<span>Opublikowany: {{ post.pub_date_time }} </span> |
+			<span>Przez: {{post.user}} </span>
 		</p>
 		<hr>
 		<p>{{ post.content|safe }}</p>
@@ -36,7 +36,7 @@
 		<hr class="bold">
 
 	{% empty %}
-		<p>There are no posts</p>
+		<p>Nic sie jeszcze nie wydażyło</p>
 	{% endfor %}    
 
 	</center>

@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.utils import timezone
 
 from apps.users.managers import CustomUserManager
+from apps.teams.models import Team, Patrol
 
 
 class HarcgameUser(AbstractBaseUser, PermissionsMixin):
@@ -21,30 +22,6 @@ class HarcgameUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-
-class Team(models.Model):
-    """
-    Drużyna
-    """
-    name = models.CharField(max_length=100)
-    colors = models.CharField(max_length=100)
-    tax = models.FloatField()
-
-    def __str__(self):
-        return self.name
-
-
-class Patrol(models.Model):
-    """
-    Zastęp
-    """
-    name = models.CharField(max_length=100)
-    team = models.ForeignKey(Team, on_delete=models.RESTRICT, null=True, default=None)
-
-    def __str__(self):
-        return self.name
-
 
 class Scout(models.Model):
     """
