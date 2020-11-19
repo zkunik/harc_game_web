@@ -11,6 +11,7 @@ from apps.tasks.views import UploadView, UploadCompleteView, complete_task
 from apps.users.views import signup
 from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
 from apps.teams.views import TeamView
+from apps.wotd.views import WordOfTheDayView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,4 +34,6 @@ urlpatterns = [
     # Teams
     path('teams/list/', TeamView.as_view(), name='all_teams'),
     path('teams/view/<slug:id>', TeamView.view, name='view_team'),
+    # WordOfTheDay
+    path('wotd/', WordOfTheDayView.as_view(), name='word_of_the_day'),    
 ]
