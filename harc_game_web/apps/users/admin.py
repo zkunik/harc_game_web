@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from apps.users.views import HarcgameUserCreationForm
-from apps.users.models import HarcgameUser
+from apps.users.models import HarcgameUser, Scout
 
 
 class CustomUserAdmin(UserAdmin):
@@ -25,3 +25,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(HarcgameUser, CustomUserAdmin)
+admin.site.register(Scout)

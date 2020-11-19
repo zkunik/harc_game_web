@@ -1,10 +1,48 @@
 {% extends 'core/base.html' %}
 
+{% comment %}
+    Informacje o drużynie (logo, nazwa, kolory, drużynowy, podatek)
+    Statystyki drużyny (aktualny wynik)
+    Tabela ze statystykami graczy należących do danej drużyny
+    Zakupione przez drużynę ulepszenia wioski? (Zuza - zmodyfikować bazę danych)
+{% endcomment %}
+
 {% block content %}
 
 	<h3>Drużyna: {{ team.name|capfirst }}</h3>
 
+    <h4>Drużynowy: {{ leader }}<h4>
+
 	<p>Barwy: {{team.colors}}</p>
 	<p>Podatek: {{team.tax}}</p>
+
+    <p>Wynik drużyny: </p>
+
+    <hr>
+
+    <table>
+        <tr>
+            <th>Zastępy</th>
+        </tr>
+        {% for p in patrols %}
+        <tr>
+            <th>{{ p }}</th>
+        </tr>
+        {% endfor%}
+    </table>
+
+    <hr>
+
+    <table>
+        <tr>
+            <th>Harcerze</th>
+        </tr>
+        {% for s in scouts %}
+        <tr>
+            <th>{{ s }}</th>
+            <th>{{ s.score.prize__sum }}</th>
+        </tr>
+        {% endfor%}
+    </table>
 
 {% endblock %}
