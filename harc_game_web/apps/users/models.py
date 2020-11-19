@@ -23,6 +23,7 @@ class HarcgameUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+
 class Scout(models.Model):
     """
     Harcerz (jako dodatkowe atrybuty użytkownika)
@@ -51,5 +52,4 @@ class FreeDay(models.Model):
     """
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
     day = models.DateField(null=True, default=None)
-
 

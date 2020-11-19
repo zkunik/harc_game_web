@@ -19,29 +19,6 @@ class CompleteTaskForm(forms.ModelForm):
         fields = ['task', 'comment_from_user', 'link1', 'link2', 'link3']
 
 
-def pick_approver(user):
-    """
-    Function to pick TaskApprover to new task
-    """
-    # get approvers that are in different team
-    # pick only those that do not have free day
-    # pick one with least tasks
-    user = Scout.objects.get(user=user)
-    print(user)
-    tl = Scout.objects.filter(is_team_leader=True)
-    print(tl)
-    tl = tl.exclude(team=user.team)
-    print(tl)
-
-    today_free_days = FreeDay.objects.filter(day=timezone.now())
-    not_available_approvers = [free_day.user for free_day in today_free_days]
-
-    tl = tl.exclude(user__in=not_available_approvers)
-    print(tl)
-
-    return 1
-
-
 @login_required
 def complete_task(request):
     """
@@ -51,7 +28,7 @@ def complete_task(request):
         form = CompleteTaskForm(request.POST)
 
         if form.is_valid():
-            documented_task = form.save()
+            documented_task = form.save(commit=False)
             documented_task.user = request.user
 
             uploaded_files = []
@@ -65,9 +42,6 @@ def complete_task(request):
             documented_task.file1 = uploaded_files[0]
             documented_task.file2 = uploaded_files[1]
             documented_task.file3 = uploaded_files[2]
-
-            approver_id = pick_approver(request.user)
-
             documented_task.save()
 
     else:
