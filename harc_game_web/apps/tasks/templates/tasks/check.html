@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<h1 class="title">
+  Sprawdź zadania
+</h1>
+
+<h2>Zadania do sprawdzenia:</h2>
+<br>
+{% for task, form in unchecked_task_forms %}
+{% include "tasks/check_form.html" %}
+<br>
+{% endfor %}
+<br>
+
+<h2> Zadania sprawdzone: </h2>
+<br>
+{% for task, form in checked_task_forms %}
+<form action="." method="post">
+  {% csrf_token %}
+  {% include "tasks/check_form.html" %}
+  <br>
+</form>
+{% endfor %}
+
+{% endblock %}
+
