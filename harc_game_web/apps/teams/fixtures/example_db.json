@@ -18,6 +18,15 @@
     }
   },
   {
+    "model": "teams.team",
+    "pk": 3,
+    "fields": {
+      "name": "Drużyna 3",
+      "colors": "biało-zielony",
+      "tax": "0.3"
+    }
+  },
+  {
     "model": "teams.patrol",
     "pk": 1,
     "fields": {
@@ -47,6 +56,14 @@
     "fields": {
       "name": "Zastęp 2 drużyny 2",
       "team": 2
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 5,
+    "fields": {
+      "name": "Zastęp 1 drużyny 3",
+      "team": 3
     }
   }
 ]

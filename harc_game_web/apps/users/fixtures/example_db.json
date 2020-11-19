@@ -1,0 +1,73 @@
+[
+  {
+    "model": "users.harcgameuser",
+    "pk": 1,
+    "fields": {
+      "email": "druzynowy1@harcapo.pl",
+      "nickname": "Drużynowy 1",
+      "is_active": true,
+      "date_joined": "2020-11-15"
+    }
+  },
+  {
+    "model": "users.scout",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "initials": "DR1",
+      "team": 1,
+      "rank": "hehe",
+      "is_team_leader": true
+    }
+  },
+  {
+    "model": "users.harcgameuser",
+    "pk": 2,
+    "fields": {
+      "email": "druzynowy2@harcapo.pl",
+      "nickname": "Drużynowy 2",
+      "is_active": true,
+      "date_joined": "2020-11-15"
+    }
+  },
+  {
+    "model": "users.scout",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "initials": "DR2",
+      "team": 2,
+      "rank": "hehe",
+      "is_team_leader": true
+    }
+  },
+  {
+    "model": "users.harcgameuser",
+    "pk": 3,
+    "fields": {
+      "email": "druzynowy3@harcapo.pl",
+      "nickname": "Drużynowy 3",
+      "is_active": true,
+      "date_joined": "2020-11-16"
+    }
+  },
+  {
+    "model": "users.scout",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "initials": "DR3",
+      "team": 3,
+      "rank": "hehe",
+      "is_team_leader": true
+    }
+  },
+  {
+    "model": "users.freeday",
+    "pk": 1,
+    "fields": {
+      "user": 3,
+      "day": "2020-11-16"
+    }
+  }
+]
