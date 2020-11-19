@@ -38,6 +38,9 @@ class Scout(models.Model):
 
     REQUIRED_FIELDS = ['initials', 'patrol', 'team', 'rank']
 
+    def __str__(self):
+        return self.user.nickname
+
 
 @receiver(models.signals.post_save, sender=HarcgameUser)
 def update_profile_signal(sender, instance, created, **kwargs):
