@@ -3,14 +3,13 @@ from chunked_upload.exceptions import ChunkedUploadError
 from chunked_upload.response import Response
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
 from django import forms
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
 
-from apps.tasks.models import ChunkedFileUpload, DocumentedTask, UploadedFile
-from apps.users.models import HarcgameUser, Scout, FreeDay
+from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile
 
 
 class CompleteTaskForm(forms.ModelForm):
@@ -48,6 +47,42 @@ def complete_task(request):
         form = CompleteTaskForm()
     completed_tasks = DocumentedTask.objects.filter(user=request.user)
     return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
+
+
+def team_leader_check(user):
+    return user.scout.is_team_leader
+
+
+class CheckTaskForm(forms.ModelForm):
+    class Meta:
+        model = TaskApproval
+        fields = ['is_accepted', 'comment_from_approver']
+        labels = {
+            "is_accepted": "Czy zadanie jest zaakceptowane?",
+            "comment_from_approver": "Twój komentarz"
+        }
+
+
+@user_passes_test(team_leader_check)
+def check_task(request):
+    if request.method == "POST":
+        task = TaskApproval.objects.get(documented_task=request.POST['documented_task'])
+        task.is_accepted = bool(request.POST.get('is_accepted', False))
+        task.comment_from_approver = request.POST.get('comment_from_approver', '')
+        task.save()
+
+    user = request.user
+    task_approvals = TaskApproval.objects.filter(approver=user)
+    unchecked_tasks = task_approvals.filter(is_accepted=False)
+    checked_tasks = task_approvals.filter(is_accepted=True)
+
+    unchecked_task_forms = [(task, CheckTaskForm(instance=task)) for task in unchecked_tasks]
+    checked_task_forms = [(task, CheckTaskForm(instance=task)) for task in checked_tasks]
+
+    return render(request, 'tasks/check.html', context={
+        "unchecked_task_forms": unchecked_task_forms,
+        "checked_task_forms": checked_task_forms,
+    })
 
 
 class UploadView(ChunkedUploadView, LoginRequiredMixin):
