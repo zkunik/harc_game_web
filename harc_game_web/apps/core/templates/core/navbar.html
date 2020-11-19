@@ -3,7 +3,7 @@
 
     {% if request.user.is_authenticated %}
         <a href="{% url 'logout' %}" class="btn btn-default navbar-btn">Wyloguj się</a>
-        <a href="{% url 'upload' %}" class="btn btn-default navbar-btn">Potwierdź wykonanie zadania</a>
+        <a href="{% url 'complete_task' %}" class="btn btn-default navbar-btn">Potwierdź wykonanie zadania</a>
     {% else %}
         <a href="{% url 'signup' %}" class="btn btn-default navbar-btn">Załóż konto</a>
         <a href="{% url 'login' %}" class="btn btn-default navbar-btn">Zaloguj się</a>
@@ -12,8 +12,12 @@
     <a href="{% url 'word_of_the_day' %}" class="btn btn-default navbar-btn">Hasło dnia</a>
     <a href="{% url 'all_teams' %}" class="btn btn-default navbar-btn">Drużyny</a>
 
+    {% if request.user.scout.is_team_leader %}
+    <a href="{% url 'check_task' %}" class="btn btn-default navbar-btn">Sprawdź zadanie</a>
+    {% endif %}
+
     {% if request.user.is_superuser %}
         <a href="{% url 'all_posts' %}" class="btn btn-default navbar-btn">Posty</a>
     {% endif %}
-    
+
 </nav>
