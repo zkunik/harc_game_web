@@ -15,7 +15,9 @@ dev-migrate: venv
 
 dev-populate-db-examples: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
-	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json
+	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json --app teams && \
+	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json --app users && \
+	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json --exclude teams --exclude users
 
 dev-prepare: dev-migrate dev-populate-db-examples
 

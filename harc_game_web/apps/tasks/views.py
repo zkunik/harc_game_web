@@ -4,11 +4,13 @@ from chunked_upload.response import Response
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
-from django.utils import timezone
-from django.urls import reverse
-from apps.tasks.models import ChunkedFileUpload, DocumentedTask, UploadedFile
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
+from django.utils import timezone
+
+from apps.tasks.models import ChunkedFileUpload, DocumentedTask, UploadedFile
+from apps.users.models import HarcgameUser, Scout, FreeDay
 
 
 class CompleteTaskForm(forms.ModelForm):
@@ -26,7 +28,7 @@ def complete_task(request):
         form = CompleteTaskForm(request.POST)
 
         if form.is_valid():
-            documented_task = form.save()
+            documented_task = form.save(commit=False)
             documented_task.user = request.user
 
             uploaded_files = []
@@ -40,7 +42,6 @@ def complete_task(request):
             documented_task.file1 = uploaded_files[0]
             documented_task.file2 = uploaded_files[1]
             documented_task.file3 = uploaded_files[2]
-
             documented_task.save()
 
     else:

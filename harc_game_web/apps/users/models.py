@@ -23,6 +23,7 @@ class HarcgameUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+
 class Scout(models.Model):
     """
     Harcerz (jako dodatkowe atrybuty użytkownika)
@@ -43,4 +44,12 @@ def update_profile_signal(sender, instance, created, **kwargs):
     if created:
         Scout.objects.create(user=instance)
     instance.scout.save()
+
+
+class FreeDay(models.Model):
+    """
+    Dzień wolny osoby sprawdzającej zadania
+    """
+    user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
+    day = models.DateField(null=True, default=None)
 

@@ -18,5 +18,21 @@
       "allowed_completition_frequency": "raz na grę",
       "extra_prize": "diamentowy miecz"
     }
+  },
+  {
+    "model": "tasks.documentedtask",
+    "pk": 1,
+    "fields": {
+      "task": 1,
+      "user": 1
+    }
+  },
+  {
+    "model": "tasks.taskapproval",
+    "pk": 1,
+    "fields": {
+      "documented_task": 1,
+      "approver": 3
+    }
   }
 ]
