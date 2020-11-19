@@ -7,26 +7,37 @@
     Zakupione przez drużynę ulepszenia wioski? (Zuza - zmodyfikować bazę danych)
 {% endcomment %}
 
+{% block headcontent %}
+
+    <style>
+    td {
+      padding: 5px 5px;
+    }
+    </style>
+
+{% endblock%}
+
 {% block content %}
 
 	<h3>Drużyna: {{ team.name|capfirst }}</h3>
 
-    <h4>Drużynowy: {{ leader }}<h4>
+    <h4>Drużynowy: {{ leader }}</h4>
 
-	<p>Barwy: {{team.colors}}</p>
-	<p>Podatek: {{team.tax}}</p>
+	<p>Barwy: {{ team.colors }}</p>
+	<p>Podatek: {{ team.tax }}</p>
 
-    <p>Wynik drużyny: </p>
+    <p>Wynik drużyny: {{ team.score }} </p>
 
     <hr>
 
     <table>
         <tr>
-            <th>Zastępy</th>
+            <td>Zastępy</td>
         </tr>
-        {% for p in patrols %}
+        {% for patrol in patrols %}
         <tr>
-            <th>{{ p }}</th>
+            <td>{{ patrol|capfirst }}</td>
+            <td>{{ patrol.score }}</td>
         </tr>
         {% endfor%}
     </table>
@@ -35,12 +46,13 @@
 
     <table>
         <tr>
-            <th>Harcerze</th>
+            <td>Harcerze</td>
         </tr>
-        {% for s in scouts %}
+        {% for scout in scouts %}
         <tr>
-            <th>{{ s }}</th>
-            <th>{{ s.score.prize__sum }}</th>
+            <td>{{ scout.patrol|capfirst }}</td>
+            <td>{{ scout|capfirst }}</td>
+            <td>{{ scout.score }}</td>
         </tr>
         {% endfor%}
     </table>

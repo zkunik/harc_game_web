@@ -21,27 +21,8 @@ class TeamView(View):
         """
         team = Team.objects.get(id=id)
         patrols = Patrol.objects.filter(team=team)
-        scouts = Scout.objects.filter(team=team)
+        scouts = Scout.objects.filter(team=team).annotate()
         team_leader = scouts.filter(is_team_leader=True).first()
-
-# def score(self):
-    #     """
-    #     Obliczenie wyniku
-    #     """
-    #     from apps.tasks.models import Task, DocumentedTask, TaskApproval
-
-    #     print(DocumentedTask.objects.all())
-    #     print(DocumentedTask.objects.select_related('task')) 
-
-    #     #return Task.objects.filter(user=self.user).select_related('DocumentedTask').aggregate(Sum('prize'))
-
-    #     print(
-    #         #DocumentedTask.objects.filter(user=self.user).filter(taskapproval__is_accepted=True)
-    #         TaskApproval.objects.all()#filter(is_accepted=True).all()
-    #     )
-    #     return Task.objects.aggregate(Sum('prize'))
-    
-        print(TaskApproval.objects.all())
 
         return render(request, 'teams/view.html', {'team': team, 'leader': team_leader, 'patrols': patrols, 'scouts': scouts})
 
