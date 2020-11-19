@@ -1,6 +1,6 @@
 [
   {
-    "model": "users.team",
+    "model": "teams.team",
     "pk": 1,
     "fields": {
       "name": "Drużyna 1",
@@ -9,7 +9,7 @@
     }
   },
   {
-    "model": "users.team",
+    "model": "teams.team",
     "pk": 2,
     "fields": {
       "name": "Drużyna 2",
@@ -18,7 +18,7 @@
     }
   },
   {
-    "model": "users.patrol",
+    "model": "teams.patrol",
     "pk": 1,
     "fields": {
       "name": "Zastęp 1 drużyny 1",
@@ -26,7 +26,7 @@
     }
   },
   {
-    "model": "users.patrol",
+    "model": "teams.patrol",
     "pk": 2,
     "fields": {
       "name": "Zastęp 2 drużyny 1",
@@ -34,7 +34,7 @@
     }
   },
   {
-    "model": "users.patrol",
+    "model": "teams.patrol",
     "pk": 3,
     "fields": {
       "name": "Zastęp 1 drużyny 2",
@@ -42,7 +42,7 @@
     }
   },
   {
-    "model": "users.patrol",
+    "model": "teams.patrol",
     "pk": 4,
     "fields": {
       "name": "Zastęp 2 drużyny 2",

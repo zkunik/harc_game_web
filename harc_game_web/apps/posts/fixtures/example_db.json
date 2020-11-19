@@ -1,0 +1,47 @@
+[
+  {
+    "model": "posts.post",
+    "pk": 1,
+    "fields": {
+      "date_time": "2020-11-18T00:00:00+01:00",
+      "pub_date_time": "2020-11-01T18:00:00+01:00",
+      "slug": "stary-wpis",
+      "title": "stary wpis",
+      "content": "Ten wpis się powinien pojawić po <strong>18 listopada<strong>"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 2,
+    "fields": {
+      "date_time": "2020-11-18T00:00:00+01:00",
+      "pub_date_time": "2021-11-18T18:00:00+01:00",
+      "slug": "przyszly-wpis",
+      "title": "przyszły wpis",
+      "content": "Ten wpis nie powinien się pojawić aż do <strong>18 listopada 2021<strong>"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 3,
+    "fields": {
+      "date_time": "2020-11-18T00:00:00+01:00",
+      "pub_date_time": "2020-11-20T18:00:00+01:00",
+      "slug": "piatkowy-wpis",
+      "title": "piątkowy wpis",
+      "content": "Ten wpis się powinien pojawić w piątek <strong>20 listopada<strong>"
+    }
+  },
+  {
+    "model": "posts.post",
+    "pk": 4,
+    "fields": {
+      "date_time": "2020-11-18T00:00:00+01:00",
+      "pub_date_time": "2020-11-18T18:00:00+01:00",
+      "slug": "wpis-z-video",
+      "title": "wpis z wideo",
+      "content": "<video width='320' height='240' controls><source src='https://www.w3schools.com/html/mov_bbb.mp4' type='video/mp4'>Your browser does not support the video tag.</video>",
+      "link1": "https://www.w3schools.com/html/html5_video.asp"
+    }
+  }
+]

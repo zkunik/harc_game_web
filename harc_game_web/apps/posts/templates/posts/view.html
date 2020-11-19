@@ -11,12 +11,12 @@
 		<h3>{{ post.title|capfirst }}</h3>
 	{% endif %}
 	<p>
-		<span>Created: {{ post.date_time }} </span> |
-		<span>User: {{post.user}} </span> |
-		<span>Publish date: {{post.pub_date_time}} </span> |
+		<span>Stworzony: {{ post.date_time }} </span> |
+		<span>Gracz: {{post.user}} </span> |
+		<span>Do publikacji po: {{post.pub_date_time}} </span> |
 	</p>
 	<hr>
-		<p>{{ post.content }}</p>
+		<p>{{ post.content|safe }}</p>
 	<hr>
 	<p>
 		{% if post.link1 %}<p>Link 1: <a href={{post.link1}}>{{post.link1}}</a></p>{% endif %}

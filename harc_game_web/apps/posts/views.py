@@ -17,7 +17,7 @@ def list_active_posts(request):
 	Function to list all posts on home screen
 	"""
 	# Exclude future posts
-	posts = Post.objects.exclude(pub_date_time__gte = timezone.now())
+	posts = Post.objects.all().exclude(pub_date_time__gte = timezone.now()).order_by(F('pub_date_time').desc(nulls_last=True))
 	return render(request, 'posts/list_active.html', {'posts': posts})
 	
 @staff_member_required
