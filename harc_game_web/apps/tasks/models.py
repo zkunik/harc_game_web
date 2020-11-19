@@ -63,7 +63,7 @@ class TaskApproval(models.Model):
         HarcgameUser, on_delete=models.RESTRICT, null=True, default=None
     )
     is_accepted = models.BooleanField(default=False)
-    comment_from_approver = models.TextField(max_length=400, default="")
+    comment_from_approver = models.TextField(max_length=400, default="", blank=True)
 
     def __str__(self):
         return f'{self.documented_task} - approval by {self.approver}'
