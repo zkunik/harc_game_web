@@ -50,21 +50,7 @@
 
   {% for task in completed_tasks %}
   <table id="exam">
-    <tr><td>Nazwa zadania</td><td>{{ task.task.name }}</td></tr>
-    <tr><td>Data ukończenia</td><td>{{ task.date_completed }}</td></tr>
-    <tr><td>Komentarz</td><td>{{ task.comment_from_user }}</td></tr>
-    <tr><td>Dodane pliki</td><td><a href="{{ task.file1.file.url }}">{{ task.file1.filename_orig|default:"" }}</a></td></tr>
-    <tr><td></td><td><a href="{{ task.file2.file.url }}">{{ task.file2.filename_orig|default:"" }}</a></td></tr>
-    <tr><td></td><td><a href="{{ task.file3.file.url }}">{{ task.file3.filename_orig|default:"" }}</a></td></tr>
-    <tr><td>Dodane linki</td><td><a href="{{ task.link1 }}">{{ task.link1|default:"" }}</a></td></tr>
-    <tr><td></td><td><a href="{{ task.link2 }}">{{ task.link2|default:"" }}</a></td></tr>
-    <tr><td></td><td><a href="{{ task.link3 }}">{{ task.link3|default:"" }}</a></td></tr>
-    {% if task.task.prize %}
-    <tr><td>Nagroda</td><td>{{ task.task.prize }}</td></tr>
-    {% endif %}
-    {% if task.task.extra_prize %}
-    <tr><td>Nagroda specjalna</td><td>{{ task.task.extra_prize }}</td></tr>
-    {% endif %}
+    {% include "tasks/documented_task_table.html" %}
     <tr><td>Sprawdza zadanie</td><td>{{ task.taskapproval.approver.nickname }}</td></tr>
     <tr><td>Czy zaakceptowano</td><td>{{ task.taskapproval.is_accepted|yesno:"Tak,Nie" }}</td></tr>
     <tr><td>Komentarz od sprawdzającego</td><td>{{ task.taskapproval.comment_from_approver }}</td></tr>
