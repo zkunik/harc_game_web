@@ -28,5 +28,5 @@ class WordOfTheDay(models.Model):
             self.date_time = timezone.now()
         return super(WordOfTheDay, self).save(*args, **kwargs)
 
-        def __str__(self):
-            return f'Pytanie na {self.date}'
+    def __str__(self):
+        return f'Pytanie na {self.date}'

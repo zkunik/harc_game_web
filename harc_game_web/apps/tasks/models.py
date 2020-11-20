@@ -58,7 +58,7 @@ class TaskApproval(models.Model):
     """
     Model zatwierdzania zadania (jako dodatkowe atrybuty udokumentowanego wykonania zadania
     """
-    documented_task = models.OneToOneField(DocumentedTask, on_delete=models.CASCADE, related_name='task_approval')
+    documented_task = models.OneToOneField(DocumentedTask, on_delete=models.CASCADE, related_name='taskapproval')
     approver = models.ForeignKey(
         HarcgameUser, on_delete=models.RESTRICT, null=True, default=None
     )
@@ -98,3 +98,4 @@ def update_profile_signal(sender, instance, created, **kwargs):
             approver=pick_approver(instance.user)
         )
     instance.taskapproval.save()
+

@@ -48,7 +48,7 @@ class Scout(models.Model):
         from apps.tasks.models import Task, DocumentedTask, TaskApproval
 
         score = Task.objects.filter(documented_tasks__user=self.user).\
-                             filter(documented_tasks__task_approval__is_accepted=True).\
+                             filter(documented_tasks__taskapproval__is_accepted=True).\
                              aggregate(Sum('prize'))['prize__sum']
 
         return score if score != None else 0
