@@ -29,6 +29,10 @@ test: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
 	python3 $(PROJECT_DIR)/manage.py test harc_game_web
 
+shell: venv
+	. ./$(VENV_ACTIVATE_PATH) && \
+	python3 $(PROJECT_DIR)/manage.py shell
+
 clean-media:
 	rm -rf $(PROJECT_DIR)/media/
 

@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.views import View
 
-from apps.teams.models import Team
+from apps.teams.models import Team, Patrol
+from apps.users.models import Scout
+from apps.tasks.models import Task, DocumentedTask, TaskApproval
+
 
 class TeamView(View):
 
@@ -17,5 +20,9 @@ class TeamView(View):
         Function to view
         """
         team = Team.objects.get(id=id)
-        return render(request, 'teams/view.html', {'team': team})
+        patrols = Patrol.objects.filter(team=team)
+        scouts = Scout.objects.filter(team=team).annotate()
+        team_leader = scouts.filter(is_team_leader=True).first()
+
+        return render(request, 'teams/view.html', {'team': team, 'leader': team_leader, 'patrols': patrols, 'scouts': scouts})
 

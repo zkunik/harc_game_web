@@ -39,7 +39,7 @@ class DocumentedTask(models.Model):
     """
     Model udokumentowanego wykonanego zadania
     """
-    task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
+    task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None, related_name='documented_tasks')
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
     date_completed = models.DateTimeField(default=timezone.now)
     comment_from_user = models.TextField(max_length=400, null=True, default="", blank=True)
@@ -58,7 +58,7 @@ class TaskApproval(models.Model):
     """
     Model zatwierdzania zadania (jako dodatkowe atrybuty udokumentowanego wykonania zadania
     """
-    documented_task = models.OneToOneField(DocumentedTask, on_delete=models.CASCADE)
+    documented_task = models.OneToOneField(DocumentedTask, on_delete=models.CASCADE, related_name='taskapproval')
     approver = models.ForeignKey(
         HarcgameUser, on_delete=models.RESTRICT, null=True, default=None
     )
@@ -98,3 +98,4 @@ def update_profile_signal(sender, instance, created, **kwargs):
             approver=pick_approver(instance.user)
         )
     instance.taskapproval.save()
+
