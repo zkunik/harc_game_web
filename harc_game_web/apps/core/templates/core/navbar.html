@@ -18,6 +18,7 @@
 
     {% if request.user.is_superuser %}
         <a href="{% url 'all_posts' %}" class="btn btn-default navbar-btn">Posty</a>
+        <a href="{% url 'bank_report' %}" class="btn btn-default navbar-btn">Raport</a>
     {% endif %}
 
 </nav>
