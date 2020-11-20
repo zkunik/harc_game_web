@@ -90,11 +90,12 @@ def pick_approver(user):
     return HarcgameUser.objects.get(id=min(task_approval_count, key=task_approval_count.get))
 
 
-# @receiver(models.signals.post_save, sender=DocumentedTask)
-# def update_profile_signal(sender, instance, created, **kwargs):
-#     if created:
-#         TaskApproval.objects.create(
-#             documented_task=instance,
-#             approver=pick_approver(instance.user)
-#         )
-#     instance.taskapproval.save()
+@receiver(models.signals.post_save, sender=DocumentedTask)
+def update_profile_signal(sender, instance, created, **kwargs):
+    if created:
+        TaskApproval.objects.create(
+            documented_task=instance,
+            approver=pick_approver(instance.user)
+        )
+    instance.taskapproval.save()
+

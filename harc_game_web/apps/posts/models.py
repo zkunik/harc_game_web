@@ -4,12 +4,6 @@ from django.utils import timezone
 
 from apps.users.models import HarcgameUser
 
-# Add unidecode support
-try:
-    from unidecode import unidecode
-except ImportError:
-    def unidecode(tag):
-        return tag
 
 class Post(models.Model):
     """
@@ -37,7 +31,7 @@ class Post(models.Model):
     
     # Auto-generate slug
     def slugify(self, i=None):
-        slug = self.date_time.strftime("%Y-%m-%d-")+slugify(unidecode(self.title))
+        slug = self.date_time.strftime("%Y-%m-%d-")+slugify(self.title)
         if i is not None:
             slug += "-%d" % i
         return slug

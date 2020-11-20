@@ -2,15 +2,29 @@ from django.shortcuts import render
 from django.views import View
 from django.utils import timezone
 from django.db.models import F
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils.text import slugify
 
 import datetime
 
 from apps.wotd.models import WordOfTheDay
 
+
 class WordOfTheDayView(View):
 
-    def _verify(self, word, guess):
-        return (word.answer == guess)
+    def __verify(self, word, guess):
+        """
+        slugify will take care about spaces, special characters, polish characters, capital letters, etc
+        looks like a good/quick solution for clan text comparing
+        
+        https://docs.djangoproject.com/en/3.1/ref/utils/#django.utils.text.slugify
+        - Converting to ASCII if allow_unicode is False (the default).
+        - Converting to lowercase.
+        - Removing characters that aren’t alphanumerics, underscores, hyphens, or whitespace.
+        - Removing leading and trailing whitespace.
+        - Replacing any whitespace or repeated dashes with single dashes.
+        """
+        return slugify(word.answer) == slugify(guess)
 
     def get(self, request, *args, **kwargs):
         """
@@ -24,8 +38,14 @@ class WordOfTheDayView(View):
 
         # Firltrowanie pro datach
         words_of_the_past = WordOfTheDay.objects.all().exclude(date__gte = timezone.now()).order_by(F('date').desc(nulls_last=True))
-        word_of_the_day = WordOfTheDay.objects.filter(date = timezone.now())[0]
-        word_for_tomorrow = WordOfTheDay.objects.filter(date = timezone.now() + datetime.timedelta(days=1))[0]
+        try:
+            word_of_the_day = WordOfTheDay.objects.get(date = timezone.now())
+        except ObjectDoesNotExist:
+            word_of_the_day = WordOfTheDay()
+        try:
+            word_for_tomorrow = WordOfTheDay.objects.get(date = timezone.now() + datetime.timedelta(days=1))
+        except ObjectDoesNotExist:
+            word_for_tomorrow= WordOfTheDay()
         today_guess = request.GET.get('today_guess', '')
         tomorrow_guess = request.GET.get('tomorrow_guess', '')
 
@@ -34,7 +54,7 @@ class WordOfTheDayView(View):
             'word_of_the_day': word_of_the_day,
             'word_for_tomorrow': word_for_tomorrow,
             'today_guess': today_guess,
-            'today_guess_is_correct': self._verify(word_of_the_day, today_guess),
+            'today_guess_is_correct': self.__verify(word_of_the_day, today_guess),
             'tomorrow_guess': tomorrow_guess,
-            'tomorrow_guess_is_correct': self._verify(word_for_tomorrow, tomorrow_guess)
+            'tomorrow_guess_is_correct': self.__verify(word_for_tomorrow, tomorrow_guess)
         })
