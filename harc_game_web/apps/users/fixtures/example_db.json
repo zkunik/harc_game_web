@@ -6,7 +6,7 @@
       "email": "druzynowy1@harcapo.pl",
       "nickname": "Drużynowy 1",
       "is_active": true,
-      "date_joined": "2020-11-15"
+      "date_joined": "2020-11-15 00:00:00+01:00"
     }
   },
   {
@@ -27,7 +27,7 @@
       "email": "druzynowy2@harcapo.pl",
       "nickname": "Drużynowy 2",
       "is_active": true,
-      "date_joined": "2020-11-15"
+      "date_joined": "2020-11-15 00:00:00+01:00"
     }
   },
   {
@@ -48,7 +48,7 @@
       "email": "druzynowy3@harcapo.pl",
       "nickname": "Drużynowy 3",
       "is_active": true,
-      "date_joined": "2020-11-16"
+      "date_joined": "2020-11-16 00:00:00+01:00"
     }
   },
   {
