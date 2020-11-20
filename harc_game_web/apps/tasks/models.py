@@ -46,9 +46,9 @@ class DocumentedTask(models.Model):
     file1 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file1')
     file2 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file2')
     file3 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file3')
-    link1 = models.CharField(max_length=400, null=True, default="", blank=True)
-    link2 = models.CharField(max_length=400, null=True, default="", blank=True)
-    link3 = models.CharField(max_length=400, null=True, default="", blank=True)
+    link1 = models.URLField(max_length=400, null=True, default="", blank=True)
+    link2 = models.URLField(max_length=400, null=True, default="", blank=True)
+    link3 = models.URLField(max_length=400, null=True, default="", blank=True)
 
     def __str__(self):
         return f'{self.task} - completed by {self.user}'
