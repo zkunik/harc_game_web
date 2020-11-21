@@ -26,6 +26,7 @@ class Task(models.Model):
     Model zadania
     """
     name = models.CharField(max_length=200)
+    category = models.CharField(max_length=100, default='', null=True)
     description = models.TextField(max_length=400)
     allowed_completition_frequency = models.CharField(max_length=200)
     prize = models.IntegerField(default=0, null=True)
