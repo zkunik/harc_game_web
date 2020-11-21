@@ -5,6 +5,7 @@
     "fields": {
         "name": "gimnastyka poranna",
         "description": "Gimnastykuj si\u0119 rano wed\u0142ug instrukcji.",
+        "category": "fizyczne",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -16,6 +17,7 @@
     "fields": {
         "name": "20 pompek zwyk\u0142ych",
         "description": "Zr\u00f3b 20 zwyk\u0142ych pompek",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "5",
         "extra_prize": null
@@ -27,6 +29,7 @@
     "fields": {
         "name": "20 przysiad\u00f3w",
         "description": "Zr\u00f3b 20 przysiad\u00f3w",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "5",
         "extra_prize": null
@@ -38,6 +41,7 @@
     "fields": {
         "name": "30 brzuszk\u00f3w",
         "description": "Wykonaj 30 brzuszk\u00f3w",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "5",
         "extra_prize": null
@@ -49,6 +53,7 @@
     "fields": {
         "name": "rozci\u0105ganie wieczorem",
         "description": "Rozci\u0105gaj si\u0119 przez 10 minut przed snem.",
+        "category": "fizyczne",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -60,6 +65,7 @@
     "fields": {
         "name": "spacer 5km",
         "description": "Z zachowaniem odpowiednich \u015brodk\u00f3w bezpiecze\u0144stwa id\u017a na 5km spacer.",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "20",
         "extra_prize": null
@@ -71,6 +77,7 @@
     "fields": {
         "name": "30 wygi\u0119\u0107 grzbietu",
         "description": "Wykonaj 30 wygi\u0119\u0107 grzbietu do ty\u0142u le\u017c\u0105c na brzuchu",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "7",
         "extra_prize": null
@@ -82,6 +89,7 @@
     "fields": {
         "name": "20 pompek w\u0105skich",
         "description": "Zr\u00f3b 20 pompek w\u0105skich",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "7",
         "extra_prize": null
@@ -93,6 +101,7 @@
     "fields": {
         "name": "20 australian\u00f3w",
         "description": "Wykonaj 20 podci\u0105gni\u0119\u0107 australijskich",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "7",
         "extra_prize": null
@@ -104,6 +113,7 @@
     "fields": {
         "name": "skakanka 3min.",
         "description": "Skacz na skakance przez 3 minuty.",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "7",
         "extra_prize": null
@@ -115,6 +125,7 @@
     "fields": {
         "name": "20 pompek szerokich",
         "description": "Zr\u00f3b 20 pompek szerokich",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "7",
         "extra_prize": null
@@ -126,6 +137,7 @@
     "fields": {
         "name": "noszenie zakup\u00f3w",
         "description": "Pom\u00f3\u017c w przyniesieniu ci\u0119\u017ckich zakup\u00f3w/przedmiot\u00f3w w domu",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "10",
         "extra_prize": null
@@ -137,6 +149,7 @@
     "fields": {
         "name": "plank 1min.",
         "description": "Utrzymaj pozycje plank przez minut\u0119",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "10",
         "extra_prize": null
@@ -148,6 +161,7 @@
     "fields": {
         "name": "10 pompek diament\u00f3w",
         "description": "Zr\u00f3b 10 pompek \"diament\u00f3w\"",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "10",
         "extra_prize": null
@@ -159,6 +173,7 @@
     "fields": {
         "name": "krzese\u0142ko 1min.",
         "description": "Utrzymaj pozycje krzese\u0142ka przez minute.",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "10",
         "extra_prize": null
@@ -170,6 +185,7 @@
     "fields": {
         "name": "no\u017cyce 30s",
         "description": "Wykonuj \"no\u017cyce\" przez 30 sekund.",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "10",
         "extra_prize": null
@@ -181,6 +197,7 @@
     "fields": {
         "name": "30 burpees\u00f3w",
         "description": "Wykonaj 30 burpees\u00f3w",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "12",
         "extra_prize": null
@@ -192,6 +209,7 @@
     "fields": {
         "name": "stanie na r\u0119kach opieraj\u0105c si\u0119",
         "description": "Utrzymaj si\u0119 stoj\u0105c na r\u0119kach b\u0119d\u0105c opartym o \u015bcian\u0119 przez 30 sekund",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "10",
         "extra_prize": null
@@ -203,6 +221,7 @@
     "fields": {
         "name": "stanie na r\u0119kach bez oparcia",
         "description": "Utrzymaj si\u0119 stoj\u0105c na r\u0119kach przez 10 sekund (bez podparcia o \u015bcian\u0119)",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "12",
         "extra_prize": null
@@ -214,6 +233,7 @@
     "fields": {
         "name": "minuta na jednej nodze",
         "description": "Wytrzymaj minut\u0119 stoj\u0105c na jednej nodze, trzymaj\u0105c kubki pe\u0142ne wody(po jednym) na wyci\u0105gni\u0119tych r\u0119kach",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "8",
         "extra_prize": null
@@ -225,6 +245,7 @@
     "fields": {
         "name": "50 pajacyk\u00f3w",
         "description": "Wykonaj 50 pajacyk\u00f3w do rytmu piosenki \"never gonna give you up\" ricka astleya (ze \u015bpiewaniem)",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "10",
         "extra_prize": null
@@ -236,6 +257,7 @@
     "fields": {
         "name": "tygodniowy plan \u0107wicze\u0144",
         "description": "Zrealizuj tygodniowy plan \u0107wicze\u0144 zatwierdzony przez osob\u0119 trenuj\u0105c\u0105",
+        "category": "fizyczne",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "40",
         "extra_prize": "buty poprawiaj\u0105ce szybko\u015b\u0107 w grze"
@@ -247,6 +269,7 @@
     "fields": {
         "name": "odkurzanie pokoju",
         "description": "Poodkurzaj sw\u00f3j pok\u00f3j.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -258,6 +281,7 @@
     "fields": {
         "name": "wytarcie kurzy w pokoju",
         "description": "Wytrzyj wszystkie kurze w swoim pokoju.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -269,6 +293,7 @@
     "fields": {
         "name": "wyniesienie \u015bmieci",
         "description": "Wynie\u015b \u015bmieci.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "5",
         "extra_prize": null
@@ -280,6 +305,7 @@
     "fields": {
         "name": "przebranie z pi\u017camy",
         "description": "Rano przebie\u017c si\u0119 z pi\u017camy.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "5",
         "extra_prize": null
@@ -291,6 +317,7 @@
     "fields": {
         "name": "pozbieranie brudnych ubra\u0144",
         "description": "Zbierz wszystkie brudne ubrania w domu i wrzu\u0107 do kosza na pranie.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "5",
         "extra_prize": null
@@ -302,6 +329,7 @@
     "fields": {
         "name": "naczenie babci FB",
         "description": "Naucz babci\u0119 korzysta\u0107 z Facebooka",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "30",
         "extra_prize": null
@@ -313,6 +341,7 @@
     "fields": {
         "name": "toaleta poranna",
         "description": "Rano umyj twarz i z\u0119by.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "5",
         "extra_prize": null
@@ -324,6 +353,7 @@
     "fields": {
         "name": "toaleta wieczorna",
         "description": "Wieczorem umyj z\u0119by",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "5",
         "extra_prize": null
@@ -335,6 +365,7 @@
     "fields": {
         "name": "konserwacja zawias\u00f3w",
         "description": "Usu\u0144 wszystkie piski i skrzypni\u0119cia w zawiasach wszystkich drzwi",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -346,6 +377,7 @@
     "fields": {
         "name": "kontrola termin\u00f3w wa\u017cno\u015bci produkt\u00f3w",
         "description": "Sprawd\u017a terminy wa\u017cno\u015bci produkt\u00f3w spo\u017cywczych.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": "z\u0142ote jab\u0142ko"
@@ -357,6 +389,7 @@
     "fields": {
         "name": "zebranie wody",
         "description": "Zmagazynuj u\u017cywan\u0105 w domu wod\u0119, w celu ponownego wykorzystania, min 2 litry.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -368,6 +401,7 @@
     "fields": {
         "name": "podlanie ro\u015blin",
         "description": "Podlej ro\u015bliny, o kt\u00f3re nikt nie dba zmagazynowan\u0105 przez siebie wod\u0105 ",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -379,6 +413,7 @@
     "fields": {
         "name": "odkurzanie domu",
         "description": "Poodkurzaj ca\u0142y dom.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "40",
         "extra_prize": null
@@ -390,6 +425,7 @@
     "fields": {
         "name": "dbanie o zwierz\u0119ta",
         "description": "Wyczy\u015b\u0107 kuwete lub wyprowad\u017a psa lub nakarm rybki. Je\u017celi masz inne zwierze - zadbaj o nie.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "20",
         "extra_prize": null
@@ -401,6 +437,7 @@
     "fields": {
         "name": "grabienie li\u015bci",
         "description": "Pograb opad\u0142e li\u015bcie",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -412,6 +449,7 @@
     "fields": {
         "name": "zaplanowanie dnia",
         "description": "Dok\u0142adnie zaplanuj nast\u0119pny dzie\u0144.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "25",
         "extra_prize": null
@@ -423,6 +461,7 @@
     "fields": {
         "name": "zebranie dat urodzin rodziny",
         "description": "Dowiedz si\u0119 i zapisz w swoim kalendarzu urodziny rodzic\u00f3w i dziadk\u00f3w",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "10",
         "extra_prize": null
@@ -434,6 +473,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 zgodny",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Zgodny*",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "30",
         "extra_prize": null
@@ -445,6 +485,7 @@
     "fields": {
         "name": "umycie muszli klozetowej",
         "description": "Umyj muszl\u0119 klozetow\u0105. ",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -456,6 +497,7 @@
     "fields": {
         "name": "umycie wanny lub prysznica",
         "description": "Umyj wann\u0119 lub prysznic.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -467,6 +509,7 @@
     "fields": {
         "name": "umycie i odkamienienie kran\u00f3w",
         "description": "Umyj wszystkie krany w domu przy u\u017cyciu octu b\u0105d\u017a innego SKUTECZNEGO odkamieniacza",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -478,6 +521,7 @@
     "fields": {
         "name": "pozbieranie baterii",
         "description": "Pozbieraj zu\u017cyte bateri\u0119 w domu. Przygotuj je do wyniesienia.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -489,6 +533,7 @@
     "fields": {
         "name": "czyszczenie sprz\u0119tu AGD",
         "description": "Wyczy\u015b\u0107 domowy sprz\u0119d AGD (zmywarka, pralka)",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -500,6 +545,7 @@
     "fields": {
         "name": "wytarcie kurzy w domu",
         "description": "Wytrzyj kurze w ca\u0142ym domu.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "20",
         "extra_prize": null
@@ -511,6 +557,7 @@
     "fields": {
         "name": "przygotowanie ubra\u0144 do prania",
         "description": "Przygotuj brudne ubrania do prania - podziel na materia\u0142y i kolory.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -522,6 +569,7 @@
     "fields": {
         "name": "zrobienie \u015bniadania",
         "description": "Przygotuj i zjedz \u015bniadanie.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -533,6 +581,7 @@
     "fields": {
         "name": "zrobienie kolacji",
         "description": "Przygotuj i zjedz kolacje",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -544,6 +593,7 @@
     "fields": {
         "name": "trzepanie dywan\u00f3w",
         "description": "Wytrzep dywany w domu",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "25",
         "extra_prize": null
@@ -555,6 +605,7 @@
     "fields": {
         "name": "robienie wieszaka na masczki",
         "description": "Przygotuj wieszak na maseczki w domu",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -566,6 +617,7 @@
     "fields": {
         "name": "czas dla rodziny",
         "description": "Zorganizuj wsp\u00f3lny czas dla rodziny (gra planszowa, kalambury) na czas minimum 20 minut",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "20",
         "extra_prize": null
@@ -577,6 +629,7 @@
     "fields": {
         "name": "plan \u015bniada\u0144",
         "description": "Zaplanuj \u015bniadania na ca\u0142y tydzie\u0144",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "15",
         "extra_prize": null
@@ -588,6 +641,7 @@
     "fields": {
         "name": "tygodniowa zu\u017cywalno\u015b\u0107 materia\u0142\u00f3w",
         "description": "Policz jaka jest tygodniowa zu\u017cywalno\u015b\u0107 materia\u0142\u00f3w u\u017cytku codziennego (papier toaletowy itp.)",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "20",
         "extra_prize": null
@@ -599,6 +653,7 @@
     "fields": {
         "name": "inspekcja bielizny",
         "description": "Dokonaj insepkcji stanu jakosciowego bielizny ",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "10",
         "extra_prize": null
@@ -610,6 +665,7 @@
     "fields": {
         "name": "inspekcja ubra\u0144",
         "description": "Posegreguj ubrania na: u\u017cywane, do oddania, do wyrzucenia",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "10",
         "extra_prize": null
@@ -621,6 +677,7 @@
     "fields": {
         "name": "sprz\u0105tanie biurka",
         "description": "Posprz\u0105taj biurko - zostaw tylko to czego potrzebujesz, wyrzu\u0107 zepsute sprz\u0119ty",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -632,6 +689,7 @@
     "fields": {
         "name": "sprz\u0105tanie pokoju",
         "description": "Znajd\u017a od dawna nie sprz\u0105tane miejsce w swoim pokoju i je posprz\u0105taj. (szafa, p\u00f3\u0142ka, szuflada)",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -643,6 +701,7 @@
     "fields": {
         "name": "mycie okien w domu",
         "description": "Umyj okna w domu.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "20",
         "extra_prize": null
@@ -654,6 +713,7 @@
     "fields": {
         "name": "zmycie naczy\u0144",
         "description": "Pozmywaj naczynia lub zapakuj, w\u0142\u0105cz i rozpakuj zmywark\u0119.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -665,6 +725,7 @@
     "fields": {
         "name": "puszczenie prania",
         "description": "Wrzu\u0107 odpowiedni\u0105 ilo\u015b\u0107 ubra\u0144 do pralki. Wybierz program i detergent. W\u0142\u0105cz pralk\u0119. Po sko\u0144czeniu powie\u015b pranie",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -676,6 +737,7 @@
     "fields": {
         "name": "umycie pod\u0142ogi",
         "description": "Umyj pod\u0142og\u0119 w domu",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -687,6 +749,7 @@
     "fields": {
         "name": "zarz\u0105dzanie czasem",
         "description": "Wybierz technik\u0119 zarz\u0105dzania swoim czasem i stosuj j\u0105 przez 5 dni.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "25",
         "extra_prize": null
@@ -698,6 +761,7 @@
     "fields": {
         "name": "protok\u00f3\u0142 wej\u015bcia",
         "description": "Opracuj protoko\u0142y bezpiecznego wej\u015bcia do domu.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -709,6 +773,7 @@
     "fields": {
         "name": "odka\u017cenie klamek",
         "description": "Odka\u017a wszystkie klamki w bloku za pomoc\u0105 wody z octem.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "15",
         "extra_prize": null
@@ -720,6 +785,7 @@
     "fields": {
         "name": "pomoc potrzebuj\u0105cym",
         "description": "Sprawd\u017a czy kto\u015b w bloku nie potrzebuje pomocy.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "25",
         "extra_prize": null
@@ -731,6 +797,7 @@
     "fields": {
         "name": "zaplanowanie obiadu",
         "description": "Zaplanuj obiad na kolejny dzie\u0144.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -742,6 +809,7 @@
     "fields": {
         "name": "sprz\u0105tanie piwnicy",
         "description": "Posprz\u0105taj piwnic\u0119.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -753,6 +821,7 @@
     "fields": {
         "name": "konserwacja roweru",
         "description": "Sprawd\u017a stan techniczny swojego roweru.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -764,6 +833,7 @@
     "fields": {
         "name": "sortowanie \u015bmieci",
         "description": "Przygotuj miejsce do sortowania \u015bmieci.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "20",
         "extra_prize": null
@@ -775,6 +845,7 @@
     "fields": {
         "name": "upieczenie ciasta",
         "description": "Upiecz ciasto.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "15",
         "extra_prize": null
@@ -786,6 +857,7 @@
     "fields": {
         "name": "wywieszenie prania",
         "description": "Wyci\u0105gnij i wywie\u015b pranie do suszenia oraz zadbaj o pralk\u0119 po praniu.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -797,6 +869,7 @@
     "fields": {
         "name": "zrobienie obiadu",
         "description": "Przygotuj obiad dla rodziny.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "20",
         "extra_prize": null
@@ -808,6 +881,7 @@
     "fields": {
         "name": "naprawa kranu",
         "description": "Napraw ciekn\u0105cy kran",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "15",
         "extra_prize": null
@@ -819,6 +893,7 @@
     "fields": {
         "name": "praca remontowa",
         "description": "Sam znajd\u017a prac\u0119 remontow\u0105 w domu i j\u0105 zr\u00f3b",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "25",
         "extra_prize": null
@@ -830,6 +905,7 @@
     "fields": {
         "name": "poide\u0142ko dla pszcz\u00f3\u0142",
         "description": "Zr\u00f3b poide\u0142ko dla pszcz\u00f3\u0142/ptak\u00f3w i systematycznie je nape\u0142niaj.",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "15",
         "extra_prize": null
@@ -841,6 +917,7 @@
     "fields": {
         "name": "tygodniowe wydatki",
         "description": "Policz tygodniowe wydatki w domu",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "25",
         "extra_prize": null
@@ -852,6 +929,7 @@
     "fields": {
         "name": "czyszczenie komputera",
         "description": "Wyczy\u015b\u0107 ekran i klawiatur\u0119 swojego komputera ",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "5",
         "extra_prize": null
@@ -863,6 +941,7 @@
     "fields": {
         "name": "czyszczenie telefonu",
         "description": "Wyczy\u015b\u0107 i  zdezynfekuj w bezpieczny spos\u00f3b ekran swojego telefonu",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "5",
         "extra_prize": null
@@ -874,6 +953,7 @@
     "fields": {
         "name": "czyszczenie etui",
         "description": "Umyj i zdezynfekuj etui swojego telefonu",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "5",
         "extra_prize": null
@@ -885,6 +965,7 @@
     "fields": {
         "name": "zadbanie o \u0142\u00f3\u017cko",
         "description": "Zadbaj o miejsce snu - zmien po\u015bciel, oczy\u015b\u0107 \u0142\u00f3\u017cko z kurzu, wywietrz pok\u00f3j przed snem",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "10",
         "extra_prize": null
@@ -896,6 +977,7 @@
     "fields": {
         "name": "z\u0142o\u017cenie prania",
         "description": "wyprasuj, posk\u0142adaj i pouk\u0142adaj wysuszone pranie w szafie",
+        "category": "gospodarcze",
         "allowed_completition_frequency": "raz dziennie",
         "prize": "20",
         "extra_prize": null
@@ -907,6 +989,7 @@
     "fields": {
         "name": "uprawa rze\u017cuchy",
         "description": "Zasad\u017a rze\u017cuch\u0119, zbierz plon i dodaj go do posi\u0142ku.",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "25",
         "extra_prize": "diamentowa motyka"
@@ -918,6 +1001,7 @@
     "fields": {
         "name": "b\u0142\u0105d w grze",
         "description": "Znajd\u017a b\u0142\u0105d w grze Harcapo",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "10",
         "extra_prize": null
@@ -929,6 +1013,7 @@
     "fields": {
         "name": "uprawa szczypiora",
         "description": "Wyhoduj szczypior z cebuli, zbierz plon i dodaj go do posi\u0142ku.",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "25",
         "extra_prize": "diamentowa motyka"
@@ -940,6 +1025,7 @@
     "fields": {
         "name": "uprawa ciecierzycy",
         "description": "Wyhoduj ciecierzyc\u0119.",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "30",
         "extra_prize": "diamentowa motyka"
@@ -951,6 +1037,7 @@
     "fields": {
         "name": "uprawa imbiru",
         "description": "Wyhoduj imbir.",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "30",
         "extra_prize": "diamentowa motyka"
@@ -962,6 +1049,7 @@
     "fields": {
         "name": "50 stron ksi\u0105\u017cki",
         "description": "Przeczytaj min. 50 stron ksi\u0105\u017cki fabularnej",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "25",
         "extra_prize": null
@@ -973,6 +1061,7 @@
     "fields": {
         "name": "inspekcja rzeczy",
         "description": "Posegreguj rzeczy na przydatne i do oddania (stare zabawki)",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "20",
         "extra_prize": null
@@ -984,6 +1073,7 @@
     "fields": {
         "name": "beletrystyczny opis",
         "description": "Stw\u00f3rz beletrystyczny opis dnia w grze.",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "30",
         "extra_prize": null
@@ -995,6 +1085,7 @@
     "fields": {
         "name": "harcerz z innego miasta",
         "description": "Poznaj harcerza z innego miasta.",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "30",
         "extra_prize": null
@@ -1006,6 +1097,7 @@
     "fields": {
         "name": "prezent na miko\u0142ajki",
         "description": "Przygotuj prezent na miko\u0142ajki (prezent mo\u017ce le\u017ce\u0107 i czeka\u0107)",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "40",
         "extra_prize": null
@@ -1017,6 +1109,7 @@
     "fields": {
         "name": "sztuka online",
         "description": "Wybierz i zobacz interesuj\u0105c\u0105 Ci\u0119 wystaw\u0119 w dowolnym muzeum/galerii sztuki itp. online",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "15",
         "extra_prize": null
@@ -1028,6 +1121,7 @@
     "fields": {
         "name": "webinar",
         "description": "We\u017a udzia\u0142 w dowolnym szkoleniu/ webinarze, kt\u00f3ry Cie zainteresuje. Podziel si\u0119 wiedz\u0105",
+        "category": "samorozwojowe",
         "allowed_completition_frequency": "bez ogranicze\u0144",
         "prize": "30",
         "extra_prize": null
@@ -1039,6 +1133,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 domator",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Domator*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "20",
         "extra_prize": null
@@ -1050,6 +1145,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 gibki",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Gibki*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "25",
         "extra_prize": null
@@ -1061,6 +1157,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 higienista",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Higienista*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "30",
         "extra_prize": null
@@ -1072,6 +1169,7 @@
     "fields": {
         "name": "wyszycie proporca",
         "description": "Wyszyj proporzec",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "80",
         "extra_prize": null
@@ -1083,6 +1181,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 chudy jastrz\u0105b",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Chudy Jastrz\u0105b*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "40",
         "extra_prize": null
@@ -1094,6 +1193,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 ogrodnik",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Ogrodnik*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -1105,6 +1205,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 opiekun zwierz\u0105t",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Opiekun Zwierz\u0105t*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "10",
         "extra_prize": null
@@ -1116,6 +1217,7 @@
     "fields": {
         "name": "pr\u00f3ba online",
         "description": "Przenie\u015b swoj\u0105 pr\u00f3b\u0119 na stopie\u0144 do sieci",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -1127,6 +1229,7 @@
     "fields": {
         "name": "weryfikacja pr\u00f3by",
         "description": "Zweryfikuj, kt\u00f3re zadania na stopie\u0144 mo\u017cesz zrobi\u0107 podczas kwarantanny",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -1138,6 +1241,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 kuchcik",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Kuchcik*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "20",
         "extra_prize": null
@@ -1149,6 +1253,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 biblista",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Biblista*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "20",
         "extra_prize": null
@@ -1160,6 +1265,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 kamyk",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Kamyk* ",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "25",
         "extra_prize": null
@@ -1171,6 +1277,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 pi\u00f3ro",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Pi\u00f3ro*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -1182,6 +1289,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 plastyk",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Plastyk *",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "20",
         "extra_prize": null
@@ -1193,6 +1301,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 majster",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Majster *",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "20",
         "extra_prize": null
@@ -1204,6 +1313,7 @@
     "fields": {
         "name": "kronika zast\u0119pu",
         "description": "Przygotuj kronik\u0119 zast\u0119pu",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "60",
         "extra_prize": null
@@ -1215,6 +1325,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 diodak",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Diodak*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "35",
         "extra_prize": null
@@ -1226,6 +1337,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 koder",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Koder*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "30",
         "extra_prize": null
@@ -1237,6 +1349,7 @@
     "fields": {
         "name": "strona zast\u0119pu",
         "description": "Przygotuj stron\u0119 zast\u0119pu",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "60",
         "extra_prize": null
@@ -1248,6 +1361,7 @@
     "fields": {
         "name": "skaut z innego kraju",
         "description": "Poznaj skauta z innego kraju",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "25",
         "extra_prize": null
@@ -1259,6 +1373,7 @@
     "fields": {
         "name": "sprawno\u015b\u0107 skryba",
         "description": "Zdob\u0105d\u017a sprawno\u015b\u0107 Skryba*",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": null
@@ -1270,6 +1385,7 @@
     "fields": {
         "name": "kompletny mundur",
         "description": "Wyszyj wszystko na mundurze",
+        "category": "harcerskie",
         "allowed_completition_frequency": "raz w tygodniu",
         "prize": "15",
         "extra_prize": "diamentowy zestaw zbroi"
