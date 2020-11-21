@@ -28,6 +28,7 @@ data_template = """{
     "fields": {
       "name": "",
       "description": "",
+      "category": "",
       "allowed_completition_frequency": "",
       "prize": 0,
       "extra_prize": ""
@@ -69,6 +70,7 @@ with open(args.input_file, 'r') as input_file:
             data['pk'] = pk
             data['fields']['name'] = row[input_columns.index('NAZWA')]
             data['fields']['description'] = row[input_columns.index('OPIS')]
+            data['fields']['category'] = row[input_columns.index('KATEGORIA')]
             data['fields']['allowed_completition_frequency'] = row[input_columns.index('JAK CZĘSTO')]
             data['fields']['prize'] = row[input_columns.index('NAGRODA')]
             try:
