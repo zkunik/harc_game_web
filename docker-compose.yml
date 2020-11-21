@@ -6,4 +6,6 @@ services:
         ports:
             - "8000:8000"
         volumes:
-            - "./harc_game_web:/app/harc_game_web"
+            - ./harc_game_web:/app/harc_game_web
+#            - ./media:/var/www/media
+#            - ./static:/var/www/static

@@ -5,7 +5,6 @@ PROJECT_DIR = harc_game_web
 venv:
 	python3 -m virtualenv ./$(VENV_NAME)
 	. ./$(VENV_ACTIVATE_PATH) && \
-	python3 -m pip install pip --upgrade && \
 	python3 -m pip install -r requirements.txt
 
 dev-migrate: venv
