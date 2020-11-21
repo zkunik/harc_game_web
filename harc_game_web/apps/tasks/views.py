@@ -9,7 +9,18 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
 
-from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile
+from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task
+from django.views import View
+
+
+class TaskView(View):
+
+    def get(self, request, *args, **kwargs):
+        categories = set(Task.objects.values_list('category', flat=True))
+        tasks_grouped = {}
+        for category in categories:
+            tasks_grouped[category] = Task.objects.filter(category=category)
+        return render(request, 'tasks/view.html', {'tasks_grouped': tasks_grouped})
 
 
 class CompleteTaskForm(forms.ModelForm):

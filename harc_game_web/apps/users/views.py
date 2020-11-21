@@ -15,7 +15,13 @@ class HarcgameUserCreationForm(UserCreationForm):
 class ScoutCreationForm(forms.ModelForm):
     class Meta:
         model = Scout
-        fields = ['initials', 'patrol', 'team', 'rank']
+        fields = ['initials', 'patrol', 'rank']
+
+        labels = {
+            "initials": "Inicjały",
+            "patrol": "Zastęp",
+            "rank": "Stopień harcerski"
+        }
 
 
 def signup(request):
@@ -28,7 +34,7 @@ def signup(request):
             user.refresh_from_db()
             user.scout.initials = scout_form.cleaned_data.get('initials')
             user.scout.patrol = scout_form.cleaned_data.get('patrol')
-            user.scout.team = scout_form.cleaned_data.get('team')
+            user.scout.team = user.scout.patrol.team
             user.scout.rank = scout_form.cleaned_data.get('rank')
             user.save()
             login(request, user)

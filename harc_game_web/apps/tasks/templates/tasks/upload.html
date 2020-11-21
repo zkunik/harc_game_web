@@ -29,7 +29,7 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        Wybierz pliki do wysłania na serwer (maksymalnie 3 pliki, każdy z nich może mieć maksymalnie 500MB):
+        Wybierz pliki do wysłania na serwer (maksymalnie 3 pliki, każdy z nich może mieć maksymalnie 150MB):
         <div id="upload_form1">{% include "tasks/upload_form1.html" %}</div>
         <div id="upload_form2">{% include "tasks/upload_form2.html" %}</div>
         <div id="upload_form3">{% include "tasks/upload_form3.html" %}</div>
@@ -39,11 +39,11 @@
 
         <div class="field">
             <div class="control">
-                <button type="submit" class="btn btn-success">Wyślij potwierdzenie wykonania zadania</button>
+                <button type="submit" class="rpgui-button">Wyślij potwierdzenie wykonania zadania</button>
             </div>
         </div>
     </form>
-
+  <hr class="golden">
   <h1 class="title">
     Twoje wykonane zadania
   </h1>
@@ -55,6 +55,7 @@
     <tr><td>Czy zaakceptowano</td><td>{{ task.taskapproval.is_accepted|yesno:"Tak,Nie" }}</td></tr>
     <tr><td>Komentarz od sprawdzającego</td><td>{{ task.taskapproval.comment_from_approver }}</td></tr>
   </table>
+  <hr>
   <br>
   {% endfor %}
 

@@ -9,13 +9,17 @@
 <br>
 {% for task_approval, form in unchecked_task_forms %}
 {% include "tasks/check_form.html" %}
+<hr>
 {% endfor %}
 <br>
+
+<hr class="golden">
 
 <h2> Zadania sprawdzone: </h2>
 <br>
 {% for task_approval, form in checked_task_forms %}
 {% include "tasks/check_form.html" %}
+<hr>
 {% endfor %}
 
 {% endblock %}

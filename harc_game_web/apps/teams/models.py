@@ -1,14 +1,16 @@
 from django.db import models
 
+
 class Team(models.Model):
     """
     Drużyna
     """
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
+    short_name = models.CharField(max_length=10)
     colors = models.CharField(max_length=100)
     tax = models.FloatField()
 
-    @property    
+    @property
     def score(self):
         """
         Calculate teams score
@@ -29,7 +31,7 @@ class Patrol(models.Model):
     name = models.CharField(max_length=100)
     team = models.ForeignKey(Team, on_delete=models.RESTRICT, null=True, default=None)
 
-    @property    
+    @property
     def score(self):
         """
         Calculate teams score

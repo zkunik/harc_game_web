@@ -4,7 +4,7 @@
 
     {% comment %}
 
-        Zawartość 
+        Zawartość
             Dzisiejsze hasło dnia (word_of_the_day)
             Jutrzejsze hasło dnia (word_for_tomorrow)
             Formularz do sprawdzania poprawności hasła dnia
@@ -12,9 +12,9 @@
 
     {% endcomment %}
 
-    <center> 
+    <center>
         {% if word_of_the_day.question|length > 0 %}
-            <h3>Dzisiejsze pytanie:</h3> 
+            <h3>Dzisiejsze pytanie:</h3>
             <p>{{ word_of_the_day.question|safe }}</p>
             <p><strong><a href="{{ word_of_the_day.hint }}">Podpowiedź</a></strong></p>
             {% if today_guess_is_correct %}
@@ -29,14 +29,14 @@
                     {% csrf_token %}
                     <label for="today_guess">Hasło to:</label>
                     <input type="text" id="today_guess" name="today_guess"><br><br>
-                    <input type="submit" value="Sprawdź dzisiejsze hasło" class="btn btn-default navbar-btn"></td>
+                    <input type="submit" value="Sprawdź dzisiejsze hasło" class="rpgui-button"></td>
                 </form>
             {% endif %}
         {% endif %}
 
         {% if word_for_tomorrow.question|length > 0 %}
             <hr>
-            <h3>Jutrzejsze pytanie:</h3> 
+            <h3>Jutrzejsze pytanie:</h3>
             <p>{{ word_for_tomorrow.question|safe }}</p>
             <p><strong><a href="{{ word_for_tomorrow.hint }}">Podpowiedź</a></strong></p>
             {% if tomorow_guess_is_correct %}
@@ -51,7 +51,7 @@
                     {% csrf_token %}
                     <label for="tomorrow_guess">Hasło to:</label>
                     <input type="text" id="tomorrow_guess" name="tomorrow_guess"><br><br>
-                    <input type="submit" value="Sprawdź hasło na jutro" class="btn btn-default navbar-btn"></td>
+                    <input type="submit" value="Sprawdź hasło na jutro" class="rpgui-button"></td>
                 </form>
             {% endif %}
         {% endif %}
@@ -59,7 +59,7 @@
         {% if words_of_the_past|length > 0 %}
             <hr>
             <h3>Poprzednie pytania:</h3>
-            {% for word in words_of_the_past %} 
+            {% for word in words_of_the_past %}
                 <hr>
                 <h4>{{ word.date }}</h4>
                 <p>{{ word.question|safe }}</p>
