@@ -15,6 +15,7 @@
 
   {% if request.user.scout.is_team_leader %}
   <a href="{% url 'check_task' %}">Sprawdź zadanie</a>
+  <a href="{% url 'bank_report' %}">Raport</a>
   {% endif %}
 
   {% if request.user.is_superuser %}

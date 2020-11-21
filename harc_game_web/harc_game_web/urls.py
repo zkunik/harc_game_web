@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path
-
+from django.contrib.admin.views.decorators import staff_member_required
 
 from apps.core.views import frontpage
 from apps.tasks.views import UploadView, UploadCompleteView, complete_task, check_task
@@ -14,6 +14,7 @@ from apps.users.views import signup
 from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
 from apps.teams.views import TeamView
 from apps.wotd.views import WordOfTheDayView
+from apps.bank.views import BankReport
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -43,4 +44,7 @@ urlpatterns = [
 
     # WordOfTheDay
     path('wotd/', WordOfTheDayView.as_view(), name='word_of_the_day'),
+
+    # Bank & reporting
+    path('report/', staff_member_required(BankReport.as_view()), name='bank_report'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "Zadanie 1",
-      "description": "Opis zadania",
+      "description": "To zadanie jest udokumentowane przez Druzynowego 1 i zaakceptowane pzrez Druzynowego 3",
       "allowed_completition_frequency": "codziennie",
       "prize": 1000
     }
@@ -14,10 +14,53 @@
     "pk": 2,
     "fields": {
       "name": "Zadanie 2",
-      "description": "Opis zadania 2",
+      "description": "To zadanie jest udokumentowane przez Druzynowego 2",
       "allowed_completition_frequency": "raz na grę",
       "extra_prize": "diamentowy miecz"
     }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 3,
+    "fields": {
+      "name": "Zadanie 3",
+      "description": "To zadanie nie jest udokumentowane",
+      "allowed_completition_frequency": "codziennie",
+      "extra_prize": "dzida"
+    }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 4,
+    "fields": {
+      "name": "Zadanie 4",
+      "description": "To zadanie jest udokumentowane przez Druzynowego 3 (333 pkt)",
+      "allowed_completition_frequency": "raz na grę",
+      "extra_prize": "diamentowy miecz",
+      "prize": 333
+   }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 5,
+    "fields": {
+      "name": "Zadanie 5",
+      "description": "To zadanie jest udokumentowane przez Druzynowego 2 i nie zaakceptowane pzrez Druzynowego 1 (222 pkt)",
+      "allowed_completition_frequency": "raz na grę",
+      "extra_prize": "kula",
+      "prize": 222
+   }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 6,
+    "fields": {
+      "name": "Zadanie 6",
+      "description": "To zadanie jest udokumentowane przez Druzynowego 2 i  zaakceptowane pzrez Druzynowego 1 (111 pkt)",
+      "allowed_completition_frequency": "raz na grę",
+      "extra_prize": "piłka",
+      "prize": 111
+   }
   },
   {
     "model": "tasks.documentedtask",
@@ -28,11 +71,61 @@
     }
   },
   {
+    "model": "tasks.documentedtask",
+    "pk": 2,
+    "fields": {
+      "task": 2,
+      "user": 2
+    }
+  },  
+  {
+    "model": "tasks.documentedtask",
+    "pk": 3,
+    "fields": {
+      "task": 4,
+      "user": 3
+    }
+  },
+  {
+    "model": "tasks.documentedtask",
+    "pk": 4,
+    "fields": {
+      "task": 5,
+      "user": 2
+    }
+  },
+  {
+    "model": "tasks.documentedtask",
+    "pk": 5,
+    "fields": {
+      "task": 6,
+      "user": 2
+    }
+  },
+  {
     "model": "tasks.taskapproval",
     "pk": 1,
     "fields": {
       "documented_task": 1,
-      "approver": 3
+      "approver": 3,
+      "is_accepted": true
+    }
+  },
+  {
+    "model": "tasks.taskapproval",
+    "pk": 4,
+    "fields": {
+      "documented_task": 4,
+      "approver": 1
+    }
+  },
+  {
+    "model": "tasks.taskapproval",
+    "pk": 5,
+    "fields": {
+      "documented_task": 5,
+      "approver": 1,
+      "is_accepted": true
     }
   }
 ]
