@@ -29,11 +29,19 @@ class Scout(models.Model):
     """
     Harcerz (jako dodatkowe atrybuty użytkownika)
     """
+    RANK_CHOICES = [
+        ('bezstopnia', 'bez stopnia'),
+        ('mlodzik', 'młodzik'),
+        ('wywiadowca', 'wywiadowca'),
+        ('cwik', 'ćwik'),
+        ('ho', 'HO'),
+        ('hr', 'HR'),
+    ]
     user = models.OneToOneField(HarcgameUser, on_delete=models.CASCADE)
     initials = models.CharField(max_length=3)
     patrol = models.ForeignKey(Patrol, on_delete=models.RESTRICT, null=True, default=None, related_name='scouts')
     team = models.ForeignKey(Team, on_delete=models.RESTRICT, null=True, default=None, related_name='scouts')
-    rank = models.CharField(max_length=20)
+    rank = models.CharField(max_length=20, choices=RANK_CHOICES, default='bezstopnia')
     is_patrol_leader = models.BooleanField(default=False)
     is_team_leader = models.BooleanField(default=False)
 
