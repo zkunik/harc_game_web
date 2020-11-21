@@ -83,8 +83,15 @@ def pick_approver(user):
     ]
 
     # pick one with least tasks to approve
-    task_approval_count = {approver.id: 0 for approver in available_approvers}
-    for task_approval in TaskApproval.objects.filter(approver__in=available_approvers).values():
+    if available_approvers:
+        approvers = available_approvers
+    elif not_available_approvers:
+        approvers = not_available_approvers
+    else:
+        return None
+
+    task_approval_count = {approver.id: 0 for approver in approvers}
+    for task_approval in TaskApproval.objects.filter(approver__in=approvers).values():
         task_approval_count[task_approval['approver_id']] += 1
 
     return HarcgameUser.objects.get(id=min(task_approval_count, key=task_approval_count.get))
