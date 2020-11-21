@@ -10,27 +10,27 @@
 
 {% endblock %}
 
-{% block content %}    
+{% block content %}
 
     {% for week in weeks %}
 
         <h3>{{ week }}</h3>
 
         <h4>Punkty</h4>
-    
+
         {% for prize in prizes %}
             {% if prize.year_week == week and prize.accrual_for_a_week %}
                 <p>/pay {{ prize.nickname }} {{ prize.accrual_for_a_week }}</p>
             {% endif %}
-        {% endfor %}    
+        {% endfor %}
 
         <h4>Przedmioty</h4>
 
         {% for account in bank %}
-            {% if account.year_week == week and account.extra_prize %}
+            {% if account.year_week == week and account.accrual_extra_prize %}
                 <p>/give {{ account.user.nickname }} {{ account.accrual_extra_prize }}</p>
             {% endif %}
-        {% endfor %}   
+        {% endfor %}
 
         <hr>
 
@@ -44,29 +44,32 @@
 
     <table id="bank_report">
     <tr>
-        <td>date_accrued</td> 
-        <td>year_week</td> 
-        <td>user.nickname</td> 
-        <td>documented_task</td> 
-        <td>documented_task.task.prize</td>
+        <td>date year_week</td>
+        <td>user.nickname</td>
+        <td>documented_task</td>
         <td>accrual_type</td>
+    </tr>
+    <tr>
+        <td>prize</td>
         <td>tax</td>
-        <td>accrual</td> 
-        <td>accrual_extra_prize</td>
+        <td>accrual</td>
+        <td>extra_prize</td>
     </tr>
     {% for account in bank %}
         <tr>
-            <td>{{ account.date_accrued }}</td> 
-            <td>{{ account.year_week }}</td> 
-            <td>{{ account.user.nickname }}</td> 
-            <td>{{ account.documented_task }}</td>
-            <td>{{ account.documented_task.task.prize }}</td> 
+            <td>{{ account.date_accrued|date:"d/m" }}<br>
+                {{ account.year_week }}</td>
+            <td>{{ account.user.nickname }}</td>
+            <td>{{ account.documented_task.task.name }}</td>
             <td>{{ account.accrual_type }}</td>
+        </tr>
+        <tr>
+            <td>{{ account.documented_task.task.prize }}</td>
             <td>{{ account.user.scout.team.tax }}</td>
-            <td>{{ account.accrual }}</td> 
+            <td>{{ account.accrual }}</td>
             <td>{{ account.accrual_extra_prize }}</td>
         </tr>
     {% endfor %}
-    </table>    
+    </table>
 
 {% endblock %}
