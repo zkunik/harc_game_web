@@ -1,0 +1,9 @@
+version: "3"
+services:
+    harc_game_web:
+        build: .
+        command: make run
+        ports:
+            - "8000:8000"
+        volumes:
+            - "./harc_game_web:/app/harc_game_web"
