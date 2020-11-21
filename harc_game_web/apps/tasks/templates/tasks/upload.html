@@ -39,11 +39,11 @@
 
         <div class="field">
             <div class="control">
-                <button type="submit" class="btn btn-success">Wyślij potwierdzenie wykonania zadania</button>
+                <button type="submit" class="rpgui-button">Wyślij potwierdzenie wykonania zadania</button>
             </div>
         </div>
     </form>
-
+  <hr class="golden">
   <h1 class="title">
     Twoje wykonane zadania
   </h1>
@@ -55,6 +55,7 @@
     <tr><td>Czy zaakceptowano</td><td>{{ task.taskapproval.is_accepted|yesno:"Tak,Nie" }}</td></tr>
     <tr><td>Komentarz od sprawdzającego</td><td>{{ task.taskapproval.comment_from_approver }}</td></tr>
   </table>
+  <hr>
   <br>
   {% endfor %}
 
