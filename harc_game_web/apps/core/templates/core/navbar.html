@@ -1,24 +1,24 @@
-<div class="rpgui-container framed" style="position: fixed; left:0; top: 0;">
+<div class="inner rpgui-container framed" style="position: relative">
 
   <a href="{% url 'frontpage' %}"><h2>HARCAPO</h2></a>
 
   {% if request.user.is_authenticated %}
-    <a href="{% url 'logout' %}">Wyloguj się</a>
-    <a href="{% url 'complete_task' %}">Potwierdź wykonanie zadania</a>
+  <a href="{% url 'logout' %}">Wyloguj się</a>
+  <a href="{% url 'complete_task' %}">Potwierdź wykonanie zadania</a>
   {% else %}
-    <a href="{% url 'signup' %}">Załóż konto</a>
-    <a href="{% url 'login' %}">Zaloguj się</a>
+  <a href="{% url 'signup' %}">Załóż konto</a>
+  <a href="{% url 'login' %}">Zaloguj się</a>
   {% endif %}
 
-    <a href="{% url 'word_of_the_day' %}">Hasło dnia</a>
-    <a href="{% url 'all_teams' %}">Drużyny</a>
+  <a href="{% url 'word_of_the_day' %}">Hasło dnia</a>
+  <a href="{% url 'all_teams' %}">Drużyny</a>
 
-    {% if request.user.scout.is_team_leader %}
-    <a href="{% url 'check_task' %}">Sprawdź zadanie</a>
-    {% endif %}
+  {% if request.user.scout.is_team_leader %}
+  <a href="{% url 'check_task' %}">Sprawdź zadanie</a>
+  {% endif %}
 
   {% if request.user.is_superuser %}
-    <a href="{% url 'all_posts' %}">Posty</a>
+  <a href="{% url 'all_posts' %}">Posty</a>
   {% endif %}
 
 </div>

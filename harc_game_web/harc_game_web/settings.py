@@ -82,6 +82,10 @@ TEMPLATES = [
     },
 ]
 
+STATIC_URL = '/static/'
+# STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
 WSGI_APPLICATION = 'harc_game_web.wsgi.application'
 
 
