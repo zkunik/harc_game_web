@@ -56,10 +56,14 @@ def team_leader_check(user):
 class CheckTaskForm(forms.ModelForm):
     class Meta:
         model = TaskApproval
-        fields = ['is_accepted', 'comment_from_approver']
+        fields = ['documented_task', 'is_accepted', 'comment_from_approver']
         labels = {
-            "is_accepted": "Czy zadanie jest zaakceptowane?",
-            "comment_from_approver": "Twój komentarz"
+            "is_accepted": "Czy zatwierdzasz zadanie?",
+            "comment_from_approver": "Twój komentarz",
+            "documented_task": ""
+        }
+        widgets = {
+            "documented_task": forms.HiddenInput()
         }
 
 

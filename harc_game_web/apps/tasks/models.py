@@ -39,16 +39,16 @@ class DocumentedTask(models.Model):
     """
     Model udokumentowanego wykonanego zadania
     """
-    task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None, related_name='documented_tasks')
+    task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
     date_completed = models.DateTimeField(default=timezone.now)
     comment_from_user = models.TextField(max_length=400, null=True, default="", blank=True)
     file1 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file1')
     file2 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file2')
     file3 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file3')
-    link1 = models.CharField(max_length=400, null=True, default="", blank=True)
-    link2 = models.CharField(max_length=400, null=True, default="", blank=True)
-    link3 = models.CharField(max_length=400, null=True, default="", blank=True)
+    link1 = models.URLField(max_length=400, null=True, default="", blank=True)
+    link2 = models.URLField(max_length=400, null=True, default="", blank=True)
+    link3 = models.URLField(max_length=400, null=True, default="", blank=True)
 
     def __str__(self):
         return f'{self.task} - completed by {self.user}'
@@ -58,7 +58,7 @@ class TaskApproval(models.Model):
     """
     Model zatwierdzania zadania (jako dodatkowe atrybuty udokumentowanego wykonania zadania
     """
-    documented_task = models.OneToOneField(DocumentedTask, on_delete=models.CASCADE, related_name='taskapproval')
+    documented_task = models.OneToOneField(DocumentedTask, on_delete=models.CASCADE)
     approver = models.ForeignKey(
         HarcgameUser, on_delete=models.RESTRICT, null=True, default=None
     )
