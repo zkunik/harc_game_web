@@ -24,7 +24,10 @@ class WordOfTheDayView(View):
         - Removing leading and trailing whitespace.
         - Replacing any whitespace or repeated dashes with single dashes.
         """
-        return slugify(word.answer) == slugify(guess)
+        try:
+            return slugify(word.answer) == slugify(guess)
+        except AttributeError:
+            return False
 
     def get(self, request, *args, **kwargs):
         """

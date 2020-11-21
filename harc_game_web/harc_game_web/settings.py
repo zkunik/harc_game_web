@@ -11,23 +11,20 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env(
+    DEBUG=(bool, False),
+    ALLOWED_HOSTS=(list, [])
+)
+env.read_env(env.str('ENV_PATH',  str(BASE_DIR / '.env.dev')))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9sdw28e8_k_)ced#(!u$^1o%u&r+nmx*d#4qzl_6*35bj-_^3j'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# TODO: change it when in prd
-DEBUG = True
-
-# TODO: change it when in prd
-ALLOWED_HOSTS = ["*"]
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env("DEBUG")
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'frontpage'

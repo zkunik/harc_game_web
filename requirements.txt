@@ -1,2 +1,3 @@
 django
 django-chunked-upload
+django-environ

@@ -5,7 +5,6 @@ PROJECT_DIR = harc_game_web
 venv:
 	python3 -m virtualenv ./$(VENV_NAME)
 	. ./$(VENV_ACTIVATE_PATH) && \
-	python3 -m pip install pip --upgrade && \
 	python3 -m pip install -r requirements.txt
 
 dev-migrate: venv
@@ -20,6 +19,14 @@ dev-populate-db-examples: venv
 	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json --exclude teams --exclude users
 
 dev-prepare: dev-migrate dev-populate-db-examples
+
+populate-db: venv
+	. ./$(VENV_ACTIVATE_PATH) && \
+	python3 utils/convert_tasks.py $(PROJECT_DIR)/apps/tasks/fixtures/base_db.csv && \
+	python3 utils/convert_passwords.py $(PROJECT_DIR)/apps/wotd/fixtures/base_db.csv && \
+	python3 $(PROJECT_DIR)/manage.py loaddata base_db.json
+
+prepare: dev-migrate populate-db
 
 run: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
