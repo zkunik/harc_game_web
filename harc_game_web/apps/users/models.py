@@ -47,8 +47,8 @@ class Scout(models.Model):
         # import is here, otherwise we have a cyclic import
         from apps.tasks.models import Task, DocumentedTask, TaskApproval
 
-        score = Task.objects.filter(documentedtasks__user=self.user).\
-                             filter(documentedtasks__taskapproval__is_accepted=True).\
+        score = Task.objects.filter(documentedtask__user=self.user).\
+                             filter(documentedtask__taskapproval__is_accepted=True).\
                              aggregate(Sum('prize'))['prize__sum']
 
         return score if score != None else 0

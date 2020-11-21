@@ -39,11 +39,12 @@ class WordOfTheDayView(View):
         # Firltrowanie pro datach
         words_of_the_past = WordOfTheDay.objects.all().exclude(date__gte = timezone.now()).order_by(F('date').desc(nulls_last=True))
         try:
-            word_of_the_day = WordOfTheDay.objects.get(date = timezone.now())
+            # we will not use get but filter, otherwise if by mistake there are two words a day, we will get MultipleObjectsReturned
+            word_of_the_day = WordOfTheDay.objects.filter(date = timezone.now()).first()
         except ObjectDoesNotExist:
             word_of_the_day = WordOfTheDay()
         try:
-            word_for_tomorrow = WordOfTheDay.objects.get(date = timezone.now() + datetime.timedelta(days=1))
+            word_for_tomorrow = WordOfTheDay.objects.filter(date = timezone.now() + datetime.timedelta(days=1)).first()
         except ObjectDoesNotExist:
             word_for_tomorrow= WordOfTheDay()
         today_guess = request.GET.get('today_guess', '')
