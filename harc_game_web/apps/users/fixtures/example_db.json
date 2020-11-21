@@ -1,52 +1,73 @@
 [
   {
-    "model": "users.team",
+    "model": "users.harcgameuser",
     "pk": 1,
     "fields": {
-      "name": "Drużyna 1",
-      "colors": "biało-niebieski",
-      "tax": "0.1"
+      "email": "druzynowy1@harcapo.pl",
+      "nickname": "Drużynowy 1",
+      "is_active": true,
+      "date_joined": "2020-11-15 00:00:00+01:00"
     }
   },
   {
-    "model": "users.team",
-    "pk": 2,
-    "fields": {
-      "name": "Drużyna 2",
-      "colors": "czarno-zielony",
-      "tax": "0.2"
-    }
-  },
-  {
-    "model": "users.patrol",
+    "model": "users.scout",
     "pk": 1,
     "fields": {
-      "name": "Zastęp 1 drużyny 1",
-      "team": 1
+      "user": 1,
+      "initials": "DR1",
+      "team": 1,
+      "rank": "hehe",
+      "is_team_leader": true
     }
   },
   {
-    "model": "users.patrol",
+    "model": "users.harcgameuser",
     "pk": 2,
     "fields": {
-      "name": "Zastęp 2 drużyny 1",
-      "team": 1
+      "email": "druzynowy2@harcapo.pl",
+      "nickname": "Drużynowy 2",
+      "is_active": true,
+      "date_joined": "2020-11-15 00:00:00+01:00"
     }
   },
   {
-    "model": "users.patrol",
+    "model": "users.scout",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "initials": "DR2",
+      "team": 2,
+      "rank": "hehe",
+      "is_team_leader": true
+    }
+  },
+  {
+    "model": "users.harcgameuser",
     "pk": 3,
     "fields": {
-      "name": "Zastęp 1 drużyny 2",
-      "team": 2
+      "email": "druzynowy3@harcapo.pl",
+      "nickname": "Drużynowy 3",
+      "is_active": true,
+      "date_joined": "2020-11-16 00:00:00+01:00"
     }
   },
   {
-    "model": "users.patrol",
-    "pk": 4,
+    "model": "users.scout",
+    "pk": 3,
     "fields": {
-      "name": "Zastęp 2 drużyny 2",
-      "team": 2
+      "user": 3,
+      "initials": "DR3",
+      "team": 3,
+      "rank": "hehe",
+      "is_team_leader": true
+    }
+  },
+  {
+    "model": "users.freeday",
+    "pk": 1,
+    "fields": {
+      "user": 3,
+      "day": "2020-11-16"
     }
   }
 ]

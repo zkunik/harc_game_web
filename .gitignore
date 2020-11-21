@@ -7,3 +7,4 @@ harc_game_web/db.sqlite3
 !**/migrations/__init__.py
 media/
 .DS_Store
+.editorconfig

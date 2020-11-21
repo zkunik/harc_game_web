@@ -1,0 +1,69 @@
+[
+  {
+    "model": "teams.team",
+    "pk": 1,
+    "fields": {
+      "name": "Drużyna 1",
+      "colors": "biało-niebieski",
+      "tax": "0.1"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 2,
+    "fields": {
+      "name": "Drużyna 2",
+      "colors": "czarno-zielony",
+      "tax": "0.2"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 3,
+    "fields": {
+      "name": "Drużyna 3",
+      "colors": "biało-zielony",
+      "tax": "0.3"
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 1,
+    "fields": {
+      "name": "Zastęp 1 drużyny 1",
+      "team": 1
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 2,
+    "fields": {
+      "name": "Zastęp 2 drużyny 1",
+      "team": 1
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 3,
+    "fields": {
+      "name": "Zastęp 1 drużyny 2",
+      "team": 2
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 4,
+    "fields": {
+      "name": "Zastęp 2 drużyny 2",
+      "team": 2
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 5,
+    "fields": {
+      "name": "Zastęp 1 drużyny 3",
+      "team": 3
+    }
+  }
+]

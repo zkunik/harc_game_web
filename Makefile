@@ -15,7 +15,9 @@ dev-migrate: venv
 
 dev-populate-db-examples: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
-	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json
+	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json --app teams && \
+	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json --app users && \
+	python3 $(PROJECT_DIR)/manage.py loaddata example_db.json --exclude teams --exclude users
 
 dev-prepare: dev-migrate dev-populate-db-examples
 
@@ -27,11 +29,15 @@ test: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
 	python3 $(PROJECT_DIR)/manage.py test harc_game_web
 
+shell: venv
+	. ./$(VENV_ACTIVATE_PATH) && \
+	python3 $(PROJECT_DIR)/manage.py shell
+
 clean-media:
 	rm -rf $(PROJECT_DIR)/media/
 
 clean-db:
-	find harc_game_web/ -type f | grep migrations | grep -v __init__.py | xargs -r rm && \
+	find harc_game_web/ -type f | grep migrations | (grep -v __init__.py || echo :) | xargs rm && \
 	rm -f $(PROJECT_DIR)/db.sqlite3
 
 clean: clean-media clean-db

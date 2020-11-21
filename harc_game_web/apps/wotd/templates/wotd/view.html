@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+    {% comment %}
+
+        Zawartość 
+            Dzisiejsze hasło dnia (word_of_the_day)
+            Jutrzejsze hasło dnia (word_for_tomorrow)
+            Formularz do sprawdzania poprawności hasła dnia
+            Poprzednie hasła dnia z odpowiedziami (words_of_the_past)
+
+    {% endcomment %}
+
+    <center> 
+        {% if word_of_the_day.question|length > 0 %}
+            <h3>Dzisiejsze pytanie:</h3> 
+            <p>{{ word_of_the_day.question|safe }}</p>
+            <p><strong><a href="{{ word_of_the_day.hint }}">Podpowiedź</a></strong></p>
+            {% if today_guess_is_correct %}
+                <h3>Brawo! <mark>{{today_guess}}</mark> to prawidłowa odpowiedź. Teraz ruszaj, by wykonać zadania!</h3>
+            {% else %}
+                {% if today_guess != '' %}
+                    <h3>No niestety <i><mark>{{today_guess}}</mark></i> to nie to czego bym się spodziewał...</h3>
+                {% else %}
+                    <h3>Znasz już odpowiedź? Sprawdź...</h3>
+                {% endif %}
+                <form action="" method="get">
+                    {% csrf_token %}
+                    <label for="today_guess">Hasło to:</label>
+                    <input type="text" id="today_guess" name="today_guess"><br><br>
+                    <input type="submit" value="Sprawdź dzisiejsze hasło" class="btn btn-default navbar-btn"></td>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        {% if word_for_tomorrow.question|length > 0 %}
+            <hr>
+            <h3>Jutrzejsze pytanie:</h3> 
+            <p>{{ word_for_tomorrow.question|safe }}</p>
+            <p><strong><a href="{{ word_for_tomorrow.hint }}">Podpowiedź</a></strong></p>
+            {% if tomorow_guess_is_correct %}
+                <h3>Brawo! <mark>{{tomorrow_guess}}</mark> to prawidłowa odpowiedź na jutro!</h3>
+            {% else %}
+                {% if tomorrow_guess != '' %}
+                    <h3>No niestety <i><mark>{{tomorrow_guess}}</mark></i> to nie to. Ale masz jeszcze czas...</h3>
+                {% else %}
+                    <h3>Znasz już odpowiedź? Sprawdź...</h3>
+                {% endif %}
+                <form action="" method="get">
+                    {% csrf_token %}
+                    <label for="tomorrow_guess">Hasło to:</label>
+                    <input type="text" id="tomorrow_guess" name="tomorrow_guess"><br><br>
+                    <input type="submit" value="Sprawdź hasło na jutro" class="btn btn-default navbar-btn"></td>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        {% if words_of_the_past|length > 0 %}
+            <hr>
+            <h3>Poprzednie pytania:</h3>
+            {% for word in words_of_the_past %} 
+                <hr>
+                <h4>{{ word.date }}</h4>
+                <p>{{ word.question|safe }}</p>
+                <p><a href="{{ word.hint }}">Podpowiedź</a></p>
+                <p>Prawidłowa odpowiedź: <strong>{{ word.answer }}</strong></p>
+            {% empty %}
+                <p>No, nic jeszcze nie straciłeś</p>
+            {% endfor %}
+        {% endif %}
+    </center>
+
+{% endblock %}
