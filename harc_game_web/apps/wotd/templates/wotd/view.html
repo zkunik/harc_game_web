@@ -65,10 +65,13 @@
                 <p>{{ word.question|safe }}</p>
                 <p><a href="{{ word.hint }}">Podpowiedź</a></p>
                 <p>Prawidłowa odpowiedź: <strong>{{ word.answer }}</strong></p>
-            {% empty %}
-                <p>No, nic jeszcze nie straciłeś</p>
             {% endfor %}
         {% endif %}
+
+        {% if word_of_the_day.question|length is 0 and word_for_tomorrow.question|length is 0 and  words_of_the_past|length is 0 %}
+            <p>Nic jeszcze nie straciłeś</p>
+        {% endif %}
+
     </center>
 
 {% endblock %}

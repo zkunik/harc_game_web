@@ -9,3 +9,4 @@ media/
 .DS_Store
 .editorconfig
 harc_game_web/.env.prod
+*.pyc

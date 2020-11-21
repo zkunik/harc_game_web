@@ -1,0 +1,102 @@
+[
+{
+    "model": "wotd.wordoftheday",
+    "pk": 1,
+    "fields": {
+        "question": "W 1956 roku w POznaniu na ulice wyszli robotnicy by pokaza\u0107 sw\u00f3j sprzeciw wobec w\u0142adz komunistycznych. By\u0142 to pierwszy po wojnie strajk robotniczy wywo\u0142any wprowadzeniem niekorzystnego dla robotnik\u00f3w systemu p\u0142ac. 28 i 29 czerwca 1956 r. w Poznaniudosz\u0142o do robotniczych protest\u00f3w, kt\u00f3re przerodzi\u0142y si\u0119 w walki uliczne. W\u0142adze komunistyczne do ich st\u0142umienia u\u017cy\u0142y wojska. W konsekwencji \u015bmier\u0107 ponios\u0142o co najmniej 79 os\u00f3b, rannych by\u0142o ponad 600. Do t\u0142umienia protest\u00f3w komuni\u015bci zaanga\u017cowali kilka dywizji pancernych i piechoty w sile 10 tys. \u017co\u0142nierzy i prawie 360 czo\u0142g\u00f3w. O tych wydarzeniach opowiada piosenka Elekrtycznych Gitar pod nazw\u0105 Poz\u0144a\u0144ski Czerwiec. Jakiego karabinu u\u017cyto wobec protestuj\u0105cych wed\u0142ug Elektrycznych Gitar?   ",
+        "hint": "https://www.youtube.com/watch?v=x0r_-sUmqTw",
+        "answer": "ka\u0142asznikow",
+        "date": "2020-11-23"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 2,
+    "fields": {
+        "question": "Jak si\u0119 nazywa\u0142a si\u0119 druga akcja rozpoznawcza przeprowadzona przez harcerki i harcerzy z Tajnego Hufca Harcerzy z Gdyni podczas II wojny \u015bwiatowej?",
+        "hint": "https://tvn24.pl/pomorze/gdynia-upamietnienie-tajnego-hufca-harcerzy-i-akcji-b1-oraz-b2-ra994161-2607897",
+        "answer": "B2",
+        "date": "2020-11-24"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 3,
+    "fields": {
+        "question": "Najwi\u0119kszy strajk/protest przeciw w\u0142adzy komunistycznej przeszed\u0142 mia\u0142 miejsce w 1960 roku i przeszed\u0142 do historii pod nazw\u0105 Wydarze\u0144 Zielonog\u00f3rskich.Do walki z w\u0142adz\u0105 stan\u0119\u0142o prawie 5 tys. os\u00f3b.Ca\u0142a bitwa toczy\u0142a sie o katolicki.....?",
+        "hint": "https://www.youtube.com/watch?v=Bo7LLY50Zhg",
+        "answer": "dom",
+        "date": "2020-11-25"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 4,
+    "fields": {
+        "question": "O historii mo\u017cna dowiadywa\u0107 si\u0119 nie tylko na lekcjach czy z relacji \u015bwiadk\u00f3w. Coraz cz\u0119\u015bciej r\u00f3\u017cnego rodzaju tw\u00f3rcy, piosenkarze podejmuj\u0105 tematy historyczne. Jest taka ballada, kt\u00f3ra m\u00f3wi o m\u0142odym ch\u0142opcu zastrzelonym 17 grudnia 1970 roku. Tego dnia za\u0142oga Stoczni Gdy\u0144skiej po zako\u0144czeniu dzie\u0144 wcze\u015bniej strajku zosta\u0142a ostrzelana rankiem w drodze do pracy. Autor ballady, nie znaj\u0105c rzeczywistych personali\u00f3w zabitego, nazwa\u0142 go Janek Wi\u015bniewski. Rzeczywi\u015bcie nazywa\u0142 si\u0119 Zbigniew Godlewski i zosta\u0142 zastrzelony w trakcie star\u0107 w rejonie stacji Szybkiej Kolei Miejskiej Gdynia Stocznia. Jego cia\u0142o zosta\u0142o przeniesione na czele pochodu ulicami Gdyni. Temat muzycznie zosta\u0142 podj\u0119ty m.in. przez Kazika. Co zrobi\u0142 Janek Wi\u015bniewski w jego piosence?",
+        "hint": "https://www.youtube.com/watch?v=uw9VRnfl9no",
+        "answer": "pad\u0142",
+        "date": "2020-11-26"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 5,
+    "fields": {
+        "question": "W walce o niezalezno\u015bc harcerstwa jako Zielona G\u00f3ra r\u00f3wnie\u017c mamy sw\u00f3j udzia\u0142. Noc\u0105 4 pa\u017adziernika 1979 r.  instruktorzy z Zielonej G\u00f3ry, Krzeszowic i SKar\u017cyska Kamiennej zawi\u0105zali konspiracyjny Zwi\u0105zek Wolnego Harcerstwa Polskiego. Przyj\u0119to tak\u017ce dodatkowy kryptonim organizacji na wz\u00f3r \u201eSzarych Szereg\u00f3w\u201d z okresu II wojny \u015bwiatowej. By\u0142y to Szare...........?",
+        "hint": "https://krakow.ipn.gov.pl/pl4/edukacja/przystanek-historia/95481,Zwiazek-Wolnego-Harcerstwa-Polskiego-Szare-Polowki.html",
+        "answer": "pol\u00f3wki",
+        "date": "2020-11-27"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 6,
+    "fields": {
+        "question": "w tym roku Ma\u0142kowski wyda\u0142 pierwszy rozkaz powo\u0142uj\u0105cy pierwsze skautowe dru\u017cyny. Jaki to by\u0142 rok?",
+        "hint": "https://www.youtube.com/watch?v=Xwl-QLpiAvM",
+        "answer": "1911",
+        "date": "2020-11-28"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 7,
+    "fields": {
+        "question": "Jak nazywa\u0142 si\u0119 ob\u00f3z konentracyjny, w kt\u00f3rym zgin\u0105\u0142 patron polskiego harcerstwa Stefan Wincenty Frelichowski?",
+        "hint": "https://www.youtube.com/watch?v=MZgGIC62bVw",
+        "answer": "Dachau",
+        "date": "2020-11-29"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 8,
+    "fields": {
+        "question": "Powiedzcie mojej babci, \u017ce zachowa\u0142am si\u0119 jak trzeba to ostatnie s\u0142owa 17-letniej Danuty Siedzik\u00f3wny z grypsu przemycowanego z wi\u0119zienia. BY\u0142a to \u0142\u0105czniczka w oddziale z\u0142o\u017conym z tzw. \u017co\u0142nierzy wykletych. Jaki nosi\u0142a pseudonim?",
+        "hint": "https://www.youtube.com/watch?v=QvqLy88OPJ4",
+        "answer": "Inka",
+        "date": "2020-11-30"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 9,
+    "fields": {
+        "question": "W harcerrstwie niczym w pi\u0142ce no\u017cnej dochodzi do transfer\u00f3w, kt\u00f3re najpierw skrywane w ko\u0144cu wychodz\u0105 na jaw. Transfery przynajmniej te najlepsze maj\u0105 na celu os\u0142abienie przeciwnika i wzmocnienie swojej dru\u017cyny. Jaki pseudonim nosi gwiazda polskiego youtuba, by\u0142y hufcowy ZHP i aktualny dru\u017cynowy Duktu?",
+        "hint": "https://www.youtube.com/watch?v=DC2Op5aap9c",
+        "answer": "Borsuk",
+        "date": "2020-12-01"
+    }
+},
+{
+    "model": "wotd.wordoftheday",
+    "pk": 10,
+    "fields": {
+        "question": "Zielonog\u00f3rscy harcerze gdy zabieraj\u0105 si\u0119 ju\u017c za sadzenie lasu robi\u0105 to w okre\u015blony spos\u00f3b. Poki co akcja mia\u0142a miejsce tylko dwa razy ale mamy ju\u017c dwa swoje rejony z nowo posadzonym lasem w charakterystycznym kszta\u0142cie. Co wychodzi z kszta\u0142tu lasu jaki sadzimy?",
+        "hint": "https://www.facebook.com/media/set/?set=a.484722331627996.1073741834.266666140100284&type=1",
+        "answer": "lilijka",
+        "date": "2020-12-02"
+    }
+}
+]
