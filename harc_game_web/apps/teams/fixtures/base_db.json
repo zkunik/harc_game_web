@@ -1,0 +1,244 @@
+[
+  {
+    "model": "teams.team",
+    "pk": 1,
+    "fields": {
+      "name": "45 Zielonogórska Drużyna Harcerzy im. Wigierczyków",
+      "short_name": "45 ZDH",
+      "colors": "ciemnozielony",
+      "tax": "0.1"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 2,
+    "fields": {
+      "name": "30 Zielonogórska Drużyna Harcerzy “Orlęta” im. Cichociemnych",
+      "short_name": "30 ZDH",
+      "colors": "granatowy-biały",
+      "tax": "0.1"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 3,
+    "fields": {
+      "name": "31 Zielonogórska Drużyna Harcerzy “Pająki” im. A. Małkowskiego",
+      "short_name": "31 ZDH",
+      "colors": "granatowy-żółty",
+      "tax": "0.1"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 4,
+    "fields": {
+      "name": "17 Poznańska Drużyna Harcerzy",
+      "short_name": "17 PDH",
+      "colors": "biały-czerwony",
+      "tax": "0.1"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 5,
+    "fields": {
+      "name": "9 Zielonogórska Drużyna Harcerzy “Dukt-Zawisza”",
+      "short_name": "9 ZDH",
+      "colors": "czarny-biały",
+      "tax": "0.2"
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 1,
+    "fields": {
+      "name": "45 ZDH - Błyskawica",
+      "team": 1
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 2,
+    "fields": {
+      "name": "45 ZDH - Gryf",
+      "team": 1
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 3,
+    "fields": {
+      "name": "45 ZDH - Prokop",
+      "team": 1
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 4,
+    "fields": {
+      "name": "45 ZDH - bez zastępu",
+      "team": 1
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 5,
+    "fields": {
+      "name": "30 ZDH - Lewar",
+      "team": 2
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 6,
+    "fields": {
+      "name": "30 ZDH - Zapora",
+      "team": 2
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 7,
+    "fields": {
+      "name": "30 ZDH - Piorun",
+      "team": 2
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 8,
+    "fields": {
+      "name": "30 ZDH - Zastęp próbny",
+      "team": 2
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 9,
+    "fields": {
+      "name": "30 ZDH - bez zastępu",
+      "team": 2
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 10,
+    "fields": {
+      "name": "31 ZDH - Rysie",
+      "team": 3
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 11,
+    "fields": {
+      "name": "31 ZDH - Dziki",
+      "team": 3
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 12,
+    "fields": {
+      "name": "31 ZDH - Wilki",
+      "team": 3
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 13,
+    "fields": {
+      "name": "31 ZDH - Orły",
+      "team": 3
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 14,
+    "fields": {
+      "name": "31 ZDH - bez zastępu",
+      "team": 3
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 15,
+    "fields": {
+      "name": "17 PDH - Lew",
+      "team": 4
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 16,
+    "fields": {
+      "name": "17 PDH - Gryf",
+      "team": 4
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 17,
+    "fields": {
+      "name": "17 PDH - Bóbr",
+      "team": 4
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 18,
+    "fields": {
+      "name": "17 PDH - V próbny",
+      "team": 4
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 19,
+    "fields": {
+      "name": "17 PDH - bez zastępu",
+      "team": 4
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 20,
+    "fields": {
+      "name": "9 ZDH - Sokoły",
+      "team": 5
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 21,
+    "fields": {
+      "name": "9 ZDH - Kruki",
+      "team": 5
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 22,
+    "fields": {
+      "name": "9 ZDH - Muflony",
+      "team": 5
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 23,
+    "fields": {
+      "name": "9 ZDH - Próbny",
+      "team": 5
+    }
+  },
+  {
+    "model": "teams.patrol",
+    "pk": 24,
+    "fields": {
+      "name": "9 ZDH - bez zastępu",
+      "team": 5
+    }
+  }
+]
