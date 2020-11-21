@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+{% for category, tasks in tasks_grouped.items %}
+<h1>{{category}}</h1>
+
+{% for task in tasks %}
+<p>Nazwa: {{task.name}}</p>
+<p>Opis: {{task.description}}</p>
+<p>Jak często można wykonywać: {{task.allowed_completition_frequency}}</p>
+<p>Nagroda: {{task.prize}}</p>
+<p>Nagroda specjalna: {{task.extra_prize}}</p>
+
+<hr>
+{% endfor %}
+
+<hr class="golden">
+{% endfor %}
+
+
+{% endblock %}

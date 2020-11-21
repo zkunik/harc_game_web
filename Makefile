@@ -20,6 +20,10 @@ dev-populate-db-examples: venv
 
 dev-prepare: dev-migrate dev-populate-db-examples
 
+prd-populate-db:
+	. ./$(VENV_ACTIVATE_PATH) && \
+	python3 $(PROJECT_DIR)/manage.py loaddata base_db.json
+
 populate-db: venv
 	. ./$(VENV_ACTIVATE_PATH) && \
 	python3 utils/convert_tasks.py $(PROJECT_DIR)/apps/tasks/fixtures/base_db.csv && \
@@ -27,6 +31,8 @@ populate-db: venv
 	python3 $(PROJECT_DIR)/manage.py loaddata base_db.json
 
 prepare: dev-migrate populate-db
+
+prd-prepare: dev-migrate prd-populate-db
 
 run: venv
 	. ./$(VENV_ACTIVATE_PATH) && \

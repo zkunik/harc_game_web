@@ -26,6 +26,7 @@ class Task(models.Model):
     Model zadania
     """
     name = models.CharField(max_length=200)
+    category = models.CharField(max_length=100, default='', null=True)
     description = models.TextField(max_length=400)
     allowed_completition_frequency = models.CharField(max_length=200)
     prize = models.IntegerField(default=0, null=True)
@@ -83,8 +84,15 @@ def pick_approver(user):
     ]
 
     # pick one with least tasks to approve
-    task_approval_count = {approver.id: 0 for approver in available_approvers}
-    for task_approval in TaskApproval.objects.filter(approver__in=available_approvers).values():
+    if available_approvers:
+        approvers = available_approvers
+    elif not_available_approvers:
+        approvers = not_available_approvers
+    else:
+        return None
+
+    task_approval_count = {approver.id: 0 for approver in approvers}
+    for task_approval in TaskApproval.objects.filter(approver__in=approvers).values():
         task_approval_count[task_approval['approver_id']] += 1
 
     return HarcgameUser.objects.get(id=min(task_approval_count, key=task_approval_count.get))
