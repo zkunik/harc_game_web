@@ -1,23 +1,19 @@
+{% with task=task_approval.documented_task %}
+<table id="exam">
+  {% include "tasks/documented_task_table.html" %}
+</table>
+{% endwith %}
+
 <form action="." method="post">
   {% csrf_token %}
-
-  <p>Dodane przez: {{ task.documented_task.user.nickname }}</p>
-  <p>Komentarz: {{ task.documented_task.comment_from_user }}</p>
-  <p>Plik 1: {{ task.documented_task.file1 }}</p>
-  <p>Plik 2: {{ task.documented_task.file2 }}</p>
-  <p>Plik 3: {{ task.documented_task.file3 }}</p>
-  <p>Link 1: {{ task.documented_task.link1 }}</p>
-  <p>Link 2: {{ task.documented_task.link2 }}</p>
-  <p>Link 3: {{ task.documented_task.link3 }}</p>
-
   {{ form.non_field_errors }}
   {% for field in form %}
-    <div class="fieldWrapper">
-        {{ field.errors }}
-        {{ field.label_tag }} {{ field }}
-        {% endif %}
-    </div>
-{% endfor %}
+  <div class="fieldWrapper">
+    {{ field.errors }}
+    {{ field.label_tag }} {{ field }}
+  </div>
+  {% endfor %}
 
   <button class="btn btn-success" type="submit">Zapisz sprawdzenie zadania</button>
 </form>
+<br>

@@ -50,17 +50,10 @@
 
   {% for task in completed_tasks %}
   <table id="exam">
-    <tr><td>Nazwa zadania</td><td>{{ task.task.name }}</td></tr>
-    <tr><td>Data ukończenia</td><td>{{ task.date_completed }}</td></tr>
-    <tr><td>Dodane pliki 1</td><td>{{ task.file1.filename_orig }}</td></tr>
-    <tr><td>Dodane pliki 2</td><td>{{ task.file2.filename_orig }}</td></tr>
-    <tr><td>Dodane pliki 3</td><td>{{ task.file3.filename_orig }}</td></tr>
-    <tr><td>Dodane linki 1</td><td>{{ task.link1 }}</td></tr>
-    <tr><td>Dodane linki 2</td><td>{{ task.link2 }}</td></tr>
-    <tr><td>Dodane linki 3</td><td>{{ task.link3 }}</td></tr>
-    <tr><td>Nagroda</td><td>{{ task.task.prize }}</td></tr>
-    <tr><td>Nagroda specjalna</td><td>{{ task.task.extra_prize }}</td></tr>
-    <tr><td>Czy zaakceptowano</td><td>{{ task.is_accepted }}</td></tr>
+    {% include "tasks/documented_task_table.html" %}
+    <tr><td>Sprawdza zadanie</td><td>{{ task.taskapproval.approver.nickname }}</td></tr>
+    <tr><td>Czy zaakceptowano</td><td>{{ task.taskapproval.is_accepted|yesno:"Tak,Nie" }}</td></tr>
+    <tr><td>Komentarz od sprawdzającego</td><td>{{ task.taskapproval.comment_from_approver }}</td></tr>
   </table>
   <br>
   {% endfor %}

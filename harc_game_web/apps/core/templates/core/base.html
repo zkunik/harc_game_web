@@ -1,24 +1,35 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
 
-        <title>Harc game WEB</title>
+  <title>Harc game WEB</title>
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" 
-        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link href="{% static 'dist/rpgui.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css">
 
-        {% block headcontent %}
+  {% block headcontent %}
+  {% endblock %}
+
+</head>
+<body>
+<div class="rpgui-content">
+  <div id="container">
+    {% include "core/navbar.html" %}
+
+    <div class="inner rpgui-container framed" style="position: relative">
+      <section class="section">
+        {% block content %}
         {% endblock %}
+      </section>
+    </div>
 
-    </head>
-    <body>
-        {% include "core/navbar.html" %}
+  </div>
+</div>
 
-        <section class="section">
-            {% block content %}
-            {% endblock %}
-        </section>
-    </body>
+
+<script src="{% static 'dist/rpgui.js' %}"></script>
+</body>
 
 </html>

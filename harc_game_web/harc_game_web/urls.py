@@ -1,6 +1,8 @@
 """
 harc_game_web URL Configuration
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path
@@ -16,8 +18,8 @@ from apps.bank.views import BankReport
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', frontpage, name='frontpage'),
-    path('', list_active_posts, name='frontpage'),
+    path('', frontpage, name='frontpage'),
+   # path('', list_active_posts, name='frontpage'),
     path('signup/', signup, name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
@@ -45,5 +47,4 @@ urlpatterns = [
 
     # Bank & reporting
     path('report/', staff_member_required(BankReport.as_view()), name='bank_report'),
-
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
