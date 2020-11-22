@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.db.models import F
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.text import slugify
+from django.contrib import messages
 
 import datetime
 
@@ -50,15 +51,23 @@ class WordOfTheDayView(View):
             word_for_tomorrow = WordOfTheDay.objects.filter(date = timezone.now() + datetime.timedelta(days=1)).first()
         except ObjectDoesNotExist:
             word_for_tomorrow= WordOfTheDay()
+
         today_guess = request.GET.get('today_guess', '')
+        if today_guess:
+            if self.__verify(word_of_the_day, today_guess):
+                messages.success(request, f"Brawo! >{today_guess}< to prawidłowa odpowiedź. Teraz ruszaj, by wykonać zadania!")
+            else:
+                messages.info(request, f"No niestety >{today_guess}< to nie to czego bym się spodziewał...")
+
         tomorrow_guess = request.GET.get('tomorrow_guess', '')
+        if tomorrow_guess:
+            if self.__verify(word_of_the_day, tomorrow_guess):
+                messages.success(request, f"Brawo! >{tomorrow_guess}< to prawidłowa odpowiedź na jutro!")
+            else:
+                messages.info(request, f"No niestety >{tomorrow_guess}< to nie to. Ale masz jeszcze czas...")
 
         return render(request, 'wotd/view.html', {
             'words_of_the_past': words_of_the_past,
             'word_of_the_day': word_of_the_day,
             'word_for_tomorrow': word_for_tomorrow,
-            'today_guess': today_guess,
-            'today_guess_is_correct': self.__verify(word_of_the_day, today_guess),
-            'tomorrow_guess': tomorrow_guess,
-            'tomorrow_guess_is_correct': self.__verify(word_for_tomorrow, tomorrow_guess)
         })

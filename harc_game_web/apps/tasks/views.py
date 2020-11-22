@@ -8,10 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.core.exceptions import ValidationError
+from django.views import View
+from django.contrib import messages
 
 from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task
-from django.views import View
-
 
 class TaskView(View):
 
@@ -24,6 +25,14 @@ class TaskView(View):
 
 
 class CompleteTaskForm(forms.ModelForm):
+    def __init__(self, request, *args, **kwargs):
+        # https://stackoverflow.com/questions/291945/how-do-i-filter-foreignkey-choices-in-a-django-modelform
+        super (CompleteTaskForm,self ).__init__(*args,**kwargs) # populates the post
+        self.fields['task'].queryset = \
+            Task.objects.filter(id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)])
+        if self.fields['task'].queryset.count() == 0:
+            messages.info(request, f"Nie ma żadnych zadań, które możesz dziś wykonać")
+
     class Meta:
         model = DocumentedTask
         fields = ['task', 'comment_from_user', 'link1', 'link2', 'link3']
@@ -35,27 +44,31 @@ def complete_task(request):
     Function to handle completing Task by Scout - render and process form
     """
     if request.method == "POST":
-        form = CompleteTaskForm(request.POST)
+        form = CompleteTaskForm(request, request.POST)
 
         if form.is_valid():
             documented_task = form.save(commit=False)
             documented_task.user = request.user
 
-            uploaded_files = []
-            for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
-                upload_id = request.POST[upload_id_field]
-                if upload_id != '':
-                    file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
-                else:
-                    file = None
-                uploaded_files.append(file)
-            documented_task.file1 = uploaded_files[0]
-            documented_task.file2 = uploaded_files[1]
-            documented_task.file3 = uploaded_files[2]
-            documented_task.save()
+            if documented_task.task.can_be_completed_today(request.user):
+                # Process uploaded files
+                uploaded_files = []
+                for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
+                    upload_id = request.POST[upload_id_field]
+                    if upload_id != '':
+                        file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
+                    else:
+                        file = None
+                    uploaded_files.append(file)
+                documented_task.file1 = uploaded_files[0]
+                documented_task.file2 = uploaded_files[1]
+                documented_task.file3 = uploaded_files[2]
+                documented_task.save()
+            else:
+                messages.error(request, f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
 
     else:
-        form = CompleteTaskForm()
+        form = CompleteTaskForm(request)
     completed_tasks = DocumentedTask.objects.filter(user=request.user)
     return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
 
