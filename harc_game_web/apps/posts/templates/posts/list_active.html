@@ -2,13 +2,6 @@
 
 {% block headcontent %}
 
-	<style>
-	hr.bold {
-	  border: 10px solid whitesmoke;
-	  border-radius: 5px;
-	}
-	</style>
-
 {% endblock%}
 
 {% block content %}
@@ -20,18 +13,17 @@
 
 	{% for post in posts %}
 		<h3>
-			<a href="/posts/view/{{post.slug}}">{{ post|capfirst }}</a>
+			<a href="/posts/view/{{post.slug}}">{{ post.title|capfirst }}</a>
 		</h3>
 		<p>
 			<span>Opublikowany: {{ post.pub_date_time }} </span> |
 			<span>Przez: {{post.user}} </span>
 		</p>
-		<hr>
 		<p>{{ post.content|safe }}</p>
 		<p>
-			{% if post.link1 %}<p>Link 1: <a href={{post.link1}}>{{post.link1}}</a></p>{% endif %}
-			{% if post.link2 %}<p>Link 2: <a href={{post.link2}}>{{post.link2}}</a></p>{% endif %}
-			{% if post.link3 %}<p>Link 3: <a href={{post.link3}}>{{post.link3}}</a></p>{% endif %}
+			{% if post.link1 %}<span><a href={{post.link1}}>Link 1</a></span>{% endif %}
+			{% if post.link2 %}<span><a href={{post.link2}}>Link 2</a></span>{% endif %}
+			{% if post.link3 %}<span><a href={{post.link3}}>Link 3</a></span>{% endif %}
 		</p>
 		<hr class="bold">
 

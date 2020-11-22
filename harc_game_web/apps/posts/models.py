@@ -8,7 +8,7 @@ from apps.users.models import HarcgameUser
 class Post(models.Model):
     """
     Model postu
-    
+
     Informacje, które będą zamieszczane dzień po dniu trwania Harcapo, które będa budować fabułę, przypominać o zadaniach itd.
 	Atrybuty:
 		Id postu (generowane automatycznie)
@@ -18,17 +18,17 @@ class Post(models.Model):
 		Autor
 		Link do filmiku/obrazu
     """
-    
-    slug = models.SlugField(max_length=100, unique=True, db_index=True)
-    date_time = models.DateTimeField('Data utworzenia')
+
+    slug = models.SlugField(max_length=100, unique=True, db_index=True, blank=True)
+    date_time = models.DateTimeField('Data utworzenia', blank=True)
     pub_date_time = models.DateTimeField('Kiedy ma być opublikowany', default=timezone.now)
-    title = models.CharField(max_length=200)
-    content = models.TextField(help_text='Można używać tagów HTML')
+    title = models.CharField('Tytuł', max_length=200)
+    content = models.TextField('Treść', help_text='Można używać tagów HTML')
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
-    link1 = models.CharField(max_length=400, null=True, default="", blank=True)
-    link2 = models.CharField(max_length=400, null=True, default="", blank=True)
-    link3 = models.CharField(max_length=400, null=True, default="", blank=True)
-    
+    link1 = models.CharField('Link 1', max_length=400, null=True, default="", blank=True)
+    link2 = models.CharField('Link 2', max_length=400, null=True, default="", blank=True)
+    link3 = models.CharField('Link 3', max_length=400, null=True, default="", blank=True)
+
     # Auto-generate slug
     def slugify(self, i=None):
         slug = self.date_time.strftime("%Y-%m-%d-")+slugify(self.title)
@@ -64,6 +64,6 @@ class Post(models.Model):
         else:
             # update
             return super(Post, self).save(*args, **kwargs)
-    
+
     def __str__(self):
         return f'{self.title} - created by {self.user}'

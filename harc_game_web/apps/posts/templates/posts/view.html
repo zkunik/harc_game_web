@@ -19,9 +19,9 @@
 		<p>{{ post.content|safe }}</p>
 	<hr>
 	<p>
-		{% if post.link1 %}<p>Link 1: <a href={{post.link1}}>{{post.link1}}</a></p>{% endif %}
-		{% if post.link2 %}<p>Link 2: <a href={{post.link2}}>{{post.link2}}</a></p>{% endif %}
-		{% if post.link3 %}<p>Link 3: <a href={{post.link3}}>{{post.link3}}</a></p>{% endif %}
+		{% if post.link1 %}<p>Link: <a href={{post.link1}}>{{post.link1}}</a></p>{% endif %}
+		{% if post.link2 %}<p>Link: <a href={{post.link2}}>{{post.link2}}</a></p>{% endif %}
+		{% if post.link3 %}<p>Link: <a href={{post.link3}}>{{post.link3}}</a></p>{% endif %}
 	</p>
 
 {% endblock %}

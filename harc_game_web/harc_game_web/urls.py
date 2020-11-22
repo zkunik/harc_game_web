@@ -32,8 +32,8 @@ urlpatterns = [
     path('api_upload_complete/', UploadCompleteView.as_view(), name='api_upload_complete'),
 
     # Posts
-    path('posts/', list_active_posts, name='all_posts_hp'),
-    path('posts/list/', list_all_posts, name='all_posts'),
+    path('posts/', list_active_posts, name='all_posts'),
+    path('posts/edit/', list_all_posts, name='edit_posts'),
     path('posts/view/<slug:slug>', view_post, name='view_post'),
     path('posts/new/', new_post, name='new_post'),
     path('posts/edit/<slug:slug>', edit_post, name='edit_post'),
