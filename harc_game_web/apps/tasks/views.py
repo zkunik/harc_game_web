@@ -5,6 +5,7 @@ from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
 from django import forms
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import CheckboxInput, Select
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -36,7 +37,16 @@ class CompleteTaskForm(forms.ModelForm):
     class Meta:
         model = DocumentedTask
         fields = ['task', 'comment_from_user', 'link1', 'link2', 'link3']
-
+        labels = {
+            "task": "Zadanie",
+            "comment_from_user": "Twój komentarz",
+            "link1": "Link 1",
+            "link2": "Link 2",
+            "link3": "Link 3"
+        }
+        widgets = {
+            'task': Select(attrs={'class': 'rpgui-list'}),
+        }
 
 @login_required
 def complete_task(request):
@@ -87,7 +97,8 @@ class CheckTaskForm(forms.ModelForm):
             "documented_task": ""
         }
         widgets = {
-            "documented_task": forms.HiddenInput()
+            "documented_task": forms.HiddenInput(),
+            "is_accepted": CheckboxInput(attrs={'class': 'rpgui-checkbox'}),
         }
 
 

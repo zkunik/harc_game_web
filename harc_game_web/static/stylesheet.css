@@ -1,12 +1,11 @@
 #container {
-    min-height: 595px;
     background: #222;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
 .inner {
-    min-width: 400px;
-    max-width: 70%;
+    min-width: 200px;
+    max-width: 1200px;
     margin: 0 auto;
 }
