@@ -27,3 +27,32 @@
   {% endif %}
 
 </div>
+
+<!--
+  Messages framework installed here will always allow displaying messages below the navbar
+
+  Messages framework is described here: https://docs.djangoproject.com/en/3.1/ref/contrib/messages/
+
+  from django.contrib import messages
+  messages.add_message(request, messages.INFO, 'Hello world.')
+
+  Constant  Purpose
+  DEBUG     Development-related messages that will be ignored (or removed) in a production deployment
+  INFO      Informational messages for the user
+  SUCCESS   An action was successful, e.g. “Your profile was updated successfully”
+  WARNING   A failure did not occur but may be imminent
+  ERROR     An action was not successful or some other failure occurred
+-->
+{% if messages %}
+<div class="inner rpgui-container framed" style="position: relative">
+  <h1>Komunikaty</h1>
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Błąd: {% endif %}
+          {{ message }}
+      </li>
+      {% endfor %}
+  </ul>
+</div>
+{% endif %}

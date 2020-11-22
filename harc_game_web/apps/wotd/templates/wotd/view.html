@@ -17,23 +17,14 @@
             <h3>Dzisiejsze hasło:</h3>
             <p>{{ word_of_the_day.question|safe }}</p>
             <p><a href="{{ word_of_the_day.hint }}">Podpowiedź</a></p>
-            <br>
-            {% if today_guess_is_correct %}
-                <h3>Brawo! <strong>{{today_guess}}</strong> to prawidłowa odpowiedź. Teraz ruszaj, by wykonać zadania!</h3>
-            {% else %}
-                {% if today_guess != '' %}
-                    <h3>No niestety <strong>{{today_guess}}</strong> to nie to czego bym się spodziewał...</h3>
-                {% else %}
-                    <h3>Znasz już odpowiedź? Sprawdź...</h3>
-                {% endif %}
-                <form action="" method="get">
-                    {% csrf_token %}
-                    <br>
-                    <label for="today_guess">Podaj hasło</label>
-                    <input type="text" id="today_guess" name="today_guess"><br><br>
-                    <input type="submit" value="Sprawdź dzisiejsze hasło" class="rpgui-button"></td>
-                </form>
-            {% endif %}
+            <form action="" method="get">
+                {% csrf_token %}
+                <table>
+                    <td><label for="today_guess">Hasło to:</label></td>
+                    <td><input type="text" id="today_guess" name="today_guess"></td>
+                    <td><input type="submit" value="Sprawdź" class="rpgui-button"></td>
+                </table>
+            </form>
         {% endif %}
 
         {% if word_for_tomorrow.question|length > 0 %}
@@ -41,23 +32,14 @@
             <h3>Jutrzejsze hasło:</h3>
             <p>{{ word_for_tomorrow.question|safe }}</p>
             <p><a href="{{ word_for_tomorrow.hint }}">Podpowiedź</a></p>
-            <br>
-            {% if tomorrow_guess_is_correct %}
-                <h3>Brawo! <strong>{{tomorrow_guess}}</strong> to prawidłowa odpowiedź na jutro!</h3>
-            {% else %}
-                {% if tomorrow_guess != '' %}
-                    <h3>No niestety <strong>{{tomorrow_guess}}</strong> to nie to. Ale masz jeszcze czas...</h3>
-                {% else %}
-                    <h3>Znasz już odpowiedź? Sprawdź...</h3>
-                {% endif %}
-                <form action="" method="get">
-                    {% csrf_token %}
-                    <br>
-                    <label for="tomorrow_guess">Podaj hasło</label>
-                    <input type="text" id="tomorrow_guess" name="tomorrow_guess"><br><br>
-                    <input type="submit" value="Sprawdź hasło na jutro" class="rpgui-button"></td>
-                </form>
-            {% endif %}
+            <form action="" method="get">
+                {% csrf_token %}
+                <table>
+                    <td><label for="tomorrow_guess">Hasło to:</label></td>
+                    <td><input type="text" id="tomorrow_guess" name="tomorrow_guess"></td>
+                    <td><input type="submit" value="Sprawdź" class="rpgui-button"></td>
+                </table>
+            </form>
         {% endif %}
 
         {% if words_of_the_past|length > 0 %}

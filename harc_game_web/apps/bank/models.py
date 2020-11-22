@@ -10,6 +10,12 @@ from apps.tasks.models import Task, DocumentedTask, TaskApproval
 from apps.users.models import Scout
 
 
+def calculate_week(date):
+    """
+    Utility to calculate the week of the year, starting from saturday and formated 2020-W46
+    """
+    return (date + timedelta(days=2)).strftime('%Y-W%W')
+
 class Bank(models.Model):
     """
     Model bank zaakceptowanych taskow
@@ -49,7 +55,7 @@ class Bank(models.Model):
         # Calculate the year and week number
         # As we treat the week as Saturday through Friday, we need to move it by 2 days
         # As normally, the week is Monday through Sunday
-        self.year_week = (self.date_accrued + timedelta(days=2)).strftime('%Y-W%W')
+        self.year_week = calculate_week(self.date_accrued)
         return super(Bank, self).save(*args, **kwargs)
 
     def __str__(self):

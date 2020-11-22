@@ -15,7 +15,7 @@
     "fields": {
       "name": "Zadanie 2",
       "description": "To zadanie jest udokumentowane przez Druzynowego 2",
-      "allowed_completition_frequency": "raz na grę",
+      "allowed_completition_frequency": "raz dziennie",
       "extra_prize": "diamentowy miecz"
     }
   },
@@ -25,7 +25,7 @@
     "fields": {
       "name": "Zadanie 3",
       "description": "To zadanie nie jest udokumentowane",
-      "allowed_completition_frequency": "codziennie",
+      "allowed_completition_frequency": "raz w tygodniu",
       "extra_prize": "dzida"
     }
   },
@@ -77,7 +77,7 @@
       "task": 2,
       "user": 2
     }
-  },  
+  },
   {
     "model": "tasks.documentedtask",
     "pk": 3,
