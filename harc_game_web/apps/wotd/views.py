@@ -61,7 +61,7 @@ class WordOfTheDayView(View):
 
         tomorrow_guess = request.GET.get('tomorrow_guess', '')
         if tomorrow_guess:
-            if self.__verify(word_of_the_day, tomorrow_guess):
+            if self.__verify(word_for_tomorrow, tomorrow_guess):
                 messages.success(request, f"Brawo! >{tomorrow_guess}< to prawidłowa odpowiedź na jutro!")
             else:
                 messages.info(request, f"No niestety >{tomorrow_guess}< to nie to. Ale masz jeszcze czas...")
