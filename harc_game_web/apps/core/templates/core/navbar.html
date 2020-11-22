@@ -10,9 +10,6 @@
   <a href="{% url 'complete_task' %}"><button class="rpgui-button" type="button">Potwierdź wykonanie zadania</button></a>
   {% else %}
   <a href="{% url 'signup' %}"><button class="rpgui-button" type="button">Załóż konto</button></a>
-
-
-
   <a href="{% url 'login' %}"><button class="rpgui-button" type="button">Zaloguj się</button></a>
   {% endif %}
 
@@ -20,10 +17,6 @@
   <a href="{% url 'all_teams' %}"><button class="rpgui-button" type="button">Drużyny</button></a>
   <a href="{% url 'all_posts' %}"><button class="rpgui-button" type="button">Posty</button></a>
   <a href="{% url 'tasks' %}"><button class="rpgui-button" type="button">Zadania</button></a>
-
-  {% if request.user.scout.is_team_leader %}
-  <a href="{% url 'check_task' %}"><button class="rpgui-button" type="button">Sprawdź zadanie</button></a>
-  {% endif %}
 
   {% if request.user.is_superuser %}
   <a href="{% url 'edit_posts' %}"><button class="rpgui-button" type="button">Edytuj posty</button></a>

@@ -17,11 +17,12 @@
 <div class="rpgui-content" id="container" style="overflow-y:scroll;">
   {% include "core/navbar.html" %}
 
+  {% block subnavbarcontent %}
+  {% endblock %}
+
   <div class="inner rpgui-container framed" style="position: relative">
-    <section class="section">
       {% block content %}
       {% endblock %}
-    </section>
   </div>
 
 </div>
