@@ -23,6 +23,11 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
 
-
 admin.site.register(HarcgameUser, CustomUserAdmin)
-admin.site.register(Scout)
+
+@admin.register(Scout)
+class EventAdmin(admin.ModelAdmin):
+    fields = (('user', 'initials'), ('team', 'patrol'),
+        ('rank', 'is_patrol_leader', 'is_team_leader'))
+    list_display = ('user', 'team', 'patrol', 'rank', 'is_team_leader', 'is_patrol_leader')
+    list_filter = ('team', 'patrol', 'rank', 'is_team_leader', 'is_patrol_leader')

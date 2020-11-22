@@ -30,7 +30,7 @@ class Task(models.Model):
     description = models.TextField(max_length=400)
     allowed_completition_frequency = models.CharField(max_length=200)
     prize = models.IntegerField(default=0, null=True)
-    extra_prize = models.CharField(max_length=200, default=None, null=True)
+    extra_prize = models.CharField(max_length=200, default=None, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -54,8 +54,42 @@ class DocumentedTask(models.Model):
     def __str__(self):
         return f'{self.task} - completed by {self.user}'
 
+# Maybe I should have moved this to some othr place?
+class ModelWithChangeDetection(models.Model):
+    """
+    From https://gist.github.com/alican/cb9e81699e4ad1af81ca897ae500393b
+    """
+    @classmethod
+    def from_db(cls, db, field_names, values):
+        instance = super().from_db(db, field_names, values)
+        instance._state.adding = False
+        instance._state.db = db
+        instance._old_values = dict(zip(field_names, values))
+        return instance
 
-class TaskApproval(models.Model):
+    def data_changed(self, fields):
+        """
+        example:
+        if self.data_changed(['street', 'street_no', 'zip_code', 'city', 'country']):
+            print("one of the fields changed")
+
+        returns true if the model saved the first time and _old_values doesnt exist
+                or when model saved again and data changed
+
+        """
+        if hasattr(self, '_old_values'):
+            if not self.pk or not self._old_values:
+                return True
+
+            for field in fields:
+                if getattr(self, field) != self._old_values[field]:
+                    return True
+            return False
+
+        return True
+# end of helper class
+
+class TaskApproval(ModelWithChangeDetection):
     """
     Model zatwierdzania zadania (jako dodatkowe atrybuty udokumentowanego wykonania zadania
     """
@@ -65,6 +99,49 @@ class TaskApproval(models.Model):
     )
     is_accepted = models.BooleanField(default=False)
     comment_from_approver = models.TextField(max_length=400, default="", blank=True)
+
+    def save(self, *args, **kwargs):
+        from apps.bank.models import Bank
+        if self.data_changed(['is_accepted']):
+            # If task is accepted, we can accure it
+            if self.is_accepted:
+                # If this is team leader, just assign the prize to him
+                if self.documented_task.user.scout.is_team_leader:
+                    Bank.objects.create(
+                        user=self.documented_task.user,
+                        documented_task=self.documented_task,
+                        accrual=self.documented_task.task.prize,
+                        accrual_extra_prize=self.documented_task.task.extra_prize,
+                        accrual_type='brutto'
+                    )
+                else:
+                    # Add price for the team member and deduct tax
+                    Bank.objects.create(
+                        user=self.documented_task.user,
+                        documented_task=self.documented_task,
+                        accrual=self.documented_task.task.prize * (1-self.documented_task.user.scout.team.tax),
+                        accrual_extra_prize=self.documented_task.task.extra_prize,
+                        accrual_type='netto'
+                    )
+                    # And the tax for the team leader
+                    try:
+                        try:
+                            Bank.objects.create(
+                                user=Scout.objects.get(team=self.documented_task.user.scout.team, is_team_leader=True).user,
+                                documented_task=self.documented_task,
+                                accrual=self.documented_task.task.prize * self.documented_task.user.scout.team.tax,
+                                accrual_extra_prize=None,
+                                accrual_type='tax'
+                            )
+                        except MultipleObjectsReturned:
+                            ValueError(f"{self.documented_task.user.scout.team} ma więcej niż jednego drużynowego!")
+                    except ObjectDoesNotExist:
+                        raise ValueError(f"{self.documented_task.user} nie jest w żadnej drużynie!")
+            else:
+                # Instead of deleting accruals, we mark them deleted, to have the prove
+                Bank.objects.filter(documented_task=self.documented_task).update(accrual_deleted=True)
+        # update
+        return super(TaskApproval, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.documented_task} - approval by {self.approver}'
