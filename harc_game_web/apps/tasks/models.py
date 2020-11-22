@@ -32,8 +32,34 @@ class Task(models.Model):
     prize = models.IntegerField(default=0, null=True)
     extra_prize = models.CharField(max_length=200, default=None, null=True, blank=True)
 
+    def can_be_completed_today(self, user):
+        """
+        Check if the task can be completed today
+        """
+        from apps.bank.models import calculate_week
+
+        can_be_completed = True
+        if self.allowed_completition_frequency == 'raz na grę':
+            if DocumentedTask.objects.filter(user=user).filter(task=self):
+                can_be_completed = False
+        elif self.allowed_completition_frequency == 'raz w tygodniu':
+            user_documented_tasks = DocumentedTask.objects.filter(user=user).filter(task=self)
+            weeks_of_user_documented_tasks = []
+            for task in user_documented_tasks:
+                weeks_of_user_documented_tasks.append(calculate_week(task.date_completed))
+            if calculate_week(timezone.now()) in weeks_of_user_documented_tasks:
+                can_be_completed = False
+        elif self.allowed_completition_frequency == 'raz dziennie':
+            if DocumentedTask.objects.filter(user=user).filter(task=self).\
+                filter(date_completed__date=timezone.now()):
+                can_be_completed = False
+        else:
+            # bez ograniczeń
+            pass
+        return can_be_completed
+
     def __str__(self):
-        return self.name
+        return f"{self.category} | {self.name} ({self.allowed_completition_frequency})"
 
 
 class DocumentedTask(models.Model):
