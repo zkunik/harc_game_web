@@ -7,7 +7,6 @@
 
   {% if request.user.is_authenticated %}
   <a href="{% url 'logout' %}"><button class="rpgui-button" type="button">Wyloguj się</button></a>
-  <a href="{% url 'complete_task' %}"><button class="rpgui-button" type="button">Potwierdź wykonanie zadania</button></a>
   {% else %}
   <a href="{% url 'signup' %}"><button class="rpgui-button" type="button">Załóż konto</button></a>
   <a href="{% url 'login' %}"><button class="rpgui-button" type="button">Zaloguj się</button></a>

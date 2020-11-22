@@ -16,7 +16,9 @@
 <p>Opis: {{task.description}}</p>
 <p>Jak często można wykonywać: {{task.allowed_completition_frequency}}</p>
 <p>Nagroda: {{task.prize}}</p>
+{% if task.extra_prize is not None %}
 <p>Nagroda specjalna: {{task.extra_prize}}</p>
+{% endif %}
 
 <hr>
 {% endfor %}
