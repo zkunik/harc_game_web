@@ -16,7 +16,7 @@ class WordOfTheDayView(View):
         """
         slugify will take care about spaces, special characters, polish characters, capital letters, etc
         looks like a good/quick solution for clan text comparing
-        
+
         https://docs.djangoproject.com/en/3.1/ref/utils/#django.utils.text.slugify
         - Converting to ASCII if allow_unicode is False (the default).
         - Converting to lowercase.
