@@ -1,4 +1,11 @@
 {% extends 'core/base.html' %}
+
+{% block subnavbarcontent %}
+{% if request.user.is_authenticated %}
+{% include "tasks/subnavbar.html" %}
+{% endif %}
+{% endblock %}
+
 {% block content %}
 
 <h1 class="title">

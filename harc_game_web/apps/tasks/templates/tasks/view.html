@@ -1,5 +1,11 @@
 {% extends 'core/base.html' %}
 
+{% block subnavbarcontent %}
+{% if request.user.is_authenticated %}
+{% include "tasks/subnavbar.html" %}
+{% endif %}
+{% endblock %}
+
 {% block content %}
 
 {% for category, tasks in tasks_grouped.items %}
@@ -10,7 +16,9 @@
 <p>Opis: {{task.description}}</p>
 <p>Jak często można wykonywać: {{task.allowed_completition_frequency}}</p>
 <p>Nagroda: {{task.prize}}</p>
+{% if task.extra_prize is not None %}
 <p>Nagroda specjalna: {{task.extra_prize}}</p>
+{% endif %}
 
 <hr>
 {% endfor %}

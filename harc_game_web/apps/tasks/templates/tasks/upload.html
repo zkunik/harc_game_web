@@ -1,7 +1,6 @@
 {% extends 'core/base.html' %}
 
 {% block headcontent %}
-
   <title>Upload</title>
   <meta http-equiv="content-type" content="text/html;charset=utf-8">
   <meta http-equiv="content-language" content="en">
@@ -16,7 +15,12 @@
   <script src="/static/demo/js/jquery.fileupload.js"></script>
   <!-- Calculate md5 -->
   <script src="/static/demo/js/spark-md5.js"></script>
+{% endblock %}
 
+{% block subnavbarcontent %}
+{% if request.user.is_authenticated %}
+{% include "tasks/subnavbar.html" %}
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -24,6 +28,10 @@
   <h1 class="title">
     Formularz wykonania zadania
   </h1>
+
+Wybierz zadanie, które wykonałeś i je udokumentuj - załącz link do udostępnionego zdjęciu lub filmu; albo
+załącz plik poprzez formularz. Pamiętaj, że <b>na zdjęciu lub filmiku</b> musi być podane hasło dnia.
+Bez niego Twoje zadanie nie będzie zaakceptowane.
 
     <form method="post" action=".">
         {% csrf_token %}
@@ -95,11 +103,19 @@
       maxChunkSize: 100000, // Chunks of 100 kB
       formData: form_data,
       add: function(e, data) { // Called before starting upload
-        // If this is the second file you're uploading we need to remove the
-        // old upload_id and just keep the csrftoken (which is always first).
-        form_data.splice(1);
-        calculate_md5(data.files[0], 100000);  // Again, chunks of 100 kB
-        data.submit();
+        var uploadErrors = [];
+        if(data.files[0]['size'] > 150000000) {
+          uploadErrors.push('Wybrany plik jest za duży');
+        }
+        if(uploadErrors.length > 0) {
+          alert(uploadErrors.join("\n"));
+        } else {
+          // If this is the second file you're uploading we need to remove the
+          // old upload_id and just keep the csrftoken (which is always first).
+          form_data.splice(1);
+          calculate_md5(data.files[0], 100000);  // Again, chunks of 100 kB
+          data.submit();
+        }
       },
       chunkdone: function (e, data) { // Called after uploading each chunk
         if (form_data.length < 2) {
@@ -135,11 +151,19 @@
       maxChunkSize: 100000, // Chunks of 100 kB
       formData: form_data,
       add: function(e, data) { // Called before starting upload
-        // If this is the second file you're uploading we need to remove the
-        // old upload_id and just keep the csrftoken (which is always first).
-        form_data.splice(1);
-        calculate_md5(data.files[0], 100000);  // Again, chunks of 100 kB
-        data.submit();
+        var uploadErrors = [];
+        if(data.files[0]['size'] > 150000000) {
+          uploadErrors.push('Wybrany plik jest za duży');
+        }
+        if(uploadErrors.length > 0) {
+          alert(uploadErrors.join("\n"));
+        } else {
+          // If this is the second file you're uploading we need to remove the
+          // old upload_id and just keep the csrftoken (which is always first).
+          form_data.splice(1);
+          calculate_md5(data.files[0], 100000);  // Again, chunks of 100 kB
+          data.submit();
+        }
       },
       chunkdone: function (e, data) { // Called after uploading each chunk
         if (form_data.length < 2) {
@@ -175,11 +199,19 @@
       maxChunkSize: 100000, // Chunks of 100 kB
       formData: form_data,
       add: function(e, data) { // Called before starting upload
-        // If this is the second file you're uploading we need to remove the
-        // old upload_id and just keep the csrftoken (which is always first).
-        form_data.splice(1);
-        calculate_md5(data.files[0], 100000);  // Again, chunks of 100 kB
-        data.submit();
+        var uploadErrors = [];
+        if(data.files[0]['size'] > 150000000) {
+          uploadErrors.push('Wybrany plik jest za duży');
+        }
+        if(uploadErrors.length > 0) {
+          alert(uploadErrors.join("\n"));
+        } else {
+          // If this is the second file you're uploading we need to remove the
+          // old upload_id and just keep the csrftoken (which is always first).
+          form_data.splice(1);
+          calculate_md5(data.files[0], 100000);  // Again, chunks of 100 kB
+          data.submit();
+        }
       },
       chunkdone: function (e, data) { // Called after uploading each chunk
         if (form_data.length < 2) {

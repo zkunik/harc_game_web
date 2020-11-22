@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
 
-  <title>Harc game WEB</title>
+  <title>HarcApo - Minecraft edition</title>
 
   <link href="{% static 'dist/rpgui.css' %}" rel="stylesheet" type="text/css">
   <link href="{% static 'stylesheet.css' %}" rel="stylesheet" type="text/css">
@@ -14,18 +14,17 @@
 
 </head>
 <body>
-<div class="rpgui-content" style="overflow-y:scroll;">
-  <div id="container">
-    {% include "core/navbar.html" %}
+<div class="rpgui-content" id="container" style="overflow-y:scroll;">
+  {% include "core/navbar.html" %}
 
-    <div class="inner rpgui-container framed" style="position: relative">
-      <section class="section">
-        {% block content %}
-        {% endblock %}
-      </section>
-    </div>
+  {% block subnavbarcontent %}
+  {% endblock %}
 
+  <div class="inner rpgui-container framed" style="position: relative">
+      {% block content %}
+      {% endblock %}
   </div>
+
 </div>
 
 
