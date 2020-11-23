@@ -2,12 +2,6 @@
 
 {% block headcontent %}
 
-    <style>
-    td {
-      padding: 5px 5px;
-    }
-    </style>
-
 {% endblock %}
 
 {% block content %}
@@ -15,24 +9,25 @@
     {% for week in weeks %}
 
         <h3>{{ week }}</h3>
-
         <h4>Punkty</h4>
-
+        <div class="harcapo-text-select">
         {% for prize in prizes %}
             {% if prize.year_week == week and prize.accrual_for_a_week %}
                 <p>/pay {{ prize.nickname }} {{ prize.accrual_for_a_week }}</p>
             {% endif %}
         {% endfor %}
-
+        </div>
         <h4>Przedmioty</h4>
 
+        <div class="harcapo-text-select">
         {% for account in bank %}
             {% if account.year_week == week and account.accrual_extra_prize %}
                 <p>/give {{ account.user.nickname }} {{ account.accrual_extra_prize }}</p>
             {% endif %}
         {% endfor %}
+        </div>
 
-        <hr>
+        <hr class="golden">
 
     {% empty %}
 
@@ -42,18 +37,16 @@
 
     <h2>Raport z banku</h2>
 
-    <table id="bank_report">
+    <table id="bank_report" class="harcapo-text-select">
     <tr>
-        <td>date year_week</td>
-        <td>user.nickname</td>
-        <td>documented_task</td>
-        <td>accrual_type</td>
-    </tr>
-    <tr>
-        <td>prize</td>
-        <td>tax</td>
-        <td>accrual</td>
-        <td>extra_prize</td>
+        <td>Data</td>
+        <td>Ksywa</td>
+        <td>Zadanie</td>
+        <td>Typ</td>
+        <td>Nagroda</td>
+        <td>Podatek</td>
+        <td>Naliczono</td>
+        <td>Nagroda specjalna</td>
     </tr>
     {% for account in bank %}
         <tr>
@@ -62,12 +55,10 @@
             <td>{{ account.user.nickname }}</td>
             <td>{{ account.documented_task.task.name }}</td>
             <td>{{ account.accrual_type }}</td>
-        </tr>
-        <tr>
             <td>{{ account.documented_task.task.prize }}</td>
             <td>{{ account.user.scout.team.tax }}</td>
             <td>{{ account.accrual }}</td>
-            <td>{{ account.accrual_extra_prize }}</td>
+            <td>{{ account.accrual_extra_prize|default_if_none:"-" }}</td>
         </tr>
     {% endfor %}
     </table>
