@@ -1,5 +1,16 @@
 {% extends 'core/base.html' %}
 
+{% block headcontent %}
+<style>
+form {
+    display: inline-block;
+}
+td {
+  padding: 0px 15px;
+}
+</style>
+{% endblock %}
+
 {% block subnavbarcontent %}
 {% if request.user.is_authenticated %}
 {% include "tasks/subnavbar.html" %}
@@ -8,6 +19,36 @@
 
 {% block content %}
 
+{% for button in tasks_grouped %}
+{% if button %}
+    <form action="" method="get">
+        {% csrf_token %}
+        <input type="hidden" name="active_tab" value="{{button}}">
+        <button class="rpgui-button" type="submit">{{button}}</button>
+    </form>
+{% endif %}
+{% endfor %}
+
+    <h3>Zadania {{ active_tab }}</h3>
+
+{% for category, tasks in tasks_grouped.items %}
+    {% if category == active_tab %}
+        {% for task in tasks %}
+            <div class="rpgui-list-imp">
+                <h3>{{task.name}}</h3>
+                <table id="task">
+                <tr><td>Jak często można wykonywać</td><td><p>{{task.allowed_completition_frequency}}</p></td></tr>
+                <tr><td>Nagroda</td><td><p>{{task.prize}}</p></td></tr>
+                {% if task.extra_prize is not None %}
+                <tr><td>Nagroda specjalna</td><td><p>{task.extra_prize}}</p></td></tr>
+                {% endif %}
+                </table>
+            </div><br>
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+
+<!--
 {% for category, tasks in tasks_grouped.items %}
 <h1>{{category}}</h1>
 
@@ -25,6 +66,6 @@
 
 <hr class="golden">
 {% endfor %}
-
+-->
 
 {% endblock %}

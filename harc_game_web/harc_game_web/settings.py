@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
+from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
@@ -79,6 +80,16 @@ TEMPLATES = [
         },
     },
 ]
+
+# Message tags
+# https://docs.djangoproject.com/en/3.1/ref/contrib/messages/
+MESSAGE_TAGS = {
+    messages.DEBUG: '',
+    messages.INFO: '',
+    messages.SUCCESS: 'rpgui-list-imp',
+    messages.WARNING: 'rpgui-list-imp',
+    messages.ERROR: 'rpgui-list-imp'
+}
 
 STATIC_URL = '/static/'
 # STATIC_ROOT = BASE_DIR / 'static'

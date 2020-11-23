@@ -1,18 +1,24 @@
 {% extends 'core/base.html' %}
 
-{% block content %}    
+{% block subnavbarcontent %}
+{% if request.user.is_superuser %}
+	<div class="inner rpgui-container framed" style="position: relative">
+		<a href="{% url 'all_posts' %}"><button class="rpgui-button" type="button">Widoczne posty</button></a>
+		<a href="{% url 'edit_posts' %}"><button class="rpgui-button" type="button">Wszystkie posty</button></a>
+		<a href="{% url 'new_post' %}"><button class="rpgui-button" type="button">Nowy post</button></a>
+	</div>
+{% endif %}
+{% endblock%}
 
-    {% if request.user.is_superuser %}
-		<a href="/posts/new" class="btn btn-default navbar-btn">Nowy post</a>
-	{% endif %}
+{% block content %}
 
+	<ul>
 	{% for post in posts %}
-		<h3>                        
-			<a href="/posts/view/{{post.slug}}">{{post.pub_date_time}} | {{ post|capfirst }}</a>
-		</h3>
+	<li><a href="{% url 'view_post' post.slug %}">{{post.pub_date_time}} | {{ post|capfirst }}</a></li>
 	{% empty %}
-		<p>Nie ma jeszcze żadnych wiadomości</p>
-	{% endfor %}    
+	<p>Nie ma jeszcze żadnych wiadomości</p>
+	{% endfor %}
+	</ul>
 
 
 {% endblock %}

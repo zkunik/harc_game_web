@@ -12,33 +12,32 @@
 
     {% endcomment %}
 
-    <center>
         {% if word_of_the_day.question|length > 0 %}
             <h3>Dzisiejsze hasło:</h3>
-            <p>{{ word_of_the_day.question|safe }}</p>
-            <p><a href="{{ word_of_the_day.hint }}">Podpowiedź</a></p>
+            <div class="rpgui-list-imp"><p>{{ word_of_the_day.question|safe }}</p></div>
             <form action="" method="get">
                 {% csrf_token %}
-                <table>
-                    <td><label for="today_guess">Hasło to:</label></td>
+                <center><table>
+                    <td><label class=rpgui-pixelated for="today_guess">Hasło to:</label></td>
                     <td><input type="text" id="today_guess" name="today_guess"></td>
-                    <td><input type="submit" value="Sprawdź" class="rpgui-button"></td>
-                </table>
+                    <td><button class="rpgui-button" type="submit">Sprawdź</button></td>
+                    <td><a href="{{ word_of_the_day.hint }}"><button class="rpgui-button" type="button">Podpowiedź</button></a></td>
+                </table></center>
             </form>
         {% endif %}
 
         {% if word_for_tomorrow.question|length > 0 %}
             <hr>
             <h3>Jutrzejsze hasło:</h3>
-            <p>{{ word_for_tomorrow.question|safe }}</p>
-            <p><a href="{{ word_for_tomorrow.hint }}">Podpowiedź</a></p>
+            <div class="rpgui-list-imp"><p>{{ word_for_tomorrow.question|safe }}</p></div>
             <form action="" method="get">
                 {% csrf_token %}
-                <table>
+                <center><table>
                     <td><label for="tomorrow_guess">Hasło to:</label></td>
                     <td><input type="text" id="tomorrow_guess" name="tomorrow_guess"></td>
-                    <td><input type="submit" value="Sprawdź" class="rpgui-button"></td>
-                </table>
+                    <td><button class="rpgui-button" type="submit">Sprawdź</button></td>
+                    <td><a href="{{ word_for_tomorrow.hint }}"><button class="rpgui-button" type="button">Podpowiedź</button></a></td>
+                </table></center>
             </form>
         {% endif %}
 
@@ -46,18 +45,17 @@
             <hr>
             <h3>Poprzednie pytania:</h3>
             {% for word in words_of_the_past %}
-                <hr>
+            <div class="rpgui-list-imp">
                 <h4>{{ word.date }}</h4>
                 <p>{{ word.question|safe }}</p>
-                <p><a href="{{ word.hint }}">Podpowiedź</a></p>
-                <p>Prawidłowa odpowiedź: <strong>{{ word.answer }}</strong></p>
+                <p>Prawidłowa odpowiedź: <strong>{{ word.answer }}</strong> (<a href="{{ word.hint }}">Podpowiedź</a>)</p>
+            </div>
+            <br>
             {% endfor %}
         {% endif %}
 
         {% if word_of_the_day.question|length is 0 and word_for_tomorrow.question|length is 0 and  words_of_the_past|length is 0 %}
             <p>Nic jeszcze nie straciłeś</p>
         {% endif %}
-
-    </center>
 
 {% endblock %}
