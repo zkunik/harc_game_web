@@ -17,4 +17,4 @@ jobs:
       run: docker build -t harcgameweb .
 
     - name: Run tests
-      run: docker run --rm harcgameweb make test
+      run: docker run --rm harcgameweb sh -c "make dev-migrate && make test"

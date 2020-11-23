@@ -44,13 +44,13 @@ docker build -t harcgameweb .
 Uruchom testy:
 
 ```shell
-docker run --rm -it harcgameweb make test
+docker run --rm -it harcgameweb sh -c "make dev-migrate && make test"
 ```
 
 Uruchom aplikację:
 
 ```shell
-docker run --rm -it -p 8000:8000 harcgameweb
+docker run --rm -it -p 8000:8000 harcgameweb sh -c "make dev-prepare && make run"
 ```
 
 ## Czyszczenie środowiska lokalnego
