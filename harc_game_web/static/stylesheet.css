@@ -28,3 +28,14 @@
 td {
     padding: 5px 5px;
 }
+
+.harcapo-table * {
+    table-layout: fixed;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1.1em;
+}
+
+.harcapo-table-header {
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  color: white;
+}
