@@ -56,17 +56,28 @@ td {
 {% for category, tasks in tasks_grouped.items %}
 <h1>{{category}}</h1>
 
-{% for task in tasks %}
-<p>Nazwa: {{task.name}}</p>
-<p>Opis: {{task.description}}</p>
-<p>Jak często można wykonywać: {{task.allowed_completition_frequency}}</p>
-<p>Nagroda: {{task.prize}}</p>
-{% if task.extra_prize is not None %}
-<p>Nagroda specjalna: {{task.extra_prize}}</p>
-{% endif %}
-
-<hr>
-{% endfor %}
+<table class="harcapo-table">
+  <thead class="harcapo-table-header">
+    <tr>
+        <th style="width: 18%">Nazwa</th>
+        <th style="width: 32%">Opis</th>
+        <th style="width: 15%">Jak często można wykonywać</th>
+        <th style="width: 10%">Nagroda</th>
+        <th style="width: 15%">Nagroda specjalna</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+        <tr>
+            <td>{{task.name}}</td>
+            <td>{{task.description}}</td>
+            <td>{{task.allowed_completition_frequency}}</td>
+            <td>{{task.prize}}</td>
+            <td>{{task.extra_prize|default_if_none:"-"}}</td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 <hr class="golden">
 {% endfor %}

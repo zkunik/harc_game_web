@@ -9,3 +9,33 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.harcapo-text-select * {
+    font-family: 'Ubuntu Mono', monospace;
+    -webkit-touch-callout: default;
+    -webkit-user-select: auto;
+    -khtml-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: text;
+}
+
+.harcapo-text-select p {
+    color: black;
+    text-shadow: none;
+    font-size: 1.5em;
+}
+td {
+    padding: 5px 5px;
+}
+
+.harcapo-table * {
+    table-layout: fixed;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1.1em;
+}
+
+.harcapo-table-header {
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  color: white;
+}

@@ -9,16 +9,16 @@ from django.forms import CheckboxInput, Select
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
-from django.core.exceptions import ValidationError
 from django.views import View
 from django.contrib import messages
 
 from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task
 
+
 class TaskView(View):
 
     def get(self, request, *args, **kwargs):
-        categories = set(Task.objects.values_list('category', flat=True))
+        categories = sorted(set(Task.objects.values_list('category', flat=True)))
         tasks_grouped = {}
         for category in categories:
             tasks_grouped[category] = Task.objects.filter(category=category)
