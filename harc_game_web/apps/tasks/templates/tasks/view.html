@@ -35,13 +35,17 @@ td {
     {% if category == active_tab %}
         {% for task in tasks %}
             <div class="rpgui-list-imp">
-                <h3>{{task.name}}</h3>
+                <h3>{{task.name|capfirst}}</h3>
                 <table id="task">
                 <tr><td>Jak często można wykonywać</td><td><p>{{task.allowed_completition_frequency}}</p></td></tr>
                 <tr><td>Nagroda</td><td><p>{{task.prize}}</p></td></tr>
                 {% if task.extra_prize is not None %}
-                <tr><td>Nagroda specjalna</td><td><p>{task.extra_prize}}</p></td></tr>
+                <tr><td>Nagroda specjalna</td><td><p>{{task.extra_prize}}</p></td></tr>
                 {% endif %}
+                </table>
+                <table>
+                <tr><p></p></tr>
+                <tr><td><p>{{task.description|capfirst|safe}}</p></td></tr>
                 </table>
             </div><br>
         {% endfor %}
