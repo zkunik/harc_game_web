@@ -14,11 +14,10 @@
 
   <a href="{% url 'word_of_the_day' %}"><button class="rpgui-button" type="button">Hasło dnia</button></a>
   <a href="{% url 'all_teams' %}"><button class="rpgui-button" type="button">Drużyny</button></a>
-  <a href="{% url 'all_posts' %}"><button class="rpgui-button" type="button">Posty</button></a>
+  <!--a href="{% url 'all_posts' %}"><button class="rpgui-button" type="button">Posty</button></a-->
   <a href="{% url 'tasks' %}"><button class="rpgui-button" type="button">Zadania</button></a>
 
   {% if request.user.is_superuser %}
-  <a href="{% url 'edit_posts' %}"><button class="rpgui-button" type="button">Edytuj posty</button></a>
   <a href="{% url 'bank_report' %}"><button class="rpgui-button" type="button">Raport</button></a>
   {% endif %}
 
@@ -42,13 +41,13 @@
 {% if messages %}
 <div class="inner rpgui-container framed" style="position: relative">
   <h1>Komunikaty</h1>
-  <ul class="messages">
+  <!--ul class="messages"-->
       {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+      <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>
           {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Błąd: {% endif %}
           {{ message }}
-      </li>
+      </p>
       {% endfor %}
-  </ul>
+  <!--/ul-->
 </div>
 {% endif %}

@@ -570,7 +570,8 @@ ul.rpgui-dropdown-imp {
 /* note! this class rule affect both the dropdown header and the list elements! */
 .rpgui-list-imp {
   /* font */
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+  /* text-shadow do poprawki - w tabelkach pokazywal bardzo rozmyte teksty, przynajmniej na Safari */
+  _text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   color: white;
   /* default size */
   min-height: 40px;
