@@ -99,7 +99,7 @@ class CheckTaskForm(forms.ModelForm):
         }
         widgets = {
             "documented_task": forms.HiddenInput(),
-            "is_accepted": CheckboxInput(attrs={'class': 'rpgui-checkbox'}),
+            # "is_accepted": CheckboxInput(attrs={'class': 'rpgui-checkbox'}),
         }
 
 
