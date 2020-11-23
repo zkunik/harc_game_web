@@ -1,7 +1,13 @@
 {% extends 'core/base.html' %}
 
-{% block headcontent %}
-
+{% block subnavbarcontent %}
+{% if request.user.is_superuser %}
+	<div class="inner rpgui-container framed" style="position: relative">
+		<a href="{% url 'all_posts' %}"><button class="rpgui-button" type="button">Widoczne posty</button></a>
+		<a href="{% url 'edit_posts' %}"><button class="rpgui-button" type="button">Wszystkie posty</button></a>
+		<a href="{% url 'new_post' %}"><button class="rpgui-button" type="button">Nowy post</button></a>
+	</div>
+{% endif %}
 {% endblock%}
 
 {% block content %}
@@ -9,24 +15,25 @@
 	<center>
 
 	<p>Mamy teraz {% now "j F Y H:i" %}</p>
-	<hr class="bold">
+	<hr>
 
 	{% for post in posts %}
 		<h3>
-			<a href="/posts/view/{{post.slug}}">{{ post.title|capfirst }}</a>
+			<a href="{% url 'view_post' post.slug %}">{{ post.title|capfirst }}</a>
 		</h3>
 		<p>
-			<span>Opublikowany: {{ post.pub_date_time }} </span> |
-			<span>Przez: {{post.user}} </span>
+			Opublikowany: {{ post.pub_date_time|date:'Y-m-d H:i' }}  |
+			Przez: {{post.user.nickname}}
 		</p>
+	<div class="rpgui-list-imp">
 		<p>{{ post.content|safe }}</p>
 		<p>
-			{% if post.link1 %}<span><a href={{post.link1}}>Link 1</a></span>{% endif %}
-			{% if post.link2 %}<span><a href={{post.link2}}>Link 2</a></span>{% endif %}
-			{% if post.link3 %}<span><a href={{post.link3}}>Link 3</a></span>{% endif %}
+			{% if post.link1 %}<a href={{post.link1}}>Link 1</a>{% endif %}
+			{% if post.link2 %}<a href={{post.link2}}>Link 2</a>{% endif %}
+			{% if post.link3 %}<a href={{post.link3}}>Link 3</a>{% endif %}
 		</p>
-		<hr class="bold">
-
+	</div>
+	<br>
 	{% empty %}
 		<p>Nic sie jeszcze nie wydarzyło</p>
 	{% endfor %}

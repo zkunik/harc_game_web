@@ -30,29 +30,36 @@
 
     <hr>
 
+    <h3>Zastępy</h3>
     <table>
         <tr>
-            <td>Zastępy</td>
+            <th><p>Zastęp</p></th>
+            <th><p>Zdobyte punkty</p></th>
         </tr>
         {% for patrol in patrols %}
         <tr>
-            <td>{{ patrol|capfirst }}</td>
-            <td>{{ patrol.score }}</td>
+            <td><p>{{ patrol|capfirst }}</p></td>
+            <td><p>{{ patrol.score }}</p></td>
         </tr>
         {% endfor%}
     </table>
 
     <hr>
 
+    <h3>Harcerze</h3>
     <table>
         <tr>
-            <td>Harcerze</td>
+            <th><p>Zastęp</p></th>
+            <th><p>Pseudonim</p></th>
+            <th><p>Stopień</p></th>
+            <th><p>Zdobyte punkty</p></th>
         </tr>
         {% for scout in scouts %}
         <tr>
-            <td>{{ scout.patrol|capfirst }}</td>
-            <td>{{ scout|capfirst }}</td>
-            <td>{{ scout.score }}</td>
+            <td><p>{{ scout.patrol|capfirst }}</p></td>
+            <td><p>{{ scout|capfirst }}</p></td>
+            <td><p>{{ scout.rank|capfirst }}</p></td>
+            <td><p>{{ scout.score }}</p></td>
         </tr>
         {% endfor%}
     </table>

@@ -1,5 +1,14 @@
 {% extends 'core/base.html' %}
 
+{% block subnavbarcontent %}
+{% if request.user.is_superuser %}
+	<div class="inner rpgui-container framed" style="position: relative">
+		<a href="{% url 'all_posts' %}"><button class="rpgui-button" type="button">Widoczne posty</button></a>
+		<a href="{% url 'edit_posts' %}"><button class="rpgui-button" type="button">Wszystkie posty</button></a>
+	</div>
+{% endif %}
+{% endblock%}
+
 {% block content %}
 
     {% if request.user.is_superuser %}
@@ -9,7 +18,7 @@
 				{{ form.as_table }}
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Zapisz" class="btn btn-default navbar-btn"></td>
+					<td><center><button class="rpgui-button" type="submit">Zapisz</button></center></td>
 				</tr>
 			</table>
 		</form>
@@ -18,3 +27,14 @@
 	{% endif %}
 
 {% endblock %}
+
+
+{% for button in tasks_grouped %}
+{% if button %}
+    <form action="" method="get">
+        {% csrf_token %}
+        <input type="hidden" name="active_tab" value="{{button}}">
+        <button class="rpgui-button" type="submit">{{button}}</button>
+    </form>
+{% endif %}
+{% endfor %}

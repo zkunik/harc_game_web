@@ -22,7 +22,8 @@ class TaskView(View):
         tasks_grouped = {}
         for category in categories:
             tasks_grouped[category] = Task.objects.filter(category=category)
-        return render(request, 'tasks/view.html', {'tasks_grouped': tasks_grouped})
+        active_tab = request.GET.get('active_tab', next(iter(categories)))
+        return render(request, 'tasks/view.html', {'tasks_grouped': tasks_grouped, 'active_tab': active_tab})
 
 
 class CompleteTaskForm(forms.ModelForm):
