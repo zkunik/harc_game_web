@@ -574,7 +574,7 @@ ul.rpgui-dropdown-imp {
   _text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   color: white;
   /* default size */
-  min-height: 40px;
+  min-height: 160px;
   margin-top: 0px;
   /* scrollers */
   overflow-x: hidden;
@@ -602,7 +602,9 @@ ul.rpgui-list-imp {
   /* font */
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   color: white;
-  height: 16px;
+  max-width: 100%;
+  height: auto;
+  width: auto;
   margin-left: 5px !important;
   /* remove the dot */
   list-style-type: none;

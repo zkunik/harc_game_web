@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import Select
 from django.shortcuts import render, redirect
 
 from apps.users.models import HarcgameUser, Scout
@@ -21,6 +22,10 @@ class ScoutCreationForm(forms.ModelForm):
             "initials": "Inicjały",
             "patrol": "Zastęp",
             "rank": "Stopień harcerski"
+        }
+        widgets = {
+            'rank': Select(attrs={'class': 'rpgui-list'}),
+            'patrol': Select(attrs={'class': 'rpgui-list'}),
         }
 
 
