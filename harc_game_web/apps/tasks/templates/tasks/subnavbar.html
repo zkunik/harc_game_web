@@ -6,6 +6,10 @@
 <a href="{% url 'complete_task' %}"><button class="rpgui-button" type="button">Potwierdź wykonanie zadania</button></a>
 {% endif %}
 
+{% if request.user.is_superuser %}
+<a href="{% url 'all_documented_tasks' %}"><button class="rpgui-button" type="button">Wszystkie wykonane zadania</button></a>
+{% endif %}
+
 {% if request.user.scout.is_team_leader %}
 <a href="{% url 'check_task' %}"><button class="rpgui-button" type="button">Sprawdź zadanie</button></a>
 {% endif %}
