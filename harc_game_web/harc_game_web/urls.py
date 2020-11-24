@@ -9,7 +9,7 @@ from django.urls import path
 from django.contrib.admin.views.decorators import staff_member_required
 
 from apps.core.views import frontpage
-from apps.tasks.views import UploadView, UploadCompleteView, complete_task, check_task, TaskView
+from apps.tasks.views import UploadView, UploadCompleteView, complete_task, check_task, TaskView, all_documented_tasks
 from apps.users.views import signup
 from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
 from apps.teams.views import TeamView
@@ -29,6 +29,7 @@ urlpatterns = [
     path('tasks/', TaskView.as_view(), name='tasks'),
     path('complete_task/', complete_task, name='complete_task'),
     path('check_task/', check_task, name='check_task'),
+    path('all_documented_tasks/', all_documented_tasks, name='all_documented_tasks'),
     path('api_upload/', UploadView.as_view(), name='api_upload'),
     path('api_upload_complete/', UploadCompleteView.as_view(), name='api_upload_complete'),
 

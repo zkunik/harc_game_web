@@ -54,8 +54,7 @@ class Task(models.Model):
             if calculate_week(timezone.now()) in weeks_of_user_documented_tasks:
                 can_be_completed = False
         elif self.allowed_completition_frequency == 'raz dziennie':
-            if DocumentedTask.objects.filter(user=user).filter(task=self).\
-                filter(date_completed__date=timezone.now()):
+            if DocumentedTask.objects.filter(user=user).filter(task=self).filter(date_completed__date=timezone.now()):
                 can_be_completed = False
         else:
             # bez ograniczeń
@@ -88,7 +87,8 @@ class DocumentedTask(models.Model):
     def __str__(self):
         return f'{self.task} - completed by {self.user}'
 
-# Maybe I should have moved this to some othr place?
+
+# Maybe I should have moved this to some other place?
 class ModelWithChangeDetection(models.Model):
     """
     From https://gist.github.com/alican/cb9e81699e4ad1af81ca897ae500393b
@@ -121,7 +121,7 @@ class ModelWithChangeDetection(models.Model):
             return False
 
         return True
-# end of helper class
+
 
 class TaskApproval(ModelWithChangeDetection):
     """
