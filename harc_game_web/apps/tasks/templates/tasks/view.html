@@ -34,7 +34,7 @@ td {
 {% for category, tasks in tasks_grouped.items %}
     {% if category == active_tab %}
         {% for task in tasks %}
-            <div class="rpgui-list-imp">
+            <div class="rpgui-container framed-golden" style="position: relative">
                 <h3>{{task.name|capfirst}}</h3>
                 <table id="task">
                 <tr><td>Jak często można wykonywać</td><td><p>{{task.allowed_completition_frequency}}</p></td></tr>

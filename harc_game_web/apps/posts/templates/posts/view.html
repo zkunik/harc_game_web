@@ -16,7 +16,7 @@
 
 {% block content %}
 
-	<center>
+	<div style="text-align: center;">
 	<h3>{{ post.title|capfirst }}</h3>
 	<p>
 		Opublikowany: {{ post.pub_date_time|date:'Y-m-d H:i' }}  |
@@ -24,10 +24,10 @@
 	</p>
 {% if request.user.is_superuser %}
 	<p>
-		Stworzony: {{post.date_time}}|
+		Stworzony: {{post.date_time}}
 	</p>
 {% endif %}
-	<div class="rpgui-list-imp">
+  <div class="rpgui-container framed-golden" style="position: relative">
 	<p>{{ post.content|safe }}</p>
 	<p>
 		{% if post.link1 %}<a href={{post.link1}}>Link 1</a>{% endif %}
@@ -35,6 +35,6 @@
 		{% if post.link3 %}<a href={{post.link3}}>Link 3</a>{% endif %}
 	</p>
 	</div>
-	</center>
+	</div>
 
 {% endblock %}
