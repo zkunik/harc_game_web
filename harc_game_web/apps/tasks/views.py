@@ -112,7 +112,8 @@ def check_task(request):
         task.save()
 
     user = request.user
-    task_approvals = TaskApproval.objects.filter(approver=user)
+
+    task_approvals = TaskApproval.objects.filter(approver=user).exclude(is_closed=True)
     unchecked_tasks = task_approvals.filter(is_accepted=False)
     checked_tasks = task_approvals.filter(is_accepted=True)
 
