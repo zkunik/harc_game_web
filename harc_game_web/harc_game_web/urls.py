@@ -15,6 +15,7 @@ from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_
 from apps.teams.views import TeamView
 from apps.wotd.views import WordOfTheDayView
 from apps.bank.views import BankReport
+from apps.tasks.scheduler import start_scheduler
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -49,3 +50,6 @@ urlpatterns = [
     # Bank & reporting
     path('report/', staff_member_required(BankReport.as_view()), name='bank_report'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Launch the cron scheduler
+start_scheduler()

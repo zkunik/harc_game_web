@@ -20,6 +20,6 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(TaskApproval)
 class EventAdmin(admin.ModelAdmin):
-    fields = ('documented_task', 'approver','is_accepted', 'comment_from_approver')
-    list_display = ('documented_task', 'approver', 'is_accepted')
-    list_filter = ('is_accepted', 'approver', 'documented_task')
+    fields = ('documented_task', 'approver',('is_accepted', 'is_closed'), 'comment_from_approver')
+    list_display = ('documented_task', 'approver', 'is_accepted', 'is_closed')
+    list_filter = ('is_closed', 'is_accepted', 'approver', 'documented_task')

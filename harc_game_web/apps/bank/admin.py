@@ -16,6 +16,6 @@ class EventAdmin(admin.ModelAdmin):
             'fields': ('year_week',)
        }),
    )
-    list_display = ('date_accrued', 'user', 'documented_task', 'accrual_type', 'accrual_deleted')
+    list_display = ('date_accrued', 'documented_task', 'accrual_type', 'accrual_deleted')
     list_filter = ('user', 'date_accrued', 'accrual_type', 'accrual_deleted')
     ordering = ('-date_accrued',)

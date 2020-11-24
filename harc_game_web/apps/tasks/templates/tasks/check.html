@@ -17,6 +17,8 @@
 {% for task_approval, form in unchecked_task_forms %}
 {% include "tasks/check_form.html" %}
 <hr>
+{% empty %}
+<center><p>Nie masz zadań do sprawdzenia</p></center>
 {% endfor %}
 <br>
 
@@ -27,6 +29,8 @@
 {% for task_approval, form in checked_task_forms %}
 {% include "tasks/check_form.html" %}
 <hr>
+{% empty %}
+<center><p>Nie masz jeszcze sprawdzonych zadań</p></center>
 {% endfor %}
 
 {% endblock %}
