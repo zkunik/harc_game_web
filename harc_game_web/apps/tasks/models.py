@@ -228,4 +228,5 @@ def close_task_approvals():
     Called by cron at 00:00 on Saturday to close the task approvals
     """
     # Pick tasks, which are not closed and completed in the past and close them
-    TaskApproval.objects.filter(is_closed=False).exclude(documented_task__date_completed__date__gte=timezone.now()).update(is_closed=True)
+    TaskApproval.objects.filter(is_closed=False).exclude(documented_task__date_completed__gte=timezone.now()).update(is_closed=True)
+
