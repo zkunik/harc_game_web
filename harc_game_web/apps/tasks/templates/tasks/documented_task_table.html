@@ -1,6 +1,8 @@
 <tr><td>Nazwa zadania</td><td>{{ task.task.name }}</td></tr>
+<tr><td>Kto wykonał</td><td>{{ task.user }}</td></tr>
+<tr><td>Drużyna</td><td>{{ task.user.scout.team }}</td></tr>
 <tr><td>Data ukończenia</td><td>{{ task.date_completed }}</td></tr>
-<tr><td>Komentarz</td><td>{{ task.comment_from_user }}</td></tr>
+<tr><td>Komentarz</td><td>{{ task.comment_from_user|default:"-" }}</td></tr>
 <tr><td>Dodane pliki</td><td><a href="{{ task.file1.file.url }}">{{ task.file1.filename_orig|default:"" }}</a></td></tr>
 <tr><td></td><td><a href="{{ task.file2.file.url }}">{{ task.file2.filename_orig|default:"" }}</a></td></tr>
 <tr><td></td><td><a href="{{ task.file3.file.url }}">{{ task.file3.filename_orig|default:"" }}</a></td></tr>
