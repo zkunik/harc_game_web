@@ -12,7 +12,7 @@
 
 {% block content %}
 
-	<center>
+	<div style="text-align: center;">
 
 	<p>Mamy teraz {% now "j F Y H:i" %}</p>
 	<hr>
@@ -25,7 +25,8 @@
 			Opublikowany: {{ post.pub_date_time|date:'Y-m-d H:i' }}  |
 			Przez: {{post.user.nickname}}
 		</p>
-	<div class="rpgui-list-imp">
+
+    <div class="rpgui-container framed-golden" style="position: relative">
 		<p>{{ post.content|safe }}</p>
 		<p>
 			{% if post.link1 %}<a href={{post.link1}}>Link 1</a>{% endif %}
@@ -38,6 +39,6 @@
 		<p>Nic sie jeszcze nie wydarzyło</p>
 	{% endfor %}
 
-	</center>
+	</div>
 
 {% endblock %}
