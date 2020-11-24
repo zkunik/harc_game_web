@@ -14,30 +14,31 @@
 
         {% if word_of_the_day.question|length > 0 %}
             <h3>Dzisiejsze hasło:</h3>
-            <div class="rpgui-list-imp"><p>{{ word_of_the_day.question|safe }}</p></div>
+            <div class="rpgui-container framed-golden" style="position: relative"><p>{{ word_of_the_day.question|safe }}</p></div>
             <form action="" method="get">
                 {% csrf_token %}
-                <center><table>
+                <div style="text-align: center;"><table>
                     <td><label class=rpgui-pixelated for="today_guess">Hasło to:</label></td>
                     <td><input type="text" id="today_guess" name="today_guess"></td>
                     <td><button class="rpgui-button" type="submit">Sprawdź</button></td>
                     <td><a href="{{ word_of_the_day.hint }}"><button class="rpgui-button" type="button">Podpowiedź</button></a></td>
-                </table></center>
+                </table></div>
             </form>
         {% endif %}
 
         {% if word_for_tomorrow.question|length > 0 %}
             <hr>
             <h3>Jutrzejsze hasło:</h3>
-            <div class="rpgui-list-imp"><p>{{ word_for_tomorrow.question|safe }}</p></div>
+
+            <div class="rpgui-container framed-golden" style="position: relative"><p>{{ word_for_tomorrow.question|safe }}</p></div>
             <form action="" method="get">
                 {% csrf_token %}
-                <center><table>
+                <div style="text-align: center;"><table>
                     <td><label for="tomorrow_guess">Hasło to:</label></td>
                     <td><input type="text" id="tomorrow_guess" name="tomorrow_guess"></td>
                     <td><button class="rpgui-button" type="submit">Sprawdź</button></td>
                     <td><a href="{{ word_for_tomorrow.hint }}"><button class="rpgui-button" type="button">Podpowiedź</button></a></td>
-                </table></center>
+                </table></div>
             </form>
         {% endif %}
 
@@ -45,7 +46,7 @@
             <hr>
             <h3>Poprzednie pytania:</h3>
             {% for word in words_of_the_past %}
-            <div class="rpgui-list-imp">
+            <div class="rpgui-container framed-golden" style="position: relative">
                 <h4>{{ word.date }}</h4>
                 <p>{{ word.question|safe }}</p>
                 <p>Prawidłowa odpowiedź: <strong>{{ word.answer }}</strong> (<a href="{{ word.hint }}">Podpowiedź</a>)</p>

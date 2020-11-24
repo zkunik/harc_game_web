@@ -58,7 +58,7 @@
         <tr>
             <td><p>{{ scout.patrol|capfirst }}</p></td>
             <td><p>{{ scout|capfirst }}</p></td>
-            <td><p>{{ scout.rank|capfirst }}</p></td>
+            <td><p>{{ scout.get_rank_display|capfirst }}</p></td>
             <td><p>{{ scout.score }}</p></td>
         </tr>
         {% endfor%}
