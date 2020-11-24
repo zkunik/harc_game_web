@@ -25,12 +25,16 @@ class Task(models.Model):
     """
     Model zadania
     """
-    name = models.CharField(max_length=200)
-    category = models.CharField(max_length=100, default='', null=True)
-    description = models.TextField(max_length=400)
-    allowed_completition_frequency = models.CharField(max_length=200)
-    prize = models.IntegerField(default=0, null=True)
-    extra_prize = models.CharField(max_length=200, default=None, null=True, blank=True)
+    name = models.CharField("Nazwa", max_length=200)
+    category = models.CharField("Kategoria", max_length=100, default='', null=True)
+    description = models.TextField("Opis", max_length=400)
+    allowed_completition_frequency = models.CharField("Jak często można wykonywać", max_length=200)
+    prize = models.IntegerField("Nagroda", default=0, null=True)
+    extra_prize = models.CharField("Nagroda specjalna", max_length=200, default=None, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "zadanie"
+        verbose_name_plural = "zadania"
 
     def can_be_completed_today(self, user):
         """
@@ -68,14 +72,18 @@ class DocumentedTask(models.Model):
     """
     task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
-    date_completed = models.DateTimeField(default=timezone.now)
-    comment_from_user = models.TextField(max_length=400, null=True, default="", blank=True)
+    date_completed = models.DateTimeField("Data ukończenia", default=timezone.now)
+    comment_from_user = models.TextField("Komentarz użytkownika", max_length=400, null=True, default="", blank=True)
     file1 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file1')
     file2 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file2')
     file3 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file3')
     link1 = models.URLField(max_length=400, null=True, default="", blank=True)
     link2 = models.URLField(max_length=400, null=True, default="", blank=True)
     link3 = models.URLField(max_length=400, null=True, default="", blank=True)
+
+    class Meta:
+        verbose_name = "udokumentowane zadanie"
+        verbose_name_plural = "udokumentowane zadania"
 
     def __str__(self):
         return f'{self.task} - completed by {self.user}'
@@ -123,12 +131,17 @@ class TaskApproval(ModelWithChangeDetection):
     approver = models.ForeignKey(
         HarcgameUser, on_delete=models.RESTRICT, null=True, default=None
     )
-    is_accepted = models.BooleanField(default=False)
-    comment_from_approver = models.TextField(max_length=400, default="", blank=True)
+    is_accepted = models.BooleanField("Zaakceptowane", default=False)
+    is_closed = models.BooleanField("Zamknięte", default=False)
+    comment_from_approver = models.TextField("Komentarz od akceptującego", max_length=400, default="", blank=True)
+
+    class Meta:
+        verbose_name = "akceptacja zadań"
+        verbose_name_plural = "akceptacje zadań"
 
     def save(self, *args, **kwargs):
         from apps.bank.models import Bank
-        if self.data_changed(['is_accepted']):
+        if not self.is_closed and self.data_changed(['is_accepted']):
             # If task is accepted, we can accure it
             if self.is_accepted:
                 # If this is team leader, just assign the prize to him
@@ -175,7 +188,7 @@ class TaskApproval(ModelWithChangeDetection):
 
 def pick_approver(user):
     """
-    Function to pick TaskApprover to new task
+    Function to pick a task approver to the new task
     """
     user = Scout.objects.get(user=user)
 
@@ -210,3 +223,9 @@ def update_profile_signal(sender, instance, created, **kwargs):
         )
     instance.taskapproval.save()
 
+def close_task_approvals():
+    """
+    Called by cron at 00:00 on Saturday to close the task approvals
+    """
+    # Pick tasks, which are not closed and completed in the past and close them
+    TaskApproval.objects.filter(is_closed=False).exclude(documented_task__date_completed__date=timezone.now()).update(is_closed=True)
