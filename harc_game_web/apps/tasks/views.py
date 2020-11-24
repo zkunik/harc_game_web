@@ -3,14 +3,15 @@ from chunked_upload.exceptions import ChunkedUploadError
 from chunked_upload.response import Response
 from chunked_upload.views import ChunkedUploadView, ChunkedUploadCompleteView
 from django import forms
+from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.forms import CheckboxInput, Select
+from django.forms import Select
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.views import View
-from django.contrib import messages
 
 from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task
 
@@ -29,9 +30,10 @@ class TaskView(View):
 class CompleteTaskForm(forms.ModelForm):
     def __init__(self, request, *args, **kwargs):
         # https://stackoverflow.com/questions/291945/how-do-i-filter-foreignkey-choices-in-a-django-modelform
-        super (CompleteTaskForm,self ).__init__(*args,**kwargs) # populates the post
+        super(CompleteTaskForm, self).__init__(*args, **kwargs)  # populates the post
         self.fields['task'].queryset = \
-            Task.objects.filter(id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)])
+            Task.objects.filter(
+                id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)])
         if self.fields['task'].queryset.count() == 0:
             messages.info(request, f"Nie ma żadnych zadań, które możesz dziś wykonać")
 
@@ -48,6 +50,7 @@ class CompleteTaskForm(forms.ModelForm):
         widgets = {
             'task': Select(attrs={'class': 'rpgui-list'}),
         }
+
 
 @login_required
 def complete_task(request):
@@ -76,7 +79,8 @@ def complete_task(request):
                 documented_task.file3 = uploaded_files[2]
                 documented_task.save()
             else:
-                messages.error(request, f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
+                messages.error(request,
+                               f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
 
     else:
         form = CompleteTaskForm(request)
@@ -184,3 +188,12 @@ class UploadCompleteView(ChunkedUploadCompleteView, LoginRequiredMixin):
             'filename': str(chunked_upload.filename),
             'upload_id': str(chunked_upload.upload_id),
         }
+
+
+@staff_member_required
+def all_documented_tasks(request):
+    task_approvals = TaskApproval.objects.all()
+
+    return render(request, 'tasks/documented_task_all_view.html', context={
+        "task_approvals": task_approvals,
+    })

@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block subnavbarcontent %}
+{% if request.user.is_authenticated %}
+{% include "tasks/subnavbar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="title">
+  Wszystkie wykonane zadania
+</h1>
+
+<br>
+{% for task_approval in task_approvals %}
+<table id="exam">
+  {% with task=task_approval.documented_task %}
+  {% include "tasks/documented_task_table.html" %}
+  {% endwith %}
+  <tr><td>Zatwierdzający</td><td>{{ task_approval.approver }}</td></tr>
+  <tr><td>Komentarz zatwierdzającego</td><td>{{ task_approval.comment_from_approver }}</td></tr>
+  <tr><td>Czy zatwierdzono</td><td>{{ task_approval.is_accepted }}</td></tr>
+  <tr><td>Czy zamknięto</td><td>{{ task_approval.is_closed }}</td></tr>
+</table>
+<hr>
+{% endfor %}
+
+{% endblock %}
