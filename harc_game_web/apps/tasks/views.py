@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import View
 
-from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task
+from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task, FavouriteTask
 
 
 class TaskView(View):
@@ -23,8 +23,10 @@ class TaskView(View):
         tasks_grouped = {}
         for category in categories:
             tasks_grouped[category] = Task.objects.filter(category=category)
+        favourite_tasks = [favourite_task.task for favourite_task in FavouriteTask.objects.filter(user=request.user)]
+
         active_tab = request.GET.get('active_tab', next(iter(categories)))
-        return render(request, 'tasks/view.html', {'tasks_grouped': tasks_grouped, 'active_tab': active_tab})
+        return render(request, 'tasks/view.html', {'tasks_grouped': tasks_grouped, 'favourite_tasks': favourite_tasks, 'active_tab': active_tab})
 
 
 class CompleteTaskForm(forms.ModelForm):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.tasks.models import Task, DocumentedTask, TaskApproval
+from apps.tasks.models import Task, DocumentedTask, TaskApproval, FavouriteTask
 
 
 @admin.register(Task)
@@ -23,3 +23,9 @@ class EventAdmin(admin.ModelAdmin):
     fields = ('documented_task', 'approver',('is_accepted', 'is_closed'), 'comment_from_approver')
     list_display = ('documented_task', 'approver', 'is_accepted', 'is_closed')
     list_filter = ('is_closed', 'is_accepted', 'approver', 'documented_task')
+
+@admin.register(FavouriteTask)
+class EventAdmin(admin.ModelAdmin):
+    fields = ('user', 'task')
+    list_display = ('user', 'task')
+    list_filter = ('user', 'task')
