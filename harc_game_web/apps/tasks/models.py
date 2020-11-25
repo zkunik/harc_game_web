@@ -166,7 +166,7 @@ class TaskApproval(ModelWithChangeDetection):
                     try:
                         try:
                             Bank.objects.create(
-                                user=Scout.objects.get(team=self.documented_task.user.scout.team, is_team_leader=True).user,
+                                user=Scout.objects.filter(team=self.documented_task.user.scout.team, is_team_leader=True).first().user,
                                 documented_task=self.documented_task,
                                 accrual=self.documented_task.task.prize * self.documented_task.user.scout.team.tax,
                                 accrual_extra_prize=None,
