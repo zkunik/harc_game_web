@@ -54,7 +54,7 @@ class Bank(models.Model):
 
     def score(self):
         score = Bank.objects.filter(accrual_deleted=False).filter(user=self.user).aggregate(Sum('accrual'))['accrual__sum']
-        return score if score != None else 0
+        return score if score is not None else 0
 
     def save(self, *args, **kwargs):
         # Calculate the year and week number
