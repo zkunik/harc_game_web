@@ -2,6 +2,7 @@ from chunked_upload.models import ChunkedUpload
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 from apps.users.models import FreeDay, HarcgameUser, Scout
 
