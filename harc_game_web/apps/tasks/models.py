@@ -165,18 +165,18 @@ class TaskApproval(ModelWithChangeDetection):
                     )
                     # And the tax for the team leader
                     try:
-                        try:
-                            Bank.objects.create(
-                                user=Scout.objects.filter(team=self.documented_task.user.scout.team, is_team_leader=True).first().user,
-                                documented_task=self.documented_task,
-                                accrual=self.documented_task.task.prize * self.documented_task.user.scout.team.tax,
-                                accrual_extra_prize=None,
-                                accrual_type='tax'
-                            )
-                        except MultipleObjectsReturned:
-                            ValueError(f"{self.documented_task.user.scout.team} ma więcej niż jednego drużynowego!")
-                    except ObjectDoesNotExist:
-                        raise ValueError(f"{self.documented_task.user} nie jest w żadnej drużynie!")
+                        team_leader = Scout.objects.filter(team=self.documented_task.user.scout.team, is_team_leader=True).first().user
+                    except AttributeError:
+                        team_leader = None
+                        raise ValueError(f"{self.documented_task.user} nie jest w żadnej drużynie lub drużyna nie ma drużynowego!")
+                    if team_leader:
+                        Bank.objects.create(
+                            user=team_leader,
+                            documented_task=self.documented_task,
+                            accrual=self.documented_task.task.prize * self.documented_task.user.scout.team.tax,
+                            accrual_extra_prize=None,
+                            accrual_type='tax'
+                        )
             else:
                 # Instead of deleting accruals, we mark them deleted, to have the prove
                 Bank.objects.filter(documented_task=self.documented_task).update(accrual_deleted=True)
