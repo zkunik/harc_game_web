@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
-from django.db.models import Sum
 from django.dispatch import receiver
 from django.utils import timezone
 
@@ -53,13 +52,9 @@ class Scout(models.Model):
         Obliczenie wyniku
         """
         # import is here, otherwise we have a cyclic import
-        from apps.tasks.models import Task, DocumentedTask, TaskApproval
+        from apps.bank.models import Bank
 
-        score = Task.objects.filter(documentedtask__user=self.user).\
-                             filter(documentedtask__taskapproval__is_accepted=True).\
-                             aggregate(Sum('prize'))['prize__sum']
-
-        return score if score != None else 0
+        return Bank.score(self)
 
     def __str__(self):
         return self.user.nickname
