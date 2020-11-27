@@ -52,9 +52,9 @@ td {
 
                 {{task.name|capfirst}}
                 {% if task in favourite_tasks %}
-                <a href="{% url 'unfav_task' task.id %}"><div class="rpgui-icon potion-green" style="float:right; margin-top:5px;"></div></a>
+                <a href="{% url 'unfav_task' task.id active_tab %}"><div class="rpgui-icon potion-green" style="float:right; margin-top:5px;"></div></a>
                 {% else %}
-                <a href="{% url 'fav_task' task.id %}"><div class="rpgui-icon potion-slot" style="float:right; margin-top:5px;"></div></a>
+                <a href="{% url 'fav_task' task.id active_tab %}"><div class="rpgui-icon potion-slot" style="float:right; margin-top:5px;"></div></a>
                 {% endif %}
 
                 {% if task in done_tasks %}

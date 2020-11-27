@@ -27,10 +27,12 @@ urlpatterns = [
 
     # tasks
     path('tasks/', TaskView.as_view(), name='tasks'),
+    path('tasks/<str:tab>', TaskView.as_view(), name='tasks'),
     path('tasks/fav/<int:id>', fav_task, name='fav_task'),
+    path('tasks/fav/<int:id>/<str:tab>', fav_task, name='fav_task'),
     path('tasks/unfav/<int:id>', unfav_task, name='unfav_task'),
+    path('tasks/unfav/<int:id>/<str:tab>', unfav_task, name='unfav_task'),
     path('complete_task/', complete_task, name='complete_task'),
-    path('complete_task/<int:id>', complete_task, name='complete_task'),
     path('check_task/', check_task, name='check_task'),
     path('all_documented_tasks/', all_documented_tasks, name='all_documented_tasks'),
     path('api_upload/', UploadView.as_view(), name='api_upload'),
