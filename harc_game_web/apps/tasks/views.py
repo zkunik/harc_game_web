@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.forms import Select
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -53,6 +54,7 @@ class CompleteTaskForm(forms.ModelForm):
 
 
 @login_required
+@transaction.atomic
 def complete_task(request):
     """
     Function to handle completing Task by Scout - render and process form
@@ -108,6 +110,7 @@ class CheckTaskForm(forms.ModelForm):
 
 
 @user_passes_test(team_leader_check)
+@transaction.atomic
 def check_task(request):
     if request.method == "POST":
         task = TaskApproval.objects.get(documented_task=request.POST['documented_task'])
