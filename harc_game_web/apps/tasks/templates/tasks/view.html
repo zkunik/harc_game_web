@@ -19,9 +19,20 @@ td {
 
 {% block content %}
 
+    <table>
+        <tr>
+    <div class="rpgui-icon potion-green" style="float:right; margin-top:5px; margin-right:35px;"></div>
+    <div style="float:right; margin-top:5px; margin-right:5px;"><p>Ulubione</p></div>
+        </tr>
+        <tr>
+    <div class="rpgui-icon potion-red" style="float:right; margin-top:5px; margin-right:15px;"></div>
+    <div style="float:right; margin-top:5px; margin-right:5px;"><p>Wykonane</p></div>
+        </tr>
+    </table>
+
 {% for button in tasks_grouped %}
 {% if button %}
-    <form action="" method="get">
+    <form id="category_selector" action="" method="get">
         {% csrf_token %}
         <input type="hidden" name="active_tab" value="{{button}}">
         <button class="rpgui-button" type="submit">{{button}}</button>
@@ -33,16 +44,24 @@ td {
 
 {% for category, tasks in tasks_grouped.items %}
     {% if category == active_tab %}
+        <form id="tasks_list" action="" method="get">
+        {% csrf_token %}
         {% for task in tasks %}
             <div class="rpgui-container framed-golden" style="position: relative">
                 <h3>
 
+                {{task.name|capfirst}}
                 {% if task in favourite_tasks %}
-                <input class="rpgui-checkbox" type="checkbox" checked="" data-rpguitype="checkbox">
+                <a href="{% url 'unfav_task' task.id %}"><div class="rpgui-icon potion-green" style="float:right; margin-top:5px;"></div></a>
                 {% else %}
-                <input class="rpgui-checkbox" type="checkbox" data-rpguitype="checkbox">
+                <a href="{% url 'fav_task' task.id %}"><div class="rpgui-icon potion-slot" style="float:right; margin-top:5px;"></div></a>
                 {% endif %}
-                <label>{{task.name|capfirst}}</label>
+
+                {% if task in done_tasks %}
+                <div class="rpgui-icon potion-red" style="float:right; margin-top:5px;"></div>
+                {% else %}
+                <div class="rpgui-icon potion-slot" style="float:right; margin-top:5px;"></div>
+                {% endif %}
 
                 </h3>
                 <table id="task">
@@ -60,6 +79,7 @@ td {
         {% empty %}
         Nie ma zadań w kategorii {{ active_tab }}
         {% endfor %}
+        </form>
     {% endif %}
 {% endfor %}
 
