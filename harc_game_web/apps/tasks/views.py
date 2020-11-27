@@ -18,7 +18,7 @@ from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, U
 
 class TaskView(View):
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, tab=None, *args, **kwargs):
         categories = sorted(set(Task.objects.values_list('category', flat=True)))
         tasks_grouped = {}
         for category in categories:
@@ -27,7 +27,10 @@ class TaskView(View):
         favourite_tasks = [favourite_task.task for favourite_task in FavouriteTask.objects.filter(user=request.user)]
         done_tasks = [done_task.task for done_task in DocumentedTask.objects.filter(user=request.user)]
 
-        active_tab = request.GET.get('active_tab', next(iter(categories)))
+        if tab:
+            active_tab = tab
+        else:
+            active_tab = request.GET.get('active_tab', next(iter(categories)))
 
         return render(
             request, 'tasks/view.html', {
@@ -61,111 +64,42 @@ class CompleteTaskForm(forms.ModelForm):
 
 
 @login_required
-def complete_task(request, id=None):
+def complete_task(request):
     """
     Function to handle completing Task by Scout - render and process form
     """
-    if not id:
-        if request.method == "POST":
-            form = CompleteTaskForm(request, request.POST)
-
-            if form.is_valid():
-                documented_task = form.save(commit=False)
-                documented_task.user = request.user
-
-                if documented_task.task.can_be_completed_today(request.user):
-                    # Process uploaded files
-                    uploaded_files = []
-                    for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
-                        upload_id = request.POST[upload_id_field]
-                        if upload_id != '':
-                            file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
-                        else:
-                            file = None
-                        uploaded_files.append(file)
-                    documented_task.file1 = uploaded_files[0]
-                    documented_task.file2 = uploaded_files[1]
-                    documented_task.file3 = uploaded_files[2]
-                    documented_task.save()
-                else:
-                    messages.error(request,
-                                   f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
-
-        else:
-            form = CompleteTaskForm(request)
-    else:
-        post = get_object_or_404(DocumentedTask, id=id)
-
-        if request.method == "POST":
-            form = CompleteTaskForm(request, request.POST, instance=post)
-
-            if form.is_valid():
-                documented_task = form.save(commit=False)
-                # documented_task.user = request.user
-
-                # if documented_task.task.can_be_completed_today(request.user):
-                #     # Process uploaded files
-                #     uploaded_files = []
-                #     for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
-                #         upload_id = request.POST[upload_id_field]
-                #         if upload_id != '':
-                #             file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
-                #         else:
-                #             file = None
-                #         uploaded_files.append(file)
-                #     documented_task.file1 = uploaded_files[0]
-                #     documented_task.file2 = uploaded_files[1]
-                #     documented_task.file3 = uploaded_files[2]
-                #     documented_task.save()
-                # else:
-                #     messages.error(request,
-                #                    f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
-
-        else:
-            form = CompleteTaskForm(request, instance=post)
-    completed_tasks = DocumentedTask.objects.filter(user=request.user)
-    return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
-
-
-@login_required
-def edit_completed_task(request, id):
-    """
-    Function to handle completing Task by Scout - render and process form
-    """
-    post = get_object_or_404(DocumentedTask, id=id)
-
     if request.method == "POST":
-        form = CompleteTaskForm(request, request.POST, instance=post)
+        form = CompleteTaskForm(request, request.POST)
 
         if form.is_valid():
             documented_task = form.save(commit=False)
-            # documented_task.user = request.user
+            documented_task.user = request.user
 
-            # if documented_task.task.can_be_completed_today(request.user):
-            #     # Process uploaded files
-            #     uploaded_files = []
-            #     for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
-            #         upload_id = request.POST[upload_id_field]
-            #         if upload_id != '':
-            #             file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
-            #         else:
-            #             file = None
-            #         uploaded_files.append(file)
-            #     documented_task.file1 = uploaded_files[0]
-            #     documented_task.file2 = uploaded_files[1]
-            #     documented_task.file3 = uploaded_files[2]
-            #     documented_task.save()
-            # else:
-            #     messages.error(request,
-            #                    f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
-
+            if documented_task.task.can_be_completed_today(request.user):
+                # Process uploaded files
+                uploaded_files = []
+                for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
+                    upload_id = request.POST[upload_id_field]
+                    if upload_id != '':
+                        file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
+                    else:
+                        file = None
+                    uploaded_files.append(file)
+                documented_task.file1 = uploaded_files[0]
+                documented_task.file2 = uploaded_files[1]
+                documented_task.file3 = uploaded_files[2]
+                documented_task.save()
+            else:
+                messages.error(request,
+                               f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
     else:
-        form = CompleteTaskForm(request, instance=post)
+        form = CompleteTaskForm(request)
     completed_tasks = DocumentedTask.objects.filter(user=request.user)
     return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
 
+
 @login_required
-def fav_task(request, id):
+def fav_task(request, id, tab=None):
     """
     Function to handle completing Task by Scout - render and process form
     """
@@ -173,11 +107,11 @@ def fav_task(request, id):
     if FavouriteTask.objects.filter(user=request.user, task=task).count()==0:
         FavouriteTask.objects.create(user=request.user, task=task)
 
-    return redirect(reverse('tasks'))
+    return redirect(reverse('tasks', args={tab}))
 
 
 @login_required
-def unfav_task(request, id):
+def unfav_task(request, id, tab=None):
     """
     Function to handle completing Task by Scout - render and process form
     """
@@ -185,7 +119,7 @@ def unfav_task(request, id):
     if FavouriteTask.objects.filter(user=request.user, task=task).count():
         FavouriteTask.objects.get(user=request.user, task=task).delete()
 
-    return redirect(reverse('tasks'))
+    return redirect(reverse('tasks', args={tab}))
 
 
 def team_leader_check(user):
