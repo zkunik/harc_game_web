@@ -19,24 +19,12 @@ td {
 
 {% block content %}
 
-    <table>
-        <tr>
     <div class="rpgui-icon potion-green" style="float:right; margin-top:5px; margin-right:35px;"></div>
     <div style="float:right; margin-top:5px; margin-right:5px;"><p>Ulubione</p></div>
-        </tr>
-        <tr>
-    <div class="rpgui-icon potion-red" style="float:right; margin-top:5px; margin-right:15px;"></div>
-    <div style="float:right; margin-top:5px; margin-right:5px;"><p>Wykonane</p></div>
-        </tr>
-    </table>
 
 {% for button in tasks_grouped %}
 {% if button %}
-    <form id="category_selector" action="" method="get">
-        {% csrf_token %}
-        <input type="hidden" name="active_tab" value="{{button}}">
-        <button class="rpgui-button" type="submit">{{button}}</button>
-    </form>
+    <a href="{% url 'tasks' button %}"><button class="rpgui-button" type="submit">{{button}}</button></a>
 {% endif %}
 {% endfor %}
 
@@ -47,7 +35,7 @@ td {
         <form id="tasks_list" action="" method="get">
         {% csrf_token %}
         {% for task in tasks %}
-            <div class="rpgui-container framed-golden" style="position: relative">
+            <div class="rpgui-container framed-golden" style="position:relative; width:100%;">
                 <h3>
 
                 {{task.name|capfirst}}
@@ -55,12 +43,6 @@ td {
                 <a href="{% url 'unfav_task' task.id active_tab %}"><div class="rpgui-icon potion-green" style="float:right; margin-top:5px;"></div></a>
                 {% else %}
                 <a href="{% url 'fav_task' task.id active_tab %}"><div class="rpgui-icon potion-slot" style="float:right; margin-top:5px;"></div></a>
-                {% endif %}
-
-                {% if task in done_tasks %}
-                <div class="rpgui-icon potion-red" style="float:right; margin-top:5px;"></div>
-                {% else %}
-                <div class="rpgui-icon potion-slot" style="float:right; margin-top:5px;"></div>
                 {% endif %}
 
                 </h3>

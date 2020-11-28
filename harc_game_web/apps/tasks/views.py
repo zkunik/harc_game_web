@@ -24,18 +24,18 @@ class TaskView(View):
         for category in categories:
             tasks_grouped[category] = Task.objects.filter(category=category)
 
-        favourite_tasks = [favourite_task.task for favourite_task in FavouriteTask.objects.filter(user=request.user)]
-        done_tasks = [done_task.task for done_task in DocumentedTask.objects.filter(user=request.user)]
-
-        if tab:
-            active_tab = tab
+        if not request.user.is_anonymous:
+            favourite_tasks = [favourite_task.task for favourite_task in FavouriteTask.objects.filter(user=request.user)]
+            tasks_grouped['ulubione'] = favourite_tasks
         else:
-            active_tab = request.GET.get('active_tab', next(iter(categories)))
+            favourite_tasks = []
+
+        if not tab:
+            tab = next(iter(categories))
 
         return render(
             request, 'tasks/view.html', {
-                'tasks_grouped': tasks_grouped, 'favourite_tasks': favourite_tasks,
-                'done_tasks': done_tasks, 'active_tab': active_tab})
+                'tasks_grouped': tasks_grouped, 'favourite_tasks': favourite_tasks, 'active_tab': tab})
 
 
 class CompleteTaskForm(forms.ModelForm):
@@ -101,7 +101,7 @@ def complete_task(request):
 @login_required
 def fav_task(request, id, tab=None):
     """
-    Function to handle completing Task by Scout - render and process form
+    Function to mark the Task as favourite by Scout - render and process form
     """
     task = Task.objects.get(id=id)
     if FavouriteTask.objects.filter(user=request.user, task=task).count()==0:
@@ -113,7 +113,7 @@ def fav_task(request, id, tab=None):
 @login_required
 def unfav_task(request, id, tab=None):
     """
-    Function to handle completing Task by Scout - render and process form
+    Function to un-mark the Task as favourite by Scout - render and process form
     """
     task = Task.objects.get(id=id)
     if FavouriteTask.objects.filter(user=request.user, task=task).count():
