@@ -1,3 +1,4 @@
+import math
 from chunked_upload.models import ChunkedUpload
 from django.db import models
 from django.dispatch import receiver
@@ -124,6 +125,11 @@ class ModelWithChangeDetection(models.Model):
         return True
 
 
+# https://realpython.com/python-rounding/
+def round_half_up(n, decimals=0):
+    multiplier = 10 ** decimals
+    return math.floor(n*multiplier + 0.5) / multiplier
+
 class TaskApproval(ModelWithChangeDetection):
     """
     Model zatwierdzania zadania (jako dodatkowe atrybuty udokumentowanego wykonania zadania
@@ -159,7 +165,7 @@ class TaskApproval(ModelWithChangeDetection):
                     Bank.objects.create(
                         user=self.documented_task.user,
                         documented_task=self.documented_task,
-                        accrual=self.documented_task.task.prize * (1-self.documented_task.user.scout.team.tax),
+                        accrual=round_half_up(self.documented_task.task.prize * (1-self.documented_task.user.scout.team.tax)),
                         accrual_extra_prize=self.documented_task.task.extra_prize,
                         accrual_type='netto'
                     )
@@ -173,7 +179,7 @@ class TaskApproval(ModelWithChangeDetection):
                         Bank.objects.create(
                             user=team_leader,
                             documented_task=self.documented_task,
-                            accrual=self.documented_task.task.prize * self.documented_task.user.scout.team.tax,
+                            accrual=round_half_up(self.documented_task.task.prize * self.documented_task.user.scout.team.tax),
                             accrual_extra_prize=None,
                             accrual_type='tax'
                         )
