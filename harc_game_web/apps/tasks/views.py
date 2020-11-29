@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db import transaction
+from django.db import transaction, models
 from django.forms import Select
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -43,11 +43,21 @@ class CompleteTaskForm(forms.ModelForm):
     def __init__(self, request, *args, **kwargs):
         # https://stackoverflow.com/questions/291945/how-do-i-filter-foreignkey-choices-in-a-django-modelform
         super(CompleteTaskForm, self).__init__(*args, **kwargs)  # populates the post
-        self.fields['task'].queryset = \
-            Task.objects.filter(
-                id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)])
-        if self.fields['task'].queryset.count() == 0:
+        available_tasks = Task.objects.filter(
+                id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)]
+            )
+        if available_tasks.count() == 0:
             messages.info(request, f"Nie ma żadnych zadań, które możesz dziś wykonać")
+        fav_tasks = [fav_task.task.id for fav_task in FavouriteTask.objects.filter(user=request.user)]
+        available_tasks = available_tasks.annotate(
+            custom_order=models.Case(
+                models.When(id__in=fav_tasks, then=models.Value(0)),
+                default=models.Value(1),
+                output_field=models.IntegerField()
+            )
+        ).order_by('custom_order')
+
+        self.fields['task'].queryset = available_tasks
 
     class Meta:
         model = DocumentedTask
