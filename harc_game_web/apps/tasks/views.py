@@ -85,7 +85,7 @@ def add_completed_task(request, task_id=None):
     Function to handle completing Task by Scout - render and process form
     """
     if request.method == "POST":
-        form = CompleteTaskForm(request, task_id, request)
+        form = CompleteTaskForm(request, task_id, request.POST)
 
         if form.is_valid():
             documented_task = form.save(commit=False)
