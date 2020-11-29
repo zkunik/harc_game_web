@@ -29,7 +29,7 @@ class Scout(models.Model):
     Harcerz (jako dodatkowe atrybuty użytkownika)
     """
     RANK_CHOICES = [
-        (' ', 'bez stopnia'),
+        ('', 'bez stopnia'),
         ('mł.', 'mł.'),
         ('wyw.', 'wyw.'),
         ('ćwik', 'ćwik'),
@@ -44,7 +44,7 @@ class Scout(models.Model):
     initials = models.CharField(max_length=3)
     patrol = models.ForeignKey(Patrol, on_delete=models.RESTRICT, null=True, default=None, related_name='scouts')
     team = models.ForeignKey(Team, on_delete=models.RESTRICT, null=True, default=None, related_name='scouts')
-    rank = models.CharField(max_length=20, choices=RANK_CHOICES, default=' ')
+    rank = models.CharField(max_length=20, choices=RANK_CHOICES, default='bezstopnia')
     is_patrol_leader = models.BooleanField(default=False)
     is_team_leader = models.BooleanField(default=False)
 
