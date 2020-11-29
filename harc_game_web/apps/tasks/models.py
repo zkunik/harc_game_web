@@ -1,10 +1,9 @@
-import math
 from chunked_upload.models import ChunkedUpload
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
+from apps.core.utils import calculate_week
 from apps.users.models import FreeDay, HarcgameUser, Scout
 
 ChunkedFileUpload = ChunkedUpload
@@ -42,7 +41,6 @@ class Task(models.Model):
         """
         Check if the task can be completed today
         """
-        from apps.bank.models import calculate_week
 
         can_be_completed = True
         if self.allowed_completition_frequency == 'raz na grę':
@@ -74,6 +72,7 @@ class DocumentedTask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
     date_completed = models.DateTimeField("Data ukończenia", default=timezone.now)
+    date_last_edited = models.DateTimeField("Data ostatniej edycji", null=True, default=None)
     comment_from_user = models.TextField("Komentarz użytkownika", max_length=400, null=True, default="", blank=True)
     file1 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file1')
     file2 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file2')
@@ -125,11 +124,6 @@ class ModelWithChangeDetection(models.Model):
         return True
 
 
-# https://realpython.com/python-rounding/
-def round_half_up(n, decimals=0):
-    multiplier = 10 ** decimals
-    return math.floor(n*multiplier + 0.5) / multiplier
-
 class TaskApproval(ModelWithChangeDetection):
     """
     Model zatwierdzania zadania (jako dodatkowe atrybuty udokumentowanego wykonania zadania
@@ -146,51 +140,23 @@ class TaskApproval(ModelWithChangeDetection):
         verbose_name = "akceptacja zadań"
         verbose_name_plural = "akceptacje zadań"
 
-    def save(self, *args, **kwargs):
-        from apps.bank.models import Bank
-        if not self.is_closed and self.data_changed(['is_accepted']):
-            # If task is accepted, we can accure it
-            if self.is_accepted:
-                # If this is team leader, just assign the prize to him
-                if self.documented_task.user.scout.is_team_leader:
-                    Bank.objects.create(
-                        user=self.documented_task.user,
-                        documented_task=self.documented_task,
-                        accrual=self.documented_task.task.prize,
-                        accrual_extra_prize=self.documented_task.task.extra_prize,
-                        accrual_type='brutto'
-                    )
-                else:
-                    # Add price for the team member and deduct tax
-                    Bank.objects.create(
-                        user=self.documented_task.user,
-                        documented_task=self.documented_task,
-                        accrual=round_half_up(self.documented_task.task.prize * (1-self.documented_task.user.scout.team.tax)),
-                        accrual_extra_prize=self.documented_task.task.extra_prize,
-                        accrual_type='netto'
-                    )
-                    # And the tax for the team leader
-                    try:
-                        team_leader = Scout.objects.filter(team=self.documented_task.user.scout.team, is_team_leader=True).first().user
-                    except AttributeError:
-                        team_leader = None
-                        raise ValueError(f"{self.documented_task.user} nie jest w żadnej drużynie lub drużyna nie ma drużynowego!")
-                    if team_leader:
-                        Bank.objects.create(
-                            user=team_leader,
-                            documented_task=self.documented_task,
-                            accrual=round_half_up(self.documented_task.task.prize * self.documented_task.user.scout.team.tax),
-                            accrual_extra_prize=None,
-                            accrual_type='tax'
-                        )
-            else:
-                # Instead of deleting accruals, we mark them deleted, to have the prove
-                Bank.objects.filter(documented_task=self.documented_task).update(accrual_deleted=True)
-        # update
-        return super(TaskApproval, self).save(*args, **kwargs)
-
     def __str__(self):
         return f'{self.documented_task} - approval by {self.approver}'
+
+
+class FavouriteTask(models.Model):
+    """
+    Model relation of favourite tasks
+    """
+    user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
+    task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
+
+    class Meta:
+        verbose_name = "ulubione zadanie"
+        verbose_name_plural = "ulubione zadania"
+
+    def __str__(self):
+        return f"{self.user} - {self.task}"
 
 
 def pick_approver(user):
@@ -230,10 +196,10 @@ def update_profile_signal(sender, instance, created, **kwargs):
         )
     instance.taskapproval.save()
 
+
 def close_task_approvals():
     """
     Called by cron at 00:00 on Saturday to close the task approvals
     """
     # Pick tasks, which are not closed and completed in the past and close them
     TaskApproval.objects.filter(is_closed=False).exclude(documented_task__date_completed__gte=timezone.now()).update(is_closed=True)
-

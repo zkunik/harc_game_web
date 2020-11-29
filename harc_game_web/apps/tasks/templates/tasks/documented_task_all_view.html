@@ -18,7 +18,7 @@
   {% with task=task_approval.documented_task %}
   {% include "tasks/documented_task_table.html" %}
   {% endwith %}
-  <tr><td>Zatwierdzający</td><td>{{ task_approval.approver }}</td></tr>
+  <tr><td>Zatwierdzający</td><td>{{ task_approval.approver.scout }}</td></tr>
   <tr><td>Komentarz zatwierdzającego</td><td>{{ task_approval.comment_from_approver }}</td></tr>
   <tr><td>Czy zatwierdzono</td><td>{{ task_approval.is_accepted }}</td></tr>
   <tr><td>Czy zamknięto</td><td>{{ task_approval.is_closed }}</td></tr>

@@ -14,18 +14,29 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import View
 
-from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task
+from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task, FavouriteTask
 
 
 class TaskView(View):
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, tab=None, *args, **kwargs):
         categories = sorted(set(Task.objects.values_list('category', flat=True)))
         tasks_grouped = {}
         for category in categories:
             tasks_grouped[category] = Task.objects.filter(category=category)
-        active_tab = request.GET.get('active_tab', next(iter(categories)))
-        return render(request, 'tasks/view.html', {'tasks_grouped': tasks_grouped, 'active_tab': active_tab})
+
+        if not request.user.is_anonymous:
+            favourite_tasks = [favourite_task.task for favourite_task in FavouriteTask.objects.filter(user=request.user)]
+            tasks_grouped['ulubione'] = favourite_tasks
+        else:
+            favourite_tasks = []
+
+        if not tab:
+            tab = next(iter(categories))
+
+        return render(
+            request, 'tasks/view.html', {
+                'tasks_grouped': tasks_grouped, 'favourite_tasks': favourite_tasks, 'active_tab': tab})
 
 
 class CompleteTaskForm(forms.ModelForm):
@@ -55,7 +66,7 @@ class CompleteTaskForm(forms.ModelForm):
 
 @login_required
 @transaction.atomic
-def complete_task(request):
+def add_completed_task(request):
     """
     Function to handle completing Task by Scout - render and process form
     """
@@ -67,27 +78,108 @@ def complete_task(request):
             documented_task.user = request.user
 
             if documented_task.task.can_be_completed_today(request.user):
-                # Process uploaded files
-                uploaded_files = []
-                for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
-                    upload_id = request.POST[upload_id_field]
-                    if upload_id != '':
-                        file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
-                    else:
-                        file = None
-                    uploaded_files.append(file)
-                documented_task.file1 = uploaded_files[0]
-                documented_task.file2 = uploaded_files[1]
-                documented_task.file3 = uploaded_files[2]
+                documented_task.file1, documented_task.file2, documented_task.file3 = process_uploaded_files(request)
                 documented_task.save()
+                return redirect(reverse('list_completed_tasks'))
             else:
-                messages.error(request,
-                               f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
+                messages.error(
+                    request,
+                    f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}"
+                )
 
     else:
         form = CompleteTaskForm(request)
-    completed_tasks = DocumentedTask.objects.filter(user=request.user)
-    return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
+    return render(request, 'tasks/add_completed_task.html', {'form': form, 'new': True})
+
+
+@login_required
+def list_completed_tasks(request):
+    return render(request, 'tasks/list_completed_tasks.html', {
+        'completed_tasks': DocumentedTask.objects.filter(user=request.user)
+    })
+
+
+class EditCompletedTaskForm(forms.ModelForm):
+    class Meta:
+        model = DocumentedTask
+        fields = ['comment_from_user', 'link1', 'link2', 'link3']
+        labels = {
+            "comment_from_user": "Twój komentarz",
+            "link1": "Link 1",
+            "link2": "Link 2",
+            "link3": "Link 3"
+        }
+
+
+def process_uploaded_files(request):
+    # Process uploaded files
+    uploaded_files = []
+    for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
+        upload_id = request.POST[upload_id_field]
+        if upload_id != '':
+            file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
+        else:
+            file = None
+        uploaded_files.append(file)
+    return uploaded_files[0], uploaded_files[1], uploaded_files[2]
+
+
+@login_required
+def edit_completed_task(request, documented_task_id):
+    documented_task = get_object_or_404(DocumentedTask, id=documented_task_id)
+    # task can be edited only by use who added it and only if task is not checked already
+    if request.user != documented_task.user or documented_task.taskapproval.is_accepted:
+        redirect(reverse('list_completed_tasks'))
+
+    if request.method == "POST":
+        form = EditCompletedTaskForm(request.POST, instance=documented_task)
+        if form.is_valid():
+            file1, file2, file3 = process_uploaded_files(request)
+            if file1:
+                documented_task.file1 = file1
+            if file2:
+                documented_task.file2 = file2
+            if file3:
+                documented_task.file3 = file3
+            documented_task.date_last_edited = timezone.now()
+            documented_task.save()
+            return redirect(reverse('list_completed_tasks'))
+    else:
+        form = EditCompletedTaskForm(instance=documented_task)
+
+    return render(request, 'tasks/add_completed_task.html', {
+        'form': form,
+        'new': False,
+        'documented_task_id': documented_task_id,
+        'documented_task': documented_task,
+        'file1': documented_task.file1,
+        'file2': documented_task.file2,
+        'file3': documented_task.file3,
+    })
+
+
+@login_required
+def fav_task(request, id, tab=None):
+    """
+    Function to mark the Task as favourite by Scout - render and process form
+    """
+    task = Task.objects.get(id=id)
+    if FavouriteTask.objects.filter(user=request.user, task=task).count()==0:
+        FavouriteTask.objects.create(user=request.user, task=task)
+
+    return redirect(reverse('tasks', args={tab}))
+
+
+@login_required
+def unfav_task(request, id, tab=None):
+    """
+    Function to un-mark the Task as favourite by Scout - render and process form
+    """
+    task = Task.objects.get(id=id)
+    if FavouriteTask.objects.filter(user=request.user, task=task).count():
+        FavouriteTask.objects.get(user=request.user, task=task).delete()
+
+    return redirect(reverse('tasks', args={tab}))
 
 
 def team_leader_check(user):

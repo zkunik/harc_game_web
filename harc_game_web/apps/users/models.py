@@ -29,12 +29,16 @@ class Scout(models.Model):
     Harcerz (jako dodatkowe atrybuty użytkownika)
     """
     RANK_CHOICES = [
-        ('bezstopnia', 'bez stopnia'),
-        ('mlodzik', 'młodzik'),
-        ('wywiadowca', 'wywiadowca'),
-        ('cwik', 'ćwik'),
-        ('ho', 'HO'),
-        ('hr', 'HR'),
+        ('', 'bez stopnia'),
+        ('mł.', 'mł.'),
+        ('wyw.', 'wyw.'),
+        ('ćwik', 'ćwik'),
+        ('HO', 'HO'),
+        ('pwd. HO', 'pwd. HO'),
+        ('HR', 'HR'),
+        ('pwd. HR', 'pwd. HR'),
+        ('phm. HR', 'phm. HR'),
+        ('hm. HR', 'hm. HR'),
     ]
     user = models.OneToOneField(HarcgameUser, on_delete=models.CASCADE)
     initials = models.CharField(max_length=3)
@@ -46,18 +50,11 @@ class Scout(models.Model):
 
     REQUIRED_FIELDS = ['initials', 'patrol', 'team', 'rank']
 
-    @property
-    def score(self):
-        """
-        Obliczenie wyniku
-        """
-        # import is here, otherwise we have a cyclic import
-        from apps.bank.models import Bank
-
-        return Bank.score(self)
-
     def __str__(self):
-        return self.user.nickname
+        return f"{self.rank} {self.user.nickname}"
+
+    def get_minecraft_name(self):
+        return "_".join(self.rank.replace(".", "").split(" ") + [self.user.nickname])
 
 
 @receiver(models.signals.post_save, sender=HarcgameUser)
