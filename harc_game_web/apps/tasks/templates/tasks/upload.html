@@ -59,7 +59,7 @@ Bez niego Twoje zadanie nie będzie zaakceptowane.
   {% for task in completed_tasks %}
   <table id="exam">
     {% include "tasks/documented_task_table.html" %}
-    <tr><td>Sprawdza zadanie</td><td>{{ task.taskapproval.approver.nickname }}</td></tr>
+    <tr><td>Sprawdza zadanie</td><td>{{ task.taskapproval.approver.scout }}</td></tr>
     <tr><td>Czy zaakceptowano</td><td>{{ task.taskapproval.is_accepted|yesno:"Tak,Nie" }}</td></tr>
     <tr><td>Komentarz od sprawdzającego</td><td>{{ task.taskapproval.comment_from_approver }}</td></tr>
   </table>
