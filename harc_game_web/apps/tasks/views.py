@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.forms import Select
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -64,7 +65,8 @@ class CompleteTaskForm(forms.ModelForm):
 
 
 @login_required
-def complete_task(request):
+@transaction.atomic
+def add_completed_task(request):
     """
     Function to handle completing Task by Scout - render and process form
     """
@@ -76,26 +78,84 @@ def complete_task(request):
             documented_task.user = request.user
 
             if documented_task.task.can_be_completed_today(request.user):
-                # Process uploaded files
-                uploaded_files = []
-                for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
-                    upload_id = request.POST[upload_id_field]
-                    if upload_id != '':
-                        file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
-                    else:
-                        file = None
-                    uploaded_files.append(file)
-                documented_task.file1 = uploaded_files[0]
-                documented_task.file2 = uploaded_files[1]
-                documented_task.file3 = uploaded_files[2]
+                documented_task.file1, documented_task.file2, documented_task.file3 = process_uploaded_files(request)
                 documented_task.save()
+                return redirect(reverse('list_completed_tasks'))
             else:
-                messages.error(request,
-                               f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}")
+                messages.error(
+                    request,
+                    f"Te zadanie może być zaliczone tylko jeden {documented_task.task.allowed_completition_frequency}"
+                )
+
     else:
         form = CompleteTaskForm(request)
-    completed_tasks = DocumentedTask.objects.filter(user=request.user)
-    return render(request, 'tasks/upload.html', {'form': form, 'completed_tasks': completed_tasks})
+    return render(request, 'tasks/add_completed_task.html', {'form': form, 'new': True})
+
+
+@login_required
+def list_completed_tasks(request):
+    return render(request, 'tasks/list_completed_tasks.html', {
+        'completed_tasks': DocumentedTask.objects.filter(user=request.user)
+    })
+
+
+class EditCompletedTaskForm(forms.ModelForm):
+    class Meta:
+        model = DocumentedTask
+        fields = ['comment_from_user', 'link1', 'link2', 'link3']
+        labels = {
+            "comment_from_user": "Twój komentarz",
+            "link1": "Link 1",
+            "link2": "Link 2",
+            "link3": "Link 3"
+        }
+
+
+def process_uploaded_files(request):
+    # Process uploaded files
+    uploaded_files = []
+    for upload_id_field in ['uploaded_file_info1', 'uploaded_file_info2', 'uploaded_file_info3']:
+        upload_id = request.POST[upload_id_field]
+        if upload_id != '':
+            file = UploadedFile.objects.filter(user=request.user, upload_id=upload_id).first()
+        else:
+            file = None
+        uploaded_files.append(file)
+    return uploaded_files[0], uploaded_files[1], uploaded_files[2]
+
+
+@login_required
+def edit_completed_task(request, documented_task_id):
+    documented_task = get_object_or_404(DocumentedTask, id=documented_task_id)
+    # task can be edited only by use who added it and only if task is not checked already
+    if request.user != documented_task.user or documented_task.taskapproval.is_accepted:
+        redirect(reverse('list_completed_tasks'))
+
+    if request.method == "POST":
+        form = EditCompletedTaskForm(request.POST, instance=documented_task)
+        if form.is_valid():
+            file1, file2, file3 = process_uploaded_files(request)
+            if file1:
+                documented_task.file1 = file1
+            if file2:
+                documented_task.file2 = file2
+            if file3:
+                documented_task.file3 = file3
+            documented_task.date_last_edited = timezone.now()
+            documented_task.save()
+            return redirect(reverse('list_completed_tasks'))
+    else:
+        form = EditCompletedTaskForm(instance=documented_task)
+
+    return render(request, 'tasks/add_completed_task.html', {
+        'form': form,
+        'new': False,
+        'documented_task_id': documented_task_id,
+        'documented_task': documented_task,
+        'file1': documented_task.file1,
+        'file2': documented_task.file2,
+        'file3': documented_task.file3,
+    })
 
 
 @login_required
@@ -142,6 +202,7 @@ class CheckTaskForm(forms.ModelForm):
 
 
 @user_passes_test(team_leader_check)
+@transaction.atomic
 def check_task(request):
     if request.method == "POST":
         task = TaskApproval.objects.get(documented_task=request.POST['documented_task'])

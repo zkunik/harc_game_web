@@ -16,9 +16,9 @@ class BankReport(View):
         accruals = Bank.objects.filter(accrual_deleted=False).order_by(F('date_accrued').desc(nulls_last=True))
         # Sum up the prizes of each week
         prizes = []
-        for account in accruals.values('year_week','user').order_by().annotate(Sum('accrual')):
+        for account in accruals.values('year_week', 'user').order_by().annotate(Sum('accrual')):
             prizes.append({
-                'nickname': HarcgameUser.objects.get(pk=account['user']).nickname,
+                'scout': HarcgameUser.objects.get(pk=account['user']).scout,
                 'accrual_for_a_week': account['accrual__sum'],
                 'year_week': account['year_week']
             })

@@ -13,7 +13,7 @@
         <div class="harcapo-text-select">
         {% for prize in prizes %}
             {% if prize.year_week == week and prize.accrual_for_a_week %}
-                <p>/pay {{ prize.nickname }} {{ prize.accrual_for_a_week }}</p>
+                <p>/pay {{ prize.scout.get_minecraft_name }} {{ prize.accrual_for_a_week }}</p>
             {% endif %}
         {% endfor %}
         </div>
@@ -22,7 +22,7 @@
         <div class="harcapo-text-select">
         {% for account in bank %}
             {% if account.year_week == week and account.accrual_extra_prize %}
-                <p>/give {{ account.user.nickname }} {{ account.accrual_extra_prize }}</p>
+                <p>/give {{ account.user.scout.get_minecraft_name }} {{ account.accrual_extra_prize }}</p>
             {% endif %}
         {% endfor %}
         </div>

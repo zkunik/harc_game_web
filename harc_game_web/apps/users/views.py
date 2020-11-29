@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import Select
 from django.shortcuts import render, redirect
+from django.db import transaction
 
 from apps.users.models import HarcgameUser, Scout
 
@@ -29,6 +30,7 @@ class ScoutCreationForm(forms.ModelForm):
         }
 
 
+@transaction.atomic
 def signup(request):
     if request.method == "POST":
         user_form = HarcgameUserCreationForm(request.POST)

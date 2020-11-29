@@ -26,7 +26,7 @@
 	<p>Barwy: {{ team.colors }}</p>
 	<p>Podatek: {{ team.tax }}</p>
 
-    <p>Wynik drużyny: {{ team.score }} </p>
+    <p>Wynik drużyny: {{ team_score }} </p>
 
     <hr>
 
@@ -36,10 +36,10 @@
             <th><p>Zastęp</p></th>
             <th><p>Zdobyte punkty</p></th>
         </tr>
-        {% for patrol in patrols %}
+        {% for patrol, patrol_score in patrols_scores %}
         <tr>
             <td><p>{{ patrol|capfirst }}</p></td>
-            <td><p>{{ patrol.score }}</p></td>
+            <td><p>{{ patrol_score }}</p></td>
         </tr>
         {% endfor%}
     </table>
@@ -50,16 +50,14 @@
     <table>
         <tr>
             <th><p>Zastęp</p></th>
-            <th><p>Pseudonim</p></th>
-            <th><p>Stopień</p></th>
+            <th><p>Harcerz</p></th>
             <th><p>Zdobyte punkty</p></th>
         </tr>
-        {% for scout in scouts %}
+        {% for scout, scout_score in scouts_scores %}
         <tr>
             <td><p>{{ scout.patrol|capfirst }}</p></td>
-            <td><p>{{ scout|capfirst }}</p></td>
-            <td><p>{{ scout.get_rank_display|capfirst }}</p></td>
-            <td><p>{{ scout.score }}</p></td>
+            <td><p>{{ scout }}</p></td>
+            <td><p>{{ scout_score }}</p></td>
         </tr>
         {% endfor%}
     </table>
