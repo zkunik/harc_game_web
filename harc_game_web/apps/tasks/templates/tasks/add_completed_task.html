@@ -1,11 +1,6 @@
 {% extends 'core/base.html' %}
 
 {% block headcontent %}
-  <title>Upload</title>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8">
-  <meta http-equiv="content-language" content="en">
-  <meta http-equiv="content-language" content="en-us">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="/static/demo/js/jquery.js"></script>
   <script src="/static/demo/js/jquery.ui.widget.js"></script>
@@ -25,22 +20,41 @@
 
 {% block content %}
 
-  <h1 class="title">
-    Formularz wykonania zadania
-  </h1>
+{% if new %}
+<h1 class="title">Potwierdź wykonanie zadania </h1>
+{% else %}
+<h1 class="title">Edytuj potwierdzenie wykonania zadania</h1>
+<h4>Edytujesz zadanie "{{ documented_task.task.name }}" wykonane {{ documented_task.date_completed }}</h4>
+{% endif %}
 
 Wybierz zadanie, które wykonałeś i je udokumentuj - załącz link do udostępnionego zdjęciu lub filmu; albo
 załącz plik poprzez formularz. Pamiętaj, że <b>na zdjęciu lub filmiku</b> musi być podane hasło dnia.
 Bez niego Twoje zadanie nie będzie zaakceptowane.
 
-    <form method="post" action=".">
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
 
         Wybierz pliki do wysłania na serwer (maksymalnie 3 pliki, każdy z nich może mieć maksymalnie 150MB):
-        <div id="upload_form1">{% include "tasks/upload_form1.html" %}</div>
-        <div id="upload_form2">{% include "tasks/upload_form2.html" %}</div>
-        <div id="upload_form3">{% include "tasks/upload_form3.html" %}</div>
+
+      {% if not new and file1 %}
+      <p>Załadowany wcześniej plik: <a href="{{ file1.file.url }}">{{ file1.filename_orig|default:"" }}</a>.
+        Załaduj inny <b>zamiast</b> niego:</p>
+      {% endif %}
+      <div id="upload_form1">{% include "tasks/upload_form1.html" %}</div>
+      {% if not new and file2 %}
+      <p>Załadowany wcześniej plik: <a href="{{ file2.file.url }}">{{ file2.filename_orig|default:"" }}</a>.
+        Załaduj inny <b>zamiast</b> niego:</p>
+      {% endif %}
+      <div id="upload_form2">{% include "tasks/upload_form2.html" %}</div>
+
+      {% if not new and file3 %}
+      <p>Załadowany wcześniej plik: <a href="{{ file3.file.url }}">{{ file3.filename_orig|default:"" }}</a>.
+        Załaduj inny <b>zamiast</b> niego:</p>
+      {% endif %}
+      <div id="upload_form3">{% include "tasks/upload_form3.html" %}</div>
+
+
         <input type="hidden" id="uploaded_file_info1" name="uploaded_file_info1" value="">
         <input type="hidden" id="uploaded_file_info2" name="uploaded_file_info2" value="">
         <input type="hidden" id="uploaded_file_info3" name="uploaded_file_info3" value="">
@@ -51,24 +65,6 @@ Bez niego Twoje zadanie nie będzie zaakceptowane.
             </div>
         </div>
     </form>
-  <hr class="golden">
-  <h1 class="title">
-    Twoje wykonane zadania
-  </h1>
-
-  {% for task in completed_tasks %}
-  <table id="exam">
-    {% include "tasks/documented_task_table.html" %}
-    <tr><td>Sprawdza zadanie</td><td>{{ task.taskapproval.approver.scout }}</td></tr>
-    <tr><td>Czy zaakceptowano</td><td>{{ task.taskapproval.is_accepted|yesno:"Tak,Nie" }}</td></tr>
-    <tr><td>Komentarz od sprawdzającego</td><td>{{ task.taskapproval.comment_from_approver }}</td></tr>
-  </table>
-  <hr>
-  <br>
-  {% empty %}
-  <b>Nie masz jeszczę żadnych wykonanych zadań</b>
-  {% endfor %}
-
 
   <script type="text/javascript">
     var md5 = "",

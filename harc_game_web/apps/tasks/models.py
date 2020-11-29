@@ -72,6 +72,7 @@ class DocumentedTask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
     date_completed = models.DateTimeField("Data ukończenia", default=timezone.now)
+    date_last_edited = models.DateTimeField("Data ostatniej edycji", null=True, default=None)
     comment_from_user = models.TextField("Komentarz użytkownika", max_length=400, null=True, default="", blank=True)
     file1 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file1')
     file2 = models.ForeignKey(UploadedFile, on_delete=models.RESTRICT, null=True, default=None, related_name='file2')
