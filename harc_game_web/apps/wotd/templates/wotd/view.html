@@ -17,12 +17,13 @@
             <div class="rpgui-container framed-golden" style="position: relative"><p>{{ word_of_the_day.question|safe }}</p></div>
             <form action="" method="get">
                 {% csrf_token %}
-                <div style="text-align: center;"><table>
-                    <td><label class=rpgui-pixelated for="today_guess">Hasło to:</label></td>
-                    <td><input type="text" id="today_guess" name="today_guess"></td>
-                    <td><button class="rpgui-button" type="submit">Sprawdź</button></td>
-                    <td><a href="{{ word_of_the_day.hint }}"><button class="rpgui-button" type="button">Podpowiedź</button></a></td>
-                </table></div>
+                <br>
+                <div style="text-align: center;">
+                    <label class=rpgui-pixelated for="today_guess">Hasło to:</label>
+                    <input type="text" id="today_guess" name="today_guess">
+                    <button class="rpgui-button" type="submit">Sprawdź</button>
+                    <a href="{{ word_of_the_day.hint }}"><button class="rpgui-button" type="button">Podpowiedź</button></a>
+                </div>
             </form>
         {% endif %}
 
@@ -33,12 +34,13 @@
             <div class="rpgui-container framed-golden" style="position: relative"><p>{{ word_for_tomorrow.question|safe }}</p></div>
             <form action="" method="get">
                 {% csrf_token %}
-                <div style="text-align: center;"><table>
-                    <td><label for="tomorrow_guess">Hasło to:</label></td>
-                    <td><input type="text" id="tomorrow_guess" name="tomorrow_guess"></td>
-                    <td><button class="rpgui-button" type="submit">Sprawdź</button></td>
-                    <td><a href="{{ word_for_tomorrow.hint }}"><button class="rpgui-button" type="button">Podpowiedź</button></a></td>
-                </table></div>
+                <br>
+                <div style="text-align: center;">
+                    <label for="tomorrow_guess">Hasło to:</label>
+                    <input type="text" id="tomorrow_guess" name="tomorrow_guess">
+                    <button class="rpgui-button" type="submit">Sprawdź</button>
+                    <a href="{{ word_for_tomorrow.hint }}"><button class="rpgui-button" type="button">Podpowiedź</button></a>
+                </div>
             </form>
         {% endif %}
 
