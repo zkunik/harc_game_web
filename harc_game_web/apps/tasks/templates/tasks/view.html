@@ -38,7 +38,7 @@ td {
             <div class="rpgui-container framed-golden" style="position:relative; width:100%;">
                 <h3>
 
-                {{task.name|capfirst}}
+                <a href="{% url 'add_completed_task' task.id %}">{{task.name|capfirst}}</a>
                 {% if task in favourite_tasks %}
                 <a href="{% url 'unfav_task' task.id active_tab %}"><div class="rpgui-icon potion-green" style="float:right; margin-top:5px;"></div></a>
                 {% else %}
