@@ -12,6 +12,7 @@ from django.forms import Select
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.text import slugify
 from django.views import View
 
 from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task, FavouriteTask
@@ -32,7 +33,7 @@ class TaskView(View):
             favourite_tasks = []
 
         if not tab:
-            tab = next(iter(categories))
+            tab = slugify(next(iter(categories)))
 
         return render(
             request, 'tasks/view.html', {
@@ -48,7 +49,6 @@ class CompleteTaskForm(forms.ModelForm):
             id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)])
         if available_tasks.count() == 0:
             messages.info(request, f"Nie ma żadnych zadań, które możesz dziś wykonać")
-            print(self.fields['task'])
         fav_tasks = [fav_task.task.id for fav_task in FavouriteTask.objects.filter(user=request.user)]
         available_tasks = available_tasks.annotate(
             custom_order=models.Case(
@@ -85,7 +85,7 @@ def add_completed_task(request, task_id=None):
     Function to handle completing Task by Scout - render and process form
     """
     if request.method == "POST":
-        form = CompleteTaskForm(request, task_id, request)
+        form = CompleteTaskForm(request, task_id, request.POST)
 
         if form.is_valid():
             documented_task = form.save(commit=False)
