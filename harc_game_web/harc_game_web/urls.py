@@ -26,7 +26,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
 
-    # tasks <str:tab>
+    # tasks
     path('tasks/', TaskView.as_view(), name='tasks', kwargs={'tab': None}),
     path('tasks/<str:tab>', TaskView.as_view(), name='tasks'),
     path('completed_tasks/', list_completed_tasks, name='list_completed_tasks'),
