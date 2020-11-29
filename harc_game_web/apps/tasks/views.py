@@ -14,18 +14,29 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import View
 
-from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task
+from apps.tasks.models import ChunkedFileUpload, DocumentedTask, TaskApproval, UploadedFile, Task, FavouriteTask
 
 
 class TaskView(View):
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, tab=None, *args, **kwargs):
         categories = sorted(set(Task.objects.values_list('category', flat=True)))
         tasks_grouped = {}
         for category in categories:
             tasks_grouped[category] = Task.objects.filter(category=category)
-        active_tab = request.GET.get('active_tab', next(iter(categories)))
-        return render(request, 'tasks/view.html', {'tasks_grouped': tasks_grouped, 'active_tab': active_tab})
+
+        if not request.user.is_anonymous:
+            favourite_tasks = [favourite_task.task for favourite_task in FavouriteTask.objects.filter(user=request.user)]
+            tasks_grouped['ulubione'] = favourite_tasks
+        else:
+            favourite_tasks = []
+
+        if not tab:
+            tab = next(iter(categories))
+
+        return render(
+            request, 'tasks/view.html', {
+                'tasks_grouped': tasks_grouped, 'favourite_tasks': favourite_tasks, 'active_tab': tab})
 
 
 class CompleteTaskForm(forms.ModelForm):
@@ -145,6 +156,30 @@ def edit_completed_task(request, documented_task_id):
         'file2': documented_task.file2,
         'file3': documented_task.file3,
     })
+
+
+@login_required
+def fav_task(request, id, tab=None):
+    """
+    Function to mark the Task as favourite by Scout - render and process form
+    """
+    task = Task.objects.get(id=id)
+    if FavouriteTask.objects.filter(user=request.user, task=task).count()==0:
+        FavouriteTask.objects.create(user=request.user, task=task)
+
+    return redirect(reverse('tasks', args={tab}))
+
+
+@login_required
+def unfav_task(request, id, tab=None):
+    """
+    Function to un-mark the Task as favourite by Scout - render and process form
+    """
+    task = Task.objects.get(id=id)
+    if FavouriteTask.objects.filter(user=request.user, task=task).count():
+        FavouriteTask.objects.get(user=request.user, task=task).delete()
+
+    return redirect(reverse('tasks', args={tab}))
 
 
 def team_leader_check(user):

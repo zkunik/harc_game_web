@@ -144,6 +144,21 @@ class TaskApproval(ModelWithChangeDetection):
         return f'{self.documented_task} - approval by {self.approver}'
 
 
+class FavouriteTask(models.Model):
+    """
+    Model relation of favourite tasks
+    """
+    user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
+    task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
+
+    class Meta:
+        verbose_name = "ulubione zadanie"
+        verbose_name_plural = "ulubione zadania"
+
+    def __str__(self):
+        return f"{self.user} - {self.task}"
+
+
 def pick_approver(user):
     """
     Function to pick a task approver to the new task
