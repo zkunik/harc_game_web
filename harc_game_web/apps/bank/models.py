@@ -1,21 +1,11 @@
-from datetime import timedelta
-
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned, ValidationError
-from django.db.models import Sum
 
-from apps.users.models import HarcgameUser
-from apps.tasks.models import Task, DocumentedTask, TaskApproval
-from apps.users.models import Scout
+from apps.core.utils import calculate_week, round_half_up
+from apps.tasks.models import DocumentedTask, TaskApproval
+from apps.users.models import HarcgameUser, Scout
 
-
-def calculate_week(date):
-    """
-    Utility to calculate the week of the year, starting from saturday and formated 2020-W46
-    """
-    return (date + timedelta(days=2)).strftime('%Y-W%W')
 
 class Bank(models.Model):
     """
@@ -52,10 +42,6 @@ class Bank(models.Model):
     def task(self):
         return self.documented_task.task
 
-    def score(self):
-        score = Bank.objects.filter(accrual_deleted=False).filter(user=self.user).aggregate(Sum('accrual'))['accrual__sum']
-        return score if score is not None else 0
-
     def save(self, *args, **kwargs):
         # Calculate the year and week number
         # As we treat the week as Saturday through Friday, we need to move it by 2 days
@@ -65,3 +51,52 @@ class Bank(models.Model):
 
     def __str__(self):
         return f"{'DELETED' if self.accrual_deleted else ''} {self.date_accrued.date()} - {self.user.nickname} - {self.task} {self.accrual} pkt + {self.accrual_extra_prize}"
+
+
+@receiver(models.signals.post_save, sender=TaskApproval)
+def update_taskapproval_signal(sender, instance, created, **kwargs):
+    if not created and not instance.is_closed and instance.data_changed(['is_accepted']):
+        # If task is accepted, we can accure it
+        if instance.is_accepted:
+            # If this is team leader, just assign the prize to him
+            if instance.documented_task.user.scout.is_team_leader:
+                Bank.objects.create(
+                    user=instance.documented_task.user,
+                    documented_task=instance.documented_task,
+                    accrual=instance.documented_task.task.prize,
+                    accrual_extra_prize=instance.documented_task.task.extra_prize,
+                    accrual_type='brutto'
+                )
+            else:
+                # Add price for the team member and deduct tax
+                Bank.objects.create(
+                    user=instance.documented_task.user,
+                    documented_task=instance.documented_task,
+                    accrual=round_half_up(
+                        instance.documented_task.task.prize * (1 - instance.documented_task.user.scout.team.tax)),
+                    accrual_extra_prize=instance.documented_task.task.extra_prize,
+                    accrual_type='netto'
+                )
+                # And the tax for the team leader
+                try:
+                    team_leader = Scout.objects.filter(team=instance.documented_task.user.scout.team,
+                                                       is_team_leader=True).first().user
+                except AttributeError:
+                    team_leader = None
+                    raise ValueError(
+                        f"{instance.documented_task.user} nie jest w żadnej drużynie lub drużyna nie ma drużynowego!"
+                    )
+                if team_leader:
+                    Bank.objects.create(
+                        user=team_leader,
+                        documented_task=instance.documented_task,
+                        accrual=round_half_up(
+                            instance.documented_task.task.prize * instance.documented_task.user.scout.team.tax
+                        ),
+                        accrual_extra_prize=None,
+                        accrual_type='tax'
+                    )
+        else:
+            # Instead of deleting accruals, we mark them deleted, to have the prove
+            Bank.objects.filter(documented_task=instance.documented_task).update(accrual_deleted=True)
+    # instance.taskapproval.save()

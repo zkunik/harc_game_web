@@ -46,16 +46,6 @@ class Scout(models.Model):
 
     REQUIRED_FIELDS = ['initials', 'patrol', 'team', 'rank']
 
-    @property
-    def score(self):
-        """
-        Obliczenie wyniku
-        """
-        # import is here, otherwise we have a cyclic import
-        from apps.bank.models import Bank
-
-        return Bank.score(self)
-
     def __str__(self):
         return self.user.nickname
 
