@@ -1,21 +1,10 @@
-from datetime import timedelta
-
 from django.db import models
-from django.dispatch import receiver
 from django.utils import timezone
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned, ValidationError
-from django.db.models import Sum
 
+from apps.core.utils import calculate_week
 from apps.users.models import HarcgameUser
-from apps.tasks.models import Task, DocumentedTask, TaskApproval
-from apps.users.models import Scout
+from apps.tasks.models import DocumentedTask
 
-
-def calculate_week(date):
-    """
-    Utility to calculate the week of the year, starting from saturday and formated 2020-W46
-    """
-    return (date + timedelta(days=2)).strftime('%Y-W%W')
 
 class Bank(models.Model):
     """
@@ -51,10 +40,6 @@ class Bank(models.Model):
     @property
     def task(self):
         return self.documented_task.task
-
-    def score(self):
-        score = Bank.objects.filter(accrual_deleted=False).filter(user=self.user).aggregate(Sum('accrual'))['accrual__sum']
-        return score if score is not None else 0
 
     def save(self, *args, **kwargs):
         # Calculate the year and week number

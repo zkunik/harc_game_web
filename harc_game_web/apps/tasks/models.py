@@ -4,6 +4,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from apps.core.utils import calculate_week
 
 from apps.users.models import FreeDay, HarcgameUser, Scout
 
@@ -42,7 +43,6 @@ class Task(models.Model):
         """
         Check if the task can be completed today
         """
-        from apps.bank.models import calculate_week
 
         can_be_completed = True
         if self.allowed_completition_frequency == 'raz na grę':
