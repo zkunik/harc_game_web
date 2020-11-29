@@ -26,9 +26,10 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
 
-    # tasks
-    path('tasks/', TaskView.as_view(), name='tasks'),
-    path('completed_tasks/<str:tab>', list_completed_tasks, name='list_completed_tasks'),
+    # tasks <str:tab>
+    path('tasks/', TaskView.as_view(), name='tasks', kwargs={'tab': None}),
+    path('tasks/<str:tab>', TaskView.as_view(), name='tasks'),
+    path('completed_tasks/', list_completed_tasks, name='list_completed_tasks'),
     path('completed_tasks/new/', add_completed_task, name='add_completed_task'),
     path('completed_tasks/edit/<slug:documented_task_id>', edit_completed_task, name='edit_completed_task'),
     path('completed_tasks/fav/<int:id>', fav_task, name='fav_task'),
