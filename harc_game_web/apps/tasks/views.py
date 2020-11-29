@@ -40,12 +40,14 @@ class TaskView(View):
 
 
 class CompleteTaskForm(forms.ModelForm):
-    def __init__(self, request, *args, **kwargs):
+    def __init__(self, request, task_id=None, *args, **kwargs):
         # https://stackoverflow.com/questions/291945/how-do-i-filter-foreignkey-choices-in-a-django-modelform
         super(CompleteTaskForm, self).__init__(*args, **kwargs)  # populates the post
-        available_tasks = Task.objects.filter(
-                id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)]
-            )
+        if task_id:
+            available_tasks = Task.objects.filter(id=task_id)
+        else:
+            available_tasks = Task.objects.filter(
+                id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)])
         if available_tasks.count() == 0:
             messages.info(request, f"Nie ma żadnych zadań, które możesz dziś wykonać")
         fav_tasks = [fav_task.task.id for fav_task in FavouriteTask.objects.filter(user=request.user)]
@@ -76,12 +78,12 @@ class CompleteTaskForm(forms.ModelForm):
 
 @login_required
 @transaction.atomic
-def add_completed_task(request):
+def add_completed_task(request, task_id=None):
     """
     Function to handle completing Task by Scout - render and process form
     """
     if request.method == "POST":
-        form = CompleteTaskForm(request, request.POST)
+        form = CompleteTaskForm(request, task_id, request.POST)
 
         if form.is_valid():
             documented_task = form.save(commit=False)
@@ -98,7 +100,7 @@ def add_completed_task(request):
                 )
 
     else:
-        form = CompleteTaskForm(request)
+        form = CompleteTaskForm(request, task_id)
     return render(request, 'tasks/add_completed_task.html', {'form': form, 'new': True})
 
 
