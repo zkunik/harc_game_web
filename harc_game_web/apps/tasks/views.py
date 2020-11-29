@@ -40,26 +40,28 @@ class TaskView(View):
 
 
 class CompleteTaskForm(forms.ModelForm):
-    def __init__(self, request, task_id=None, *args, **kwargs):
+    def __init__(self, request, preselected_task_id=None, *args, **kwargs):
         # https://stackoverflow.com/questions/291945/how-do-i-filter-foreignkey-choices-in-a-django-modelform
         super(CompleteTaskForm, self).__init__(*args, **kwargs)  # populates the post
-        if task_id:
-            available_tasks = Task.objects.filter(id=task_id)
-        else:
-            available_tasks = Task.objects.filter(
-                id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)])
+
+        available_tasks = Task.objects.filter(
+            id__in=[task.id for task in Task.objects.all() if task.can_be_completed_today(request.user)])
         if available_tasks.count() == 0:
             messages.info(request, f"Nie ma żadnych zadań, które możesz dziś wykonać")
+            print(self.fields['task'])
         fav_tasks = [fav_task.task.id for fav_task in FavouriteTask.objects.filter(user=request.user)]
         available_tasks = available_tasks.annotate(
             custom_order=models.Case(
-                models.When(id__in=fav_tasks, then=models.Value(0)),
-                default=models.Value(1),
+                models.When(id=preselected_task_id, then=models.Value(0)),
+                models.When(id__in=fav_tasks, then=models.Value(1)),
+                default=models.Value(2),
                 output_field=models.IntegerField()
             )
         ).order_by('custom_order')
 
         self.fields['task'].queryset = available_tasks
+        if preselected_task_id:
+            self.initial['task'] = get_object_or_404(Task, id=preselected_task_id)
 
     class Meta:
         model = DocumentedTask
@@ -83,7 +85,7 @@ def add_completed_task(request, task_id=None):
     Function to handle completing Task by Scout - render and process form
     """
     if request.method == "POST":
-        form = CompleteTaskForm(request, task_id, request.POST)
+        form = CompleteTaskForm(request, task_id, request)
 
         if form.is_valid():
             documented_task = form.save(commit=False)
