@@ -22,14 +22,16 @@
 
 {% if new %}
 <h1 class="title">Potwierdź wykonanie zadania </h1>
-{% else %}
-<h1 class="title">Edytuj potwierdzenie wykonania zadania</h1>
-<h4>Edytujesz zadanie "{{ documented_task.task.name }}" wykonane {{ documented_task.date_completed }}</h4>
-{% endif %}
-
 Wybierz zadanie, które wykonałeś i je udokumentuj - załącz link do udostępnionego zdjęciu lub filmu; albo
 załącz plik poprzez formularz. Pamiętaj, że <b>na zdjęciu lub filmiku</b> musi być podane hasło dnia.
 Bez niego Twoje zadanie nie będzie zaakceptowane.
+{% else %}
+<h1 class="title">Edytuj potwierdzenie wykonania zadania</h1>
+<h4>Edytujesz zadanie "{{ documented_task.task.name }}" wykonane {{ documented_task.date_completed }}</h4>
+Pamiętaj - załącz link do udostępnionego zdjęciu lub filmu; albo
+załącz plik poprzez formularz. Pamiętaj, że <b>na zdjęciu lub filmiku</b> musi być podane hasło dnia.
+Bez niego Twoje zadanie nie będzie zaakceptowane.
+{% endif %}
 
     <form method="post">
         {% csrf_token %}

@@ -24,38 +24,36 @@ td {
 
 {% for button in tasks_grouped %}
 {% if button %}
-    <a href="{% url 'tasks' button %}"><button class="rpgui-button" type="submit">{{button}}</button></a>
+    <a href="{% url 'tasks' button|slugify %}"><button class="rpgui-button" type="submit">{{button}}</button></a>
 {% endif %}
 {% endfor %}
 
     <h3>Zadania {{ active_tab }}</h3>
 
 {% for category, tasks in tasks_grouped.items %}
-    {% if category == active_tab %}
+    {% if category|slugify == active_tab %}
         <form id="tasks_list" action="" method="get">
         {% csrf_token %}
         {% for task in tasks %}
             <div class="rpgui-container framed-golden" style="position:relative; width:100%;">
                 <h3>
-
-                {{task.name|capfirst}}
-                {% if task in favourite_tasks %}
-                <a href="{% url 'unfav_task' task.id active_tab %}"><div class="rpgui-icon potion-green" style="float:right; margin-top:5px;"></div></a>
-                {% else %}
-                <a href="{% url 'fav_task' task.id active_tab %}"><div class="rpgui-icon potion-slot" style="float:right; margin-top:5px;"></div></a>
-                {% endif %}
-
+                    <a href="{% url 'add_completed_task' task.id %}">{{task.name|capfirst}}</a>
+                    {% if task in favourite_tasks %}
+                    <a href="{% url 'unfav_task' task.id active_tab %}"><div class="rpgui-icon potion-green" style="float:right; margin-top:5px;"></div></a>
+                    {% else %}
+                    <a href="{% url 'fav_task' task.id active_tab %}"><div class="rpgui-icon potion-slot" style="float:right; margin-top:5px;"></div></a>
+                    {% endif %}
                 </h3>
                 <table id="task">
-                <tr><td>Jak często można wykonywać</td><td><p>{{task.allowed_completition_frequency}}</p></td></tr>
-                <tr><td>Nagroda</td><td><p>{{task.prize}}</p></td></tr>
-                {% if task.extra_prize is not None %}
-                <tr><td>Nagroda specjalna</td><td><p>{{task.extra_prize}}</p></td></tr>
-                {% endif %}
+                    <tr><td>Jak często można wykonywać</td><td><p>{{task.allowed_completition_frequency}}</p></td></tr>
+                    <tr><td>Nagroda</td><td><p>{{task.prize}}</p></td></tr>
+                    {% if task.extra_prize is not None %}
+                    <tr><td>Nagroda specjalna</td><td><p>{{task.extra_prize}}</p></td></tr>
+                    {% endif %}
                 </table>
-                <table>
-                <tr><p></p></tr>
-                <tr><td><p>{{task.description|capfirst|safe}}</p></td></tr>
+                <table id="task_description">
+                    <tr><p></p></tr>
+                    <tr><td><p>{{task.description|capfirst|safe}}</p></td></tr>
                 </table>
             </div><br>
         {% empty %}
