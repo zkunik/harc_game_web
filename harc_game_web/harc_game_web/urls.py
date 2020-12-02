@@ -8,15 +8,16 @@ from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path
 from django.contrib.admin.views.decorators import staff_member_required
 
+from apps.bank.views import BankReport
 from apps.core.views import frontpage
+from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
+from apps.shop.views import view_shop_offers
+from apps.tasks.scheduler import start_scheduler
 from apps.tasks.views import UploadView, UploadCompleteView, add_completed_task, check_task, TaskView, \
     all_documented_tasks, list_completed_tasks, edit_completed_task, fav_task, unfav_task
-from apps.users.views import signup, view_profile, edit_profile, change_password
-from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
 from apps.teams.views import view_teams_list, view_team
+from apps.users.views import signup, view_profile, edit_profile, change_password
 from apps.wotd.views import WordOfTheDayView
-from apps.bank.views import BankReport
-from apps.tasks.scheduler import start_scheduler
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -63,6 +64,10 @@ urlpatterns = [
 
     # Bank & reporting
     path('report/', staff_member_required(BankReport.as_view()), name='bank_report'),
+
+    # Shop
+    path('shop/', view_shop_offers, name='shop'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Launch the cron scheduler

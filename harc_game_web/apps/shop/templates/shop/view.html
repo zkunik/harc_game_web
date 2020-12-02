@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block subnavbarcontent %}
+<div class="inner rpgui-container framed" style="position: relative">
+  <a href="{% url 'shop' %}">
+    <button class="rpgui-button" type="button">Oferta sklepu</button>
+  </a>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<h3>Oferta sklepu</h3>
+
+<p>
+  Poniżej przedstawiona jest lista przedmiotów możliwych do kupienia <b>w Minecrafcie</b>. Przedmioty te można
+  kupić za walutę otrzymaną po zalogowaniu na serwer. Walutą są punkty, które zdobywa się za wykonywanie zadań.
+</p>
+<br>
+{% for category, offers in offers_grouped.items %}
+{% if offers %}
+<h2>{{ category }}</h2>
+{% for offer in offers %}
+<div class="rpgui-container framed-golden" style="position:relative; width:100%;">
+
+  <div style="display: flex; padding: 5px; justify-content: center; align-items: center;">
+    {% if offer.item.link_image %}
+    <div style="max-width: 20%; margin-right: 10px;">
+      <img src="{{ offer.item.link_image }}" style="max-width: 100px; height: auto;">
+    </div>
+    {% endif %}
+    <div style="width: 100%">
+
+      <h3>
+        {{ offer.item.name_pl }}
+        {% if offer.item.name_eng %}
+        ({{ offer.item.name_eng }})
+        {% endif %}
+      </h3>
+      <div style="padding: 5px">
+        Cena: <p style=" display: inline;">{{ offer.price }}</p><br>
+        Opis: <p style=" display: inline;">{{ offer.item.description }}</p>
+      </div>
+    </div>
+  </div>
+</div><br>
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+{% endblock %}
