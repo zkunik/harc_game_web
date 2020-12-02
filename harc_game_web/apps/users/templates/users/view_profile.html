@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div class="rpgui-container framed-golden" style="position:relative; width:100%;">
+  <h3>{{ user.scout }}</h3>
+  <table>
+    <tr>
+      <td>Drużyna</td>
+      <td><p>
+        {{ user.scout.team }}
+        {% if user.scout.is_team_leader %} - <b>Drużynowy</b>{% endif %}
+      </p></td>
+    </tr>
+    <tr>
+      <td>Zastęp</td>
+      <td><p>
+        {{ user.scout.patrol }}
+        {% if user.scout.is_patrol_leader %} - <b>Zastępowy</b>{% endif %}
+      </p></td>
+    </tr>
+  </table>
+</div>
+
+{% if allow_edit %}
+<br>
+<div class="rpgui-container framed-golden" style="position:relative; width:100%;">
+  <h3>Informacje prywatne</h3>
+  <table>
+    <tr>
+      <td>Email</td>
+      <td><p>{{ user.email }}</p></td>
+    </tr>
+    <tr>
+      <td>Inicjały</td>
+      <td><p>{{ user.scout.initials }}</p></td>
+    </tr>
+  </table>
+  <a href="{% url 'edit_profile' user.id %}">
+    <button class="rpgui-button" type="button">Edytuj profil</button>
+  </a>
+  <a href="{% url 'change_password' user.id %}">
+    <button class="rpgui-button" type="button">Zmień hasło</button>
+  </a>
+</div>
+{% endif %}
+
+{% endblock %}

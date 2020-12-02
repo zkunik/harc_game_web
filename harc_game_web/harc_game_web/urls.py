@@ -11,7 +11,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from apps.core.views import frontpage
 from apps.tasks.views import UploadView, UploadCompleteView, add_completed_task, check_task, TaskView, \
     all_documented_tasks, list_completed_tasks, edit_completed_task, fav_task, unfav_task
-from apps.users.views import signup
+from apps.users.views import signup, view_profile, edit_profile, change_password
 from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
 from apps.teams.views import view_teams_list, view_team
 from apps.wotd.views import WordOfTheDayView
@@ -25,6 +25,10 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('profile/view/', view_profile, name='view_profile', kwargs={'user_id': None}),
+    path('profile/view/<int:user_id>', view_profile, name='view_profile'),
+    path('profile/edit/<int:user_id>', edit_profile, name='edit_profile'),
+    path('profile/edit/<int:user_id>/password', change_password, name='change_password'),
 
     # tasks
     path('tasks/', TaskView.as_view(), name='tasks', kwargs={'tab': None}),

@@ -1,13 +1,16 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<h1 class="title">Zaloguj się</h1>
-<form action="." method="post">
+
+<h1 class="title">{{ info }}</h1>
+<form method="post">
   {% csrf_token %}
+  {% for form in forms %}
   {{ form.as_p }}
+  {% endfor %}
   <div class="field">
     <div class="control">
-      <button class="rpgui-button" type="submit">Zaloguj się</button>
+      <button class="rpgui-button" type="submit">Zapisz</button>
     </div>
   </div>
 </form>
