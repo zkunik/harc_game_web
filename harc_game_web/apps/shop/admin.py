@@ -6,17 +6,17 @@ from apps.shop.models import Request, Vote, Item, ItemOffer
 @admin.register(Request)
 class EventAdmin(admin.ModelAdmin):
     fieldsets = (
-       (None, {'fields': ('user', 'content', 'price', 'date')}),
+       (None, {'fields': ('user', 'title', 'content', 'price', 'date')}),
        ('Optional Information', {
             'description': 'Dodatkowe dane',
             'classes': ('collapse',),
             'fields': ('link1', 'link2', 'link3')
        }),
     )
-    list_display = ('user', 'content', 'price', 'date')
+    list_display = ('user', 'title', 'price', 'date')
     list_filter = ('user', 'date', 'price')
-    search_fields = ('content', 'link1', 'link2', 'link3')
-    ordering = ('date',)
+    search_fields = ('title', 'content', 'link1', 'link2', 'link3')
+    ordering = ('title',)
 
 
 @admin.register(Vote)
