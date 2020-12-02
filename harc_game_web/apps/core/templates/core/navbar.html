@@ -17,6 +17,7 @@
   <a href="{% url 'all_teams' %}"><button class="rpgui-button" type="button">Drużyny</button></a>
   <!--a href="{% url 'all_posts' %}"><button class="rpgui-button" type="button">Posty</button></a-->
   <a href="{% url 'tasks' %}"><button class="rpgui-button" type="button">Zadania</button></a>
+  <a href="{% url 'shop' %}"><button class="rpgui-button" type="button">Oferta sklepu</button></a>
 
   {% if request.user.is_superuser %}
   <a href="{% url 'bank_report' %}"><button class="rpgui-button" type="button">Raport</button></a>
