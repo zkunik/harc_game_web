@@ -3,6 +3,11 @@ from django.utils import timezone
 
 from apps.users.models import HarcgameUser
 
+CATEGORY_CHOICES = [
+    ('minecraft_item', 'Przedmioty z Minecrafta'),
+    ('building', 'Budynki'),
+    ('other', 'Inne'),
+]
 
 """
 Harcerze powinni widzieć, co będą mogli kupić w grze za punkty zdobyte za zadania w aplikacji. Należy stworzyć podstronę (app) zawierającą aktualną ofertę.
@@ -17,6 +22,43 @@ tabela z logiem próśb (user id, prośba, proponowana cena, data) głosowanie?
 Zmiany w navbarze:
 
 """
+
+
+class Item(models.Model):
+    """
+    Model for items in the shop
+    """
+    link_image = models.CharField('Link do obrazu', max_length=400, null=True, default="", blank=True)
+    name_pl = models.CharField('Nazwa polska', max_length=200, null=True, default="", blank=True)
+    name_eng = models.CharField('Nazwa angielska', max_length=200, null=True, default="", blank=True)
+    description = models.TextField('Opis', max_length=1000, help_text='Można używać tagów HTML')
+    category = models.CharField(
+        'Kategoria', max_length=100, choices=CATEGORY_CHOICES, null=True, default="other", blank=True
+    )
+
+    class Meta:
+        verbose_name = "przedmiot"
+        verbose_name_plural = "przedmioty"
+
+    def __str__(self):
+        return self.name_pl
+
+
+class ItemOffer(models.Model):
+    """
+    Model for offers - items available in the shop
+    """
+    item = models.ForeignKey(Item, on_delete=models.RESTRICT, null=True, default=None)
+    price = models.IntegerField('Cena', default=0, null=True)
+    is_available = models.BooleanField('Czy dostępny', default=True, null=True)
+
+    class Meta:
+        verbose_name = "oferta przedmiotu"
+        verbose_name_plural = "oferty przedmiotów"
+
+    def __str__(self):
+        return f"Offer for {self.item} - {self.price} - {self.is_available}"
+
 
 class Request(models.Model):
     """
