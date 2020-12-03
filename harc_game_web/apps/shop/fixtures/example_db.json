@@ -1,0 +1,61 @@
+[
+  {
+    "model": "shop.item",
+    "pk": 1,
+    "fields": {
+      "link_image": "https://static.wikia.nocookie.net/minecraft_gamepedia/images/9/96/Egg_JE2_BE2.png/revision/latest/scale-to-width-down/150?cb=20200512195802",
+      "name_eng": "Egg",
+      "name_pl": "Jajko",
+      "description": "Ko ko ko!",
+      "category": "minecraft_item"
+    }
+  },
+  {
+    "model": "shop.item",
+    "pk": 2,
+    "fields": {
+      "link_image": "https://static.wikia.nocookie.net/minecraft_gamepedia/images/a/ac/Pumpkin_Pie_JE2_BE2.png/revision/latest/scale-to-width-down/150?cb=20190512213136",
+      "name_eng": "Pumpkin Pie",
+      "name_pl": "Placek dyniowy",
+      "description": "Mniam!",
+      "category": "minecraft_item"
+    }
+  },
+  {
+    "model": "shop.item",
+    "pk": 3,
+    "fields": {
+      "link_image": "",
+      "name_pl": "Wieża wartownicza",
+      "description": "Budynek stawiany w wiosce drużyny. Daje efekt (status effect) całej drużynie - Odporność I",
+      "category": "building"
+    }
+  },
+  {
+    "model": "shop.itemoffer",
+    "pk": 1,
+    "fields": {
+      "item": 1,
+      "price": 5,
+      "is_available": true
+    }
+  },
+  {
+    "model": "shop.itemoffer",
+    "pk": 2,
+    "fields": {
+      "item": 2,
+      "price": 30,
+      "is_available": true
+    }
+  },
+  {
+    "model": "shop.itemoffer",
+    "pk": 3,
+    "fields": {
+      "item": 3,
+      "price": 150,
+      "is_available": true
+    }
+  }
+]

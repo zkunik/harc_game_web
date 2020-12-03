@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.teams',
     'apps.wotd',
     'apps.bank',
+    'apps.shop',
     'chunked_upload',
 ]
 

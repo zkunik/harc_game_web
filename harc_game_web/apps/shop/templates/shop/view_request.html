@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block subnavbarcontent %}
+<div class="inner rpgui-container framed" style="position: relative">
+  <a href="{% url 'shop' %}"><button class="rpgui-button" type="button">Oferta sklepu</button></a>
+  <a href="{% url 'active_requests' %}"><button class="rpgui-button" type="button">Aktualne prośby</button></a>
+  <a href="{% url 'new_request' %}"><button class="rpgui-button" type="button">Nowa prośba</button></a>
+</div>
+{% if edit or delete %}
+<div class="inner rpgui-container framed" style="position: relative">
+  {% if edit %}
+  <a href="{% url 'edit_request' req.id %}"><button class="rpgui-button">Edytuj prośbę</button></a>
+  {% endif %}
+  {% if delete %}
+  <a href="{% url 'delete_request' req.id %}"><button class="rpgui-button">Usuń prośbę</button></a>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <div class="rpgui-container framed-golden" style="position: relative">
+    <h3>{{ req.title|capfirst }}</h3>
+    {% include 'shop/inner_request_view.html' %}
+    </div>
+</div>
+{% endblock %}

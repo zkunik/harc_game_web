@@ -8,15 +8,16 @@ from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path
 from django.contrib.admin.views.decorators import staff_member_required
 
+from apps.bank.views import BankReport
 from apps.core.views import frontpage
+from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
+from apps.shop.views import view_shop_offers, list_active_requests, view_request, new_request, edit_request, delete_request
+from apps.tasks.scheduler import start_scheduler
 from apps.tasks.views import UploadView, UploadCompleteView, add_completed_task, check_task, TaskView, \
     all_documented_tasks, list_completed_tasks, edit_completed_task, fav_task, unfav_task
-from apps.users.views import signup
-from apps.posts.views import list_active_posts, list_all_posts, view_post, edit_post, new_post, delete_post
 from apps.teams.views import view_teams_list, view_team
+from apps.users.views import signup, view_profile, edit_profile, change_password
 from apps.wotd.views import WordOfTheDayView
-from apps.bank.views import BankReport
-from apps.tasks.scheduler import start_scheduler
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,10 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('profile/view/', view_profile, name='view_profile', kwargs={'user_id': None}),
+    path('profile/view/<int:user_id>', view_profile, name='view_profile'),
+    path('profile/edit/<int:user_id>', edit_profile, name='edit_profile'),
+    path('profile/edit/<int:user_id>/password', change_password, name='change_password'),
 
     # tasks
     path('tasks/', TaskView.as_view(), name='tasks', kwargs={'tab': None}),
@@ -59,6 +64,17 @@ urlpatterns = [
 
     # Bank & reporting
     path('report/', staff_member_required(BankReport.as_view()), name='bank_report'),
+
+    # Shop
+    path('shop/', view_shop_offers, name='shop'),
+
+    # Requests
+    path('requests/', list_active_requests, name='active_requests'),
+    path('requests/view/<slug:id>', view_request, name='view_request'),
+    path('requests/new/', new_request, name='new_request'),
+    path('requests/edit/<slug:id>', edit_request, name='edit_request'),
+    path('requests/delete/<slug:id>', delete_request, name='delete_request'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Launch the cron scheduler

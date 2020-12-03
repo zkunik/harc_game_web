@@ -141,6 +141,7 @@ def process_uploaded_files(request):
 
 
 @login_required
+@transaction.atomic
 def edit_completed_task(request, documented_task_id):
     documented_task = get_object_or_404(DocumentedTask, id=documented_task_id)
     # task can be edited only by use who added it and only if task is not checked already
