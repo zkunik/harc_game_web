@@ -28,6 +28,8 @@
 
     <p>Wynik drużyny: {{ team_score }} </p>
 
+    <a href="{% url 'view_team_details' team.id %}"><button class="rpgui-button" type="button">Szczegółowe wyniki</button></a>
+
     <hr>
 
     <h3>Zastępy</h3>
