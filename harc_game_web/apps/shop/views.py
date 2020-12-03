@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django import forms
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.http import HttpResponseRedirect
@@ -60,8 +61,13 @@ def view_request(request, id):
     """
     Function to list a single request
     """
-    req = Request.objects.get(id=id)
-    return render(request, 'shop/view_request.html', {'request': req})
+    req = get_object_or_404(Request, id=id)
+    print(request.user)
+    return render(request, 'shop/view_request.html', {
+            'req': req,
+            'edit': req.is_active and (req.user.id is request.user.id),
+            'delete': req.is_active and (req.user.id is request.user.id)
+        })
 
 
 @login_required
@@ -97,7 +103,12 @@ def edit_request(request, id):
     Function edit a request
     """
     req = get_object_or_404(Request, id=id)
-    if (not req.is_active) or (req.user.id is not request.user.id):
+    if not req.is_active:
+        messages.error(request,"Prośba została już zrealizowana")
+        return redirect(reverse('view_request', args=[req.id]))
+
+    if req.user.id is not request.user.id:
+        messages.error(request,f"Prośba może być edytowana tylko przez {req.user.scout}")
         return redirect(reverse('view_request', args=[req.id]))
 
     # If request is POST, create a bound form(form with data)
@@ -117,7 +128,7 @@ def edit_request(request, id):
     else:
         form = RequestForm(instance=req)
 
-    return render(request, 'shop/edit_request.html', {'form': form, 'request': req})
+    return render(request, 'shop/edit_request.html', {'form': form})
 
 
 @login_required
@@ -126,7 +137,11 @@ def delete_request(request, id):
     Function to delete a request
     """
     req = get_object_or_404(Request, id=id)
-    if req.user.id is request.user.id:
+    if not req.is_active:
+        messages.error(request,"Prośba została już zrealizowana")
+    elif req.user.id is not request.user.id:
+        messages.error(request,f"Prośba może być usunięta tylko przez {req.user.scout}")
+    else:
         req.delete()
 
     return redirect(reverse('active_requests'))
