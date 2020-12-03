@@ -15,7 +15,7 @@ from apps.shop.views import view_shop_offers, list_active_requests, view_request
 from apps.tasks.scheduler import start_scheduler
 from apps.tasks.views import UploadView, UploadCompleteView, add_completed_task, check_task, TaskView, \
     all_documented_tasks, list_completed_tasks, edit_completed_task, fav_task, unfav_task
-from apps.teams.views import view_teams_list, view_team
+from apps.teams.views import view_teams_list, view_team, view_team_details
 from apps.users.views import signup, view_profile, edit_profile, change_password
 from apps.wotd.views import WordOfTheDayView
 
@@ -58,6 +58,7 @@ urlpatterns = [
     # Teams
     path('teams/list/', view_teams_list, name='all_teams'),
     path('teams/view/<slug:team_id>', view_team, name='view_team'),
+    path('teams/details/<slug:team_id>', view_team_details, name='view_team_details'),
 
     # WordOfTheDay
     path('wotd/', WordOfTheDayView.as_view(), name='word_of_the_day'),

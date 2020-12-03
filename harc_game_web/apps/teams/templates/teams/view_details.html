@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+
+{% block headcontent %}
+
+<style>
+  td {
+    padding: 5px 5px;
+  }
+</style>
+
+{% endblock%}
+
+{% block content %}
+
+<h3>Drużyna: {{ team.name|capfirst }}</h3>
+<h4>Drużynowy: {{ leader }}</h4>
+<p>Podatek: {{ team.tax }}</p>
+<p>Wynik drużyny: {{ team_score }} </p>
+
+<hr>
+Poniższe tabele pokazują punkty zdobyte za zadania zaliczone w danym tygodniu po odliczeniu podatku dla drużyny.
+<hr>
+
+{% for week, scouts_scores in scout_accruals.items %}
+<h3>Tydzień {{ week }}</h3>
+
+{% for week_tax, tax in taxes.items %}
+{% if week_tax == week %}
+<p>Zebrany podatek: {{ tax }}</p>
+{% endif %}
+{% endfor %}
+
+<table>
+  <tr>
+    <td><p>Zastęp</p></td>
+    <td><p>Harcerz</p></td>
+    <td><p>Punkty</p></td>
+  </tr>
+  {% for scout, scout_score in scouts_scores.items %}
+  <tr>
+    <td>{{ scout.patrol }}</td>
+    <td>{{ scout }}</td>
+    <td>{{ scout_score }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<hr>
+
+{% endfor %}
+{% endblock %}
