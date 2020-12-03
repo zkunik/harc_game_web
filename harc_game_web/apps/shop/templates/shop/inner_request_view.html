@@ -1,0 +1,14 @@
+<p>
+    Stworzona przez {{request.user.scout}}
+    potrzebna na {{ request.date|date:'Y-m-d' }}
+    za {{ request.price }}
+</p>
+
+<div class="rpgui-container framed-grey">
+<p>{{ request.content|safe }}</p>
+</div>
+<p>
+    {% if request.link1 %}<a href={{request.link1}}>Link 1</a>{% endif %}
+    {% if request.link2 %}<a href={{request.link2}}>Link 2</a>{% endif %}
+    {% if request.link3 %}<a href={{request.link3}}>Link 3</a>{% endif %}
+</p>

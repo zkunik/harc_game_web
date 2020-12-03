@@ -67,7 +67,7 @@ class Request(models.Model):
     tabela z logiem próśb
     Atrybuty:
         user id (user)
-        prośba (content)
+        prośba (title, content)
         proponowana cena (price)
         data (date)
 
@@ -75,19 +75,34 @@ class Request(models.Model):
     """
 
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
-    content = models.TextField('Opis zapotrzebowania', help_text='Można używać tagów HTML')
-    link1 = models.CharField('Link 1', max_length=400, null=True, default="", blank=True)
-    link2 = models.CharField('Link 2', max_length=400, null=True, default="", blank=True)
-    link3 = models.CharField('Link 3', max_length=400, null=True, default="", blank=True)
+    title = models.CharField('Nazwa', max_length=50, default="", blank=True)
+    content = models.TextField('Opis prośby', help_text='Można używać tagów HTML')
+    link1 = models.URLField('Link 1', max_length=400, null=True, default="", blank=True)
+    link2 = models.URLField('Link 2', max_length=400, null=True, default="", blank=True)
+    link3 = models.URLField('Link 3', max_length=400, null=True, default="", blank=True)
     price = models.IntegerField('Cena', default=0, null=True)
     date = models.DateField('Na kiedy jest to potrzebne', default=timezone.now)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "prośba"
         verbose_name_plural = "log próśb"
 
+    def save(self, *args, **kwargs):
+        if self._state.adding and not self.title:
+            # Newly created object, so set title if was not entered
+            if (len(self.content) > 47):
+                self.title = self.content[:47] + '...'
+            else:
+                self.title = self.content
+
+            return super(Request, self).save(*args, **kwargs)
+        else:
+            # update
+            return super(Request, self).save(*args, **kwargs)
+
     def __str__(self):
-        return f'{self.content[:30]} - created by {self.user}'
+        return f'{self.title} - stworzona przez {self.user}'
 
 
 class Vote(models.Model):
