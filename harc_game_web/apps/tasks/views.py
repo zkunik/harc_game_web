@@ -91,8 +91,17 @@ def add_completed_task(request, task_id=None):
         if form.is_valid():
             documented_task = form.save(commit=False)
             documented_task.user = request.user
+            
+            def can_be_completed_few_times():
+                if documented_task.how_many_times != 1: 
+                    if documented_task.task.allowed_completition_frequency == "bez ograniczeń":
+                        return True
+                    else:
+                        return False
+                else: 
+                    return True
 
-            if documented_task.task.can_be_completed_today(request.user) and if documented_task.how_many_times > 1: documented_task.task.allowed_completition_frequency == "bez ograniczeń":
+            if documented_task.task.can_be_completed_today(request.user) and can_be_completed_few_times():
                 documented_task.file1, documented_task.file2, documented_task.file3 = process_uploaded_files(request)
                 documented_task.save()
                 return redirect(reverse('list_completed_tasks'))
