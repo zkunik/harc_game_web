@@ -2,7 +2,7 @@ from chunked_upload.models import ChunkedUpload
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 from apps.core.utils import calculate_week
 from apps.users.models import FreeDay, HarcgameUser, Scout
 
