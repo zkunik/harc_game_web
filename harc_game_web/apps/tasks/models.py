@@ -60,6 +60,15 @@ class Task(models.Model):
             # bez ograniczeń
             pass
         return can_be_completed
+        
+    def can_be_completed_few_times(self, task_frequency, how_many_times):
+        if how_many_times != 1: 
+            if task_frequency == "bez ograniczeń":
+                return True
+            else:
+                return False
+        else: 
+            return True
 
     def __str__(self):
         return f"{self.category} | {self.name} ({self.allowed_completition_frequency})"
