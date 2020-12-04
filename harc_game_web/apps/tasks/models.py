@@ -70,7 +70,7 @@ class DocumentedTask(models.Model):
     Model udokumentowanego wykonanego zadania
     """
     task = models.ForeignKey(Task, on_delete=models.RESTRICT, null=True, default=None)
-    how_many_times =  models.PositiveSmallIntegerField("Ile razy zadanie zostało wykonane", null = True, default=1)
+    how_many_times =  models.PositiveSmallIntegerField("Ile razy zadanie zostało wykonane", null = True, default=1, validators=[MaxValueValidator(100), MinValueValidator(1)])
     user = models.ForeignKey(HarcgameUser, on_delete=models.RESTRICT, null=True, default=None)
     date_completed = models.DateTimeField("Data ukończenia", default=timezone.now)
     date_last_edited = models.DateTimeField("Data ostatniej edycji", null=True, default=None)
