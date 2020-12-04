@@ -54,7 +54,7 @@ class Scout(models.Model):
         return f"{self.rank} {self.user.nickname}"
 
     def get_minecraft_name(self):
-        return "_".join(self.rank.replace(".", "").split(" ") + [self.user.nickname])
+        return "_".join([part for part in self.rank.replace(".", "").split(" ") + [self.user.nickname] if part])
 
 
 @receiver(models.signals.post_save, sender=HarcgameUser)
