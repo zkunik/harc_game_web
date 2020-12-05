@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import F
+from django.db.models import F, Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.utils import timezone
@@ -51,9 +51,11 @@ def list_active_requests(request):
     """
     Function to list all requests
     """
-    requests = Request.objects.exclude(is_active=False).order_by(
-        F('date').desc(nulls_last=True)
-    )
+    requests = Request.objects.exclude(is_active=False). \
+        annotate(votes=Count('vote')).\
+        order_by(F('date').desc(nulls_last=True))
+    for r in requests:
+        print(r, r.votes)
     return render(request, 'shop/list_active_requests.html', {'requests': requests})
 
 
@@ -145,3 +147,6 @@ def delete_request(request, id):
         req.delete()
 
     return redirect(reverse('active_requests'))
+
+# Votes
+

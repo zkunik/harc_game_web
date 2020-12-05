@@ -9,6 +9,9 @@ CATEGORY_CHOICES = [
     ('other', 'Inne'),
 ]
 
+# Number of votes one user can have
+MAX_VOTES = 5
+
 """
 Harcerze powinni widzieć, co będą mogli kupić w grze za punkty zdobyte za zadania w aplikacji. Należy stworzyć podstronę (app) zawierającą aktualną ofertę.
 Harcerz może również zgłosić prośbę o jakiś przedmiot poprzez formularz próśb.
@@ -116,6 +119,9 @@ class Vote(models.Model):
     class Meta:
         verbose_name = "głos na prośbę"
         verbose_name_plural = "głosy na prośby"
+
+    def can_vote(user):
+        return Vote.objects.filter(user=user).count() < MAX_VOTES
 
     def __str__(self):
         return f"{self.user} - {self.request}"

@@ -15,6 +15,7 @@
 {% for request in requests %}
 <div class="rpgui-container framed-golden" style="position: relative">
 	<h3>
+        <div class="rpgui-icon empty-slot" style="float:right; margin-top:0px;"><br>{{request.votes}}</div>
 		<a href="{% url 'view_request' request.id %}">{{ request.title|capfirst }}</a>
 	</h3>
 	{% include 'shop/inner_request_view.html' %}
