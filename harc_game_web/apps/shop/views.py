@@ -56,6 +56,7 @@ def list_active_requests(request):
     """
     Function to list all requests
     """
+    print(request.user)
     requests = Request.objects.exclude(is_active=False) \
             .annotate(votes=Count('vote')) \
             .order_by(F('date').desc(nulls_last=True)
@@ -63,7 +64,7 @@ def list_active_requests(request):
     if not request.user.is_anonymous:
         requests = requests.annotate(users_vote=Count('vote', filter=Q(vote__user=request.user)))
 
-    return render(request, 'shop/list_active_requests.html', {'requests': requests, 'max_votes': MAX_VOTES})
+    return render(request, 'shop/list_active_requests.html', {'requests': requests})
 
 
 def view_request(request, id):
